@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 interface University {
   schlKrnNm: string;
   campusNm: string;
-  [key: string]: any;
 }
 
 const UniversitiesPage: React.FC = () => {
@@ -16,13 +15,9 @@ const UniversitiesPage: React.FC = () => {
     University[]
   >([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchUniversities = async () => {
-      setLoading(true);
-      setError(null);
       try {
         const response = await fetch("/api/universities");
 
@@ -38,13 +33,7 @@ const UniversitiesPage: React.FC = () => {
         setFilteredUniversities(universityList);
       } catch (err) {
         console.error("Error:", err);
-        setError(
-          err instanceof Error
-            ? err.message
-            : "데이터를 불러오는데 실패했습니다"
-        );
       } finally {
-        setLoading(false);
       }
     };
 

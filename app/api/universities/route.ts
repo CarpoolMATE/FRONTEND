@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { XMLParser } from "fast-xml-parser";
 
 function decodeServiceKey(key: string): string {
@@ -9,7 +9,7 @@ function decodeServiceKey(key: string): string {
   }
 }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const serviceKey = process.env.NEXT_PUBLIC_UNIVERSITY_API_KEY;
     if (!serviceKey) {
