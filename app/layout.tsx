@@ -1,13 +1,15 @@
-// src/app/layout.tsx
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
+import localFont from "next/font/local";
 
-const inter = Inter({ subsets: ["latin"] });
+const pretendard = localFont({
+  src: "./fonts/PretendardVariable.ttf",
+  variable: "--font-pretendard",
+});
 
 export const metadata: Metadata = {
-  title: "Next.js App",
-  description: "Next.js로 만든 웹 애플리케이션",
+  title: "Carple",
+  description: "Carple university",
 };
 
 export default function RootLayout({
@@ -17,7 +19,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={`${pretendard.variable} w-full h-screen flex justify-center items-center bg-black`}
+      >
+        <div className="w-[375px] h-[812px] flex justify-center bg-white">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
