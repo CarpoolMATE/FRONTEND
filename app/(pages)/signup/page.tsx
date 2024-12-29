@@ -16,13 +16,14 @@ const SignupPage: React.FC = () => {
   const [idError, setIdError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [passwordLengthError, setPasswordLengthError] = useState(false);
-  const [nameError, setNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
 
   const [duplicate, setDuplicate] = useState(true);
   const [modal, setModal] = useState(false);
 
-  const signUp = async () => {};
+  const signUp = async () => {
+    router.push("/universities");
+  };
 
   const checkDuplicate = async () => {
     setModal(true);
