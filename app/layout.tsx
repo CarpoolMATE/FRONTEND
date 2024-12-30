@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
+import Script from "next/script";
 
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.ttf",
@@ -19,6 +20,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
+      <head>
+        <Script
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOJSKEY}`}
+          strategy="afterInteractive"
+        />
+      </head>
       <body
         className={`${pretendard.variable} w-full h-screen flex justify-center items-center bg-black`}
       >
