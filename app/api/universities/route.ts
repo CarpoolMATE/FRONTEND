@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from "next/server";
 import { XMLParser } from "fast-xml-parser";
 
@@ -9,7 +10,7 @@ function decodeServiceKey(key: string): string {
   }
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     const serviceKey = process.env.NEXT_PUBLIC_UNIVERSITY_API_KEY;
     if (!serviceKey) {
@@ -20,76 +21,125 @@ export async function GET() {
     }
 
     const decodedKey = decodeServiceKey(serviceKey);
+    const { searchParams } = new URL(request.url);
 
-    // 1. 베이스 URL 설정
-    const baseUrl =
-      "http://openapi.academyinfo.go.kr/openapi/service/rest/BasicInformationService/getUniversityCode";
+    // 기본 파라미터 설정
+    // 기본 파라미터 설정
+    const defaultParams = {
+      apiKey: decodedKey,
+      svcType: "api",
+      svcCode: "SCHOOL",
+      contentType: "xml",
+      gubun: "univ_list", // 대학교 -> univ_list로 변경
+    };
 
-    // 2. 파라미터 구성
-    const params = new URLSearchParams();
-    params.append("serviceKey", decodedKey);
-    params.append("svyYr", "2023");
-    params.append("numOfRows", "100");
-    params.append("pageNo", "1");
+    // URL에서 추가 파라미터 가져오기
+    const searchSchulNm = searchParams.get("searchSchulNm") || "";
+
+    // API URL 구성
+    const baseUrl = "http://www.career.go.kr/cnet/openapi/getOpenApi";
+    const params = new URLSearchParams({
+      ...defaultParams,
+    });
+
+    // 선택적 파라미터 추가
+    if (searchSchulNm) params.append("searchSchulNm", searchSchulNm);
 
     const fullUrl = `${baseUrl}?${params.toString()}`;
-
-    // 3. URL 로깅
-    console.log("Full URL:", fullUrl);
+    console.log("Making request to:", fullUrl);
 
     const response = await fetch(fullUrl, {
       method: "GET",
       headers: {
         Accept: "application/xml",
-        "Content-Type": "application/xml",
       },
     });
 
-    // 4. 응답 상태 및 헤더 로깅
-    console.log("Response Status:", response.status);
-    console.log("Response Headers:", Object.fromEntries(response.headers));
+    if (!response.ok) {
+      throw new Error(`API responded with status: ${response.status}`);
+    }
 
     const xmlText = await response.text();
-
-    // 5. XML 응답 로깅
-    console.log("XML Response:", xmlText);
+    console.log("Raw XML response:", xmlText);
 
     const parser = new XMLParser({
       ignoreAttributes: false,
       attributeNamePrefix: "",
       parseAttributeValue: true,
       trimValues: true,
+      parseTagValue: true,
+      isArray: (name) => {
+        return name === "content";
+      },
     });
 
     const result = parser.parse(xmlText);
+    console.log("Parsed result:", JSON.stringify(result, null, 2));
 
-    // 6. 파싱된 결과 로깅
-    console.log("Parsed Result:", result?.response?.header);
-
-    if (
-      !result?.response?.header?.resultCode ||
-      result.response.header.resultCode !== "00"
-    ) {
+    // API 에러 응답 체크
+    if (result?.result?.content?.[0]?.code < 0) {
       return NextResponse.json(
         {
-          error: result?.response?.header?.resultMsg || "API Error",
+          error: "API Error",
+          message: result.result.content[0].message,
+          code: result.result.content[0].code,
           debug: {
-            resultCode: result?.response?.header?.resultCode,
             xmlResponse: xmlText,
-            fullUrl: fullUrl,
+            parsedResult: result,
+            requestUrl: fullUrl,
+            headers: Object.fromEntries(response.headers),
           },
         },
         { status: 400 }
       );
     }
 
-    const items = result?.response?.body?.items?.item || [];
-    const universities = Array.isArray(items) ? items : [items];
+    const dataSearch = result?.dataSearch;
+    if (!dataSearch) {
+      return NextResponse.json(
+        {
+          error: "Invalid API response format",
+          debug: {
+            xmlResponse: xmlText,
+            parsedResult: result,
+            requestUrl: fullUrl,
+            headers: Object.fromEntries(response.headers),
+          },
+        },
+        { status: 400 }
+      );
+    }
+
+    // 결과가 없는 경우 빈 배열 반환
+    if (!dataSearch.content) {
+      return NextResponse.json({
+        success: true,
+        universities: [],
+        totalCount: 0,
+      });
+    }
+
+    // content가 배열이 아닌 경우 배열로 변환
+    const contents = Array.isArray(dataSearch.content)
+      ? dataSearch.content
+      : [dataSearch.content];
+
+    const totalCount = contents[0]?.totalCount || contents.length;
 
     return NextResponse.json({
       success: true,
-      universities,
-      totalCount: universities.length,
+      universities: contents.map((content: any) => ({
+        name: content.schoolName,
+        type: content.schoolType,
+        category: content.schoolGubun,
+        establishmentType: content.estType,
+        region: content.region,
+        address: content.adres,
+        websiteUrl: content.link,
+        campusName: content.campusName,
+        collegeInfoUrl: content.collegeinfourl,
+      })),
+      totalCount: parseInt(totalCount),
     });
   } catch (error) {
     console.error("API error:", error);

@@ -1,52 +1,152 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 interface University {
-  schlKrnNm: string;
-  campusNm: string;
+  name: string;
+  campusName: string;
+  type: string;
+  category: string;
+  region: string;
+  address: string;
+  websiteUrl: string;
+}
+// UniversityItem.tsx
+interface UniversityItemProps {
+  university: University;
+  onSelect: (university: University) => void;
+  index: number;
 }
 
+const UniversityItem: React.FC<UniversityItemProps> = ({
+  university,
+  index,
+}) => {
+  return (
+    <div
+      data-university-index={index}
+      className="block hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0"
+    >
+      <div className="p-3">
+        <div className="font-medium text-gray-900">{university.name}</div>
+        {university.campusName && (
+          <div className="text-sm text-gray-500">{university.campusName}</div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// UniversityDropdown.tsx
+interface UniversityDropdownProps {
+  universities: University[];
+  onSelect: (university: University) => void;
+}
+
+const UniversityDropdown: React.FC<UniversityDropdownProps> = ({
+  universities,
+  onSelect,
+}) => {
+  const handleClick = (event: React.MouseEvent) => {
+    // 클릭된 요소와 그 부모들을 확인
+    let target = event.target as HTMLElement;
+    while (target) {
+      const index = target.getAttribute("data-university-index");
+      if (index !== null) {
+        const university = universities[parseInt(index)];
+        if (university) {
+          onSelect(university);
+          return;
+        }
+      }
+      target = target.parentElement as HTMLElement;
+    }
+  };
+
+  return (
+    <div
+      onClick={handleClick}
+      className="max-h-[200px] overflow-y-auto bg-white rounded-lg shadow-lg"
+    >
+      {universities.map((university, index) => (
+        <UniversityItem
+          key={`${university.name}-${university.campusName}-${index}`}
+          university={university}
+          onSelect={onSelect}
+          index={index}
+        />
+      ))}
+    </div>
+  );
+};
+
+// UniversitiesPage.tsx
 const UniversitiesPage: React.FC = () => {
   const router = useRouter();
-
-  const [universities, setUniversities] = useState<University[]>([]);
   const [filteredUniversities, setFilteredUniversities] = useState<
     University[]
   >([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedUniversity, setSelectedUniversity] =
+    useState<University | null>(null);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
     const fetchUniversities = async () => {
       try {
-        const response = await fetch("/api/universities");
+        const response = await fetch(
+          `/api/universities${
+            searchTerm ? `?searchSchulNm=${encodeURIComponent(searchTerm)}` : ""
+          }`
+        );
 
         if (!response.ok) {
           throw new Error("API 호출에 실패했습니다");
         }
 
         const data = await response.json();
-        const items = data?.response?.body?.items?.item || [];
-        const universityList = Array.isArray(items) ? items : [items];
-
-        setUniversities(universityList);
-        setFilteredUniversities(universityList);
+        if (data.success) {
+          setFilteredUniversities(data.universities);
+          setShowDropdown(true);
+        }
       } catch (err) {
         console.error("Error:", err);
-      } finally {
       }
     };
 
-    fetchUniversities();
+    const timeoutId = setTimeout(() => {
+      if (searchTerm) {
+        fetchUniversities();
+      } else {
+        setShowDropdown(false);
+      }
+    }, 300);
+
+    return () => clearTimeout(timeoutId);
+  }, [searchTerm]);
+
+  const handleUniversitySelect = useCallback((university: University) => {
+    setSelectedUniversity(university);
+    const displayName = university.campusName
+      ? `${university.name} ${university.campusName}`
+      : university.name;
+    setSearchTerm(displayName);
+    setShowDropdown(false);
   }, []);
 
-  // 검색어에 따라 대학교 목록 필터링
   useEffect(() => {
-    const filtered = universities.filter((university) =>
-      university.schlKrnNm.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredUniversities(filtered);
-  }, [searchTerm, universities]);
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest(".university-search-container")) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const isStartButtonEnabled = selectedUniversity !== null;
 
   return (
     <div className="relative w-full px-5 pt-[150px]">
@@ -78,11 +178,19 @@ const UniversitiesPage: React.FC = () => {
         메이트 카풀 서비스를 시작해요
       </div>
 
-      <div className="relative">
+      <div className="relative university-search-container">
         <div className="w-full max-w-[335px] h-[51px] p-[15px] bg-white rounded-[10px] border border-[#e9e9e9] justify-between items-center inline-flex">
           <input
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setSelectedUniversity(null);
+            }}
+            onFocus={() => {
+              if (filteredUniversities.length > 0) {
+                setShowDropdown(true);
+              }
+            }}
             placeholder="학교명 검색"
             className="w-full text-[#b2b2b2] text-lg font-medium font-['Pretendard'] outline-none"
           />
@@ -103,43 +211,39 @@ const UniversitiesPage: React.FC = () => {
           </svg>
         </div>
 
-        {/* 자동완성 드롭다운 */}
-        {searchTerm && (
-          <div className="absolute top-[43px] w-full max-w-[335px] mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-[300px] overflow-y-auto z-10">
-            {filteredUniversities.length > 0 ? (
-              filteredUniversities.map((university) => (
-                <div
-                  key={university.schlKrnNm}
-                  className="p-3 hover:bg-gray-50 cursor-pointer"
-                  onClick={() => {
-                    setSearchTerm(university.schlKrnNm);
-                    // TODO: 선택된 대학교 처리 로직 추가
-                  }}
-                >
-                  <div className="font-medium text-gray-900">
-                    {university.schlKrnNm}
-                  </div>
-                  {university.campusNm && (
-                    <div className="text-sm text-gray-500">
-                      {university.campusNm}
-                    </div>
-                  )}
-                </div>
-              ))
-            ) : (
-              <div className="p-3 text-gray-500 text-center">
-                검색 결과가 없습니다
-              </div>
-            )}
+        {/* 드롭다운 */}
+        {showDropdown && filteredUniversities.length > 0 && (
+          <div className="absolute top-full left-0 right-0 w-full max-w-[335px] mt-2 z-50">
+            <UniversityDropdown
+              universities={filteredUniversities}
+              onSelect={handleUniversitySelect}
+            />
           </div>
         )}
       </div>
 
-      <div className="w-[335px] h-[51px] px-[30px] py-[15px] bg-[#dadde1] rounded-xl justify-center items-center gap-2.5 inline-flex mt-[383px]">
-        <div className="text-[#a2abb4] text-lg font-semibold font-['Pretendard']">
+      <button
+        className={`w-[335px] h-[51px] px-[30px] py-[15px] rounded-xl justify-center items-center gap-2.5 inline-flex mt-[383px] ${
+          isStartButtonEnabled
+            ? "bg-blue-500 cursor-pointer"
+            : "bg-[#dadde1] cursor-not-allowed"
+        }`}
+        disabled={!isStartButtonEnabled}
+        onClick={() => {
+          if (selectedUniversity) {
+            console.log("Selected university:", selectedUniversity);
+            router.push("/home");
+          }
+        }}
+      >
+        <div
+          className={`text-lg font-semibold font-['Pretendard'] ${
+            isStartButtonEnabled ? "text-white" : "text-[#a2abb4]"
+          }`}
+        >
           시작하기
         </div>
-      </div>
+      </button>
     </div>
   );
 };
