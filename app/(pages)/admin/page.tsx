@@ -17,7 +17,7 @@ const AdminPage: React.FC = () => {
   };
 
   return (
-    <div className="w-screen h-screen ">
+    <div className="w-screen h-screen">
       <div className="w-full h-[118px] px-[200px] pt-[30px] pb-[35px] bg-[#3c3c3c] justify-start items-center gap-[150px] inline-flex  ">
         <div className="justify-start items-center gap-2.5 flex">
           <div className="text-center">
