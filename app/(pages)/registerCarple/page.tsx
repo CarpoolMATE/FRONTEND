@@ -91,16 +91,16 @@ const RegisterCarple: React.FC = () => {
       {start ? (
         <div
           onClick={() => {
-            router.push("/registerCar/thirdStep");
+            router.push("/registerCarple/firstStep");
           }}
-          className="cursor-pointer mt-[363px] w-[335px] h-[51px] px-[30px] py-[15px] bg-[#007aff] rounded-xl justify-center items-center gap-2.5 inline-flex"
+          className="cursor-pointer mt-[223px] w-[335px] h-[51px] px-[30px] py-[15px] bg-[#007aff] rounded-xl justify-center items-center gap-2.5 inline-flex"
         >
           <div className="text-white text-lg font-semibold font-['Pretendard']">
             다음
           </div>
         </div>
       ) : (
-        <div className="mt-[363px] w-[335px] h-[51px] px-[30px] py-[15px] bg-[#dadde1] rounded-xl justify-center items-center gap-2.5 inline-flex">
+        <div className="mt-[223px] w-[335px] h-[51px] px-[30px] py-[15px] bg-[#dadde1] rounded-xl justify-center items-center gap-2.5 inline-flex">
           <div className="text-[#a2abb4] text-lg font-semibold font-['Pretendard']">
             다음
           </div>
