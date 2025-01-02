@@ -1,23 +1,30 @@
-import type { Metadata } from "next";
+"use client";
+
 import "./globals.css";
 import localFont from "next/font/local";
 import Script from "next/script";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.ttf",
   variable: "--font-pretendard",
 });
 
-export const metadata: Metadata = {
-  title: "Carple",
-  description: "Carple university",
-};
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const [desktop, setDesktop] = useState(false);
+
+  useEffect(() => {
+    if (pathname === "/admin") {
+      setDesktop(true);
+    }
+  }, [pathname]);
+
   return (
     <html lang="ko">
       <head>
@@ -29,7 +36,11 @@ export default function RootLayout({
       <body
         className={`${pretendard.variable} w-full h-screen flex justify-center items-center bg-black`}
       >
-        <div className="w-[375px] h-[812px] flex justify-center bg-white">
+        <div
+          className={`${
+            desktop ? "w-screen h-screen" : "w-[375px] h-[812px]"
+          }  flex justify-center bg-white`}
+        >
           {children}
         </div>
       </body>

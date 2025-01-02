@@ -19,7 +19,9 @@ const SignInPage: React.FC = () => {
         <div className="self-stretch h-[187px] flex-col justify-start items-start gap-2 flex">
           <div
             className="self-stretch px-5 py-[15px] bg-[#fee500] rounded-[10px] justify-center items-center inline-flex overflow-hidden cursor-pointer"
-            onClick={() => {}}
+            onClick={() => {
+              router.push("/home");
+            }}
           >
             <div className="w-[20.60px] h-[20.60px] relative  overflow-hidden">
               <svg
@@ -54,7 +56,9 @@ const SignInPage: React.FC = () => {
             </div>
           </div>
           <div
-            onClick={() => {}}
+            onClick={() => {
+              router.push("/home");
+            }}
             className="cursor-pointer self-stretch px-5 py-[15px] bg-white rounded-[10px] border border-[#e9e9e9] justify-center items-center inline-flex overflow-hidden"
           >
             <div className="w-[20.60px] h-[20.60px] relative  overflow-hidden">
