@@ -58,18 +58,15 @@ const IdFindPage: React.FC = () => {
             onChange={(e) => setName(e.target.value)}
             placeholder="이름을 입력해주세요"
             className={`${
-              nameError ? "rounded-[10px] border border-[#e0302d]" : ""
-            } self-stretch h-[51px] p-[15px] bg-white rounded-[10px] border border-[#e9e9e9] justify-start items-center gap-3 inline-flex placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard']`}
+              nameError
+                ? "rounded-[10px] border border-[#e0302d]"
+                : "border border-[#e9e9e9]"
+            } self-stretch h-[51px] p-[15px] bg-white rounded-[10px]  justify-start items-center gap-3 inline-flex placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard']`}
           />
-          {nameError && (
-            <div className="pl-[10px] text-[#e0302d] text-sm font-normal font-['Pretendard'] mt-[3px]">
-              이름을 다시 입력해주세요
-            </div>
-          )}
         </div>
 
         <div className="relative self-stretch mb-[57px] h-[91px] flex-col justify-start items-start flex">
-          <div className="mb-[10px] pl-[10px] text-[#4f4f4f] text-sm font-medium font-['Pretendard'] mt-[20px]">
+          <div className="mb-[10px] pl-[10px] text-[#4f4f4f] text-sm font-medium font-['Pretendard'] mt-[10px]">
             이메일
           </div>
           <input
@@ -77,12 +74,14 @@ const IdFindPage: React.FC = () => {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="이메일을 입력해주세요"
             className={`${
-              emailError ? "rounded-[10px] border border-[#e0302d]" : ""
-            }  w-full h-[51px] placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard'] self-stretch p-[15px] bg-white rounded-[10px] border border-[#e9e9e9] justify-between items-center inline-flex relative`}
+              emailError
+                ? "rounded-[10px] border border-[#e0302d]"
+                : "border border-[#e9e9e9]"
+            }  w-full h-[51px] placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard'] self-stretch p-[15px] bg-white rounded-[10px]  justify-between items-center inline-flex relative`}
           />
-          {emailError && (
+          {(emailError || nameError) && (
             <div className="pl-[10px] mt-[3px] text-[#e0302d] text-sm font-normal font-['Pretendard']">
-              이메일을 다시 입력해주세요
+              회원정보를 다시 입력해주세요
             </div>
           )}
           <div className="cursor-pointer absolute right-[15px] bottom-[-24px]"></div>
@@ -91,14 +90,14 @@ const IdFindPage: React.FC = () => {
       {name && email ? (
         <div
           onClick={() => findId()}
-          className="w-[335px] h-[51px] px-[30px] py-[15px] cursor-pointer bg-[#007aff] rounded-xl justify-center items-center gap-2.5 inline-flex mt-[371px]"
+          className="w-[335px] h-[51px] px-[30px] py-[15px] cursor-pointer bg-[#007aff] rounded-xl justify-center items-center gap-2.5 inline-flex mt-[359px]"
         >
           <div className="text-white text-lg font-semibold font-['Pretendard']">
             아이디 찾기
           </div>
         </div>
       ) : (
-        <div className="w-[335px] h-[51px] px-[30px] py-[15px] bg-[#dadde1] rounded-xl justify-center items-center gap-2.5 inline-flex mt-[371px]">
+        <div className="w-[335px] h-[51px] px-[30px] py-[15px] bg-[#dadde1] rounded-xl justify-center items-center gap-2.5 inline-flex mt-[359px]">
           <div className="text-[#a2abb4] text-lg font-semibold font-['Pretendard']">
             아이디 찾기
           </div>

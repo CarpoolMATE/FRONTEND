@@ -110,20 +110,17 @@ const SignInPage: React.FC = () => {
             </div>
           </div>
         </div>
-        <div
-          className="justify-start items-center gap-3 inline-flex"
-          onClick={() => {
-            router.push("/signup");
-          }}
-        >
-          <div className="cursor-pointer text-center text-[#aaaaaa] text-base font-medium font-pretendard leading-normal">
-            회원가입
-          </div>
-          <div className="opacity-50 text-center text-[#aaaaaa] text-lg font-normal font-pretendard leading-[27px]">
-            |
-          </div>
-          <div className="cursor-pointer text-center text-[#aaaaaa] text-base font-medium font-pretendard leading-normal">
-            문의하기
+        <div className="justify-start items-center gap-3 inline-flex">
+          <div className=" text-center text-[#aaaaaa] text-base font-medium font-pretendard leading-normal">
+            <span className="mr-[10px]">메이트 회원이 아니신가요?</span>
+            <span
+              onClick={() => {
+                router.push("/signup");
+              }}
+              className="cursor-pointer font-bold underline"
+            >
+              회원가입
+            </span>
           </div>
         </div>
       </div>

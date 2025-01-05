@@ -223,7 +223,7 @@ const UniversitiesPage: React.FC = () => {
       </div>
 
       <button
-        className={`w-[335px] h-[51px] px-[30px] py-[15px] rounded-xl justify-center items-center gap-2.5 inline-flex mt-[383px] ${
+        className={`w-[335px] h-[51px] px-[30px] py-[15px] rounded-xl justify-center items-center gap-2.5 inline-flex mt-[405px] ${
           isStartButtonEnabled
             ? "bg-blue-500 cursor-pointer"
             : "bg-[#dadde1] cursor-not-allowed"

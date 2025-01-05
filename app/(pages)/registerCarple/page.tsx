@@ -79,28 +79,19 @@ const RegisterCarple: React.FC = () => {
         />
       </div>
 
-      <div className="text-[#4f4f4f] text-sm font-medium font-['Pretendard'] mt-[20px]">
-        상세 탑승 장소
-      </div>
-
-      <input
-        placeholder="예) ~역/편의점 앞"
-        className="mt-[10px] w-full h-[51px] p-[15px] bg-white rounded-[10px] border border-[#e9e9e9] justify-start items-center gap-3 inline-flex text-[#b2b2b2] text-lg font-medium font-['Pretendard']"
-      />
-
       {start ? (
         <div
           onClick={() => {
             router.push("/registerCarple/firstStep");
           }}
-          className="cursor-pointer mt-[223px] w-[335px] h-[51px] px-[30px] py-[15px] bg-[#007aff] rounded-xl justify-center items-center gap-2.5 inline-flex"
+          className="cursor-pointer mt-[333px] w-[335px] h-[51px] px-[30px] py-[15px] bg-[#007aff] rounded-xl justify-center items-center gap-2.5 inline-flex"
         >
           <div className="text-white text-lg font-semibold font-['Pretendard']">
             다음
           </div>
         </div>
       ) : (
-        <div className="mt-[223px] w-[335px] h-[51px] px-[30px] py-[15px] bg-[#dadde1] rounded-xl justify-center items-center gap-2.5 inline-flex">
+        <div className="mt-[333px] w-[335px] h-[51px] px-[30px] py-[15px] bg-[#dadde1] rounded-xl justify-center items-center gap-2.5 inline-flex">
           <div className="text-[#a2abb4] text-lg font-semibold font-['Pretendard']">
             다음
           </div>

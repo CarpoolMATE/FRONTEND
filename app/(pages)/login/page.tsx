@@ -46,40 +46,39 @@ const LoginPage: React.FC = () => {
       <div className="text-center text-[#007aff] text-[64px] font-normal font-['Hancom Sans SemiBold'] mb-[82.82px]">
         mate
       </div>
-      <div className="w-[335px] h-[220px] flex-col justify-start items-center  inline-flex">
-        <div className="self-stretch h-full flex-col justify-start items-start flex">
+      <div className="w-[335px] h-[240px]">
+        <div className="self-stretch  flex-col justify-start items-start flex">
           <div className="self-stretch h-[51px] flex-col justify-start items-start flex">
             <input
               value={id}
               onChange={(e) => setId(e.target.value)}
               placeholder="아이디"
               className={`${
-                idError ? "rounded-[10px] border border-[#e0302d]" : ""
-              } self-stretch h-[51px] p-[15px] bg-white rounded-[10px] border border-[#e9e9e9] justify-start items-center gap-3 inline-flex placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard']`}
+                idError || passwordError
+                  ? "rounded-[10px] border border-[#e0302d]"
+                  : " border border-[#e9e9e9]"
+              } self-stretch h-[51px] p-[15px] bg-white rounded-[10px]  justify-start items-center gap-3 inline-flex placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard']`}
             />
-            {idError && (
-              <div className="pl-[10px] text-[#e0302d] text-sm font-normal font-['Pretendard'] mt-[3px]">
-                아이디를 다시 입력해주세요
-              </div>
-            )}
           </div>
 
-          <div className="relative self-stretch mb-[57px] h-[51px] flex-col justify-start items-start flex">
+          <div className="relative self-stretch  h-[51px]">
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type={`${canView ? "text" : "password"}`}
               placeholder="비밀번호"
               className={`${
-                passwordError ? "rounded-[10px] border border-[#e0302d]" : ""
-              } mt-[37px] w-full h-[51px] placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard'] self-stretch p-[15px] bg-white rounded-[10px] border border-[#e9e9e9] justify-between items-center inline-flex relative`}
+                passwordError || idError
+                  ? "rounded-[10px] border border-[#e0302d]"
+                  : " border border-[#e9e9e9]"
+              } mt-[15px] w-full h-[51px] placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard'] self-stretch p-[15px] bg-white rounded-[10px] justify-between items-center inline-flex relative`}
             />
-            {passwordError && (
+            {(passwordError || idError) && (
               <div className="pl-[10px] mt-[3px] text-[#e0302d] text-sm font-normal font-['Pretendard']">
-                비밀번호를 다시 입력해주세요
+                회원정보를 다시 입력해주세요
               </div>
             )}
-            <div className="cursor-pointer absolute right-[15px] bottom-[-24px]">
+            <div className="cursor-pointer absolute right-[15px] bottom-[0px]">
               <svg
                 onClick={() => setCanView(!canView)}
                 xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +96,7 @@ const LoginPage: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="justify-start items-center gap-[15px] inline-flex">
+        <div className="justify-center w-full items-center gap-[15px] inline-flex mt-[50px]">
           <div
             onClick={() => router.push("/idFind")}
             className="cursor-pointer text-center text-[#aaaaaa] text-sm font-medium font-['Pretendard'] leading-[21px]"
@@ -113,28 +112,19 @@ const LoginPage: React.FC = () => {
           >
             비밀번호 찾기
           </div>
-          <div className="opacity-50 text-center text-[#aaaaaa] text-base font-normal font-['Pretendard'] leading-normal">
-            |
-          </div>
-          <div
-            onClick={() => router.push("/signup")}
-            className="cursor-pointer text-center text-[#aaaaaa] text-sm font-medium font-['Pretendard'] leading-[21px]"
-          >
-            회원가입
-          </div>
         </div>
       </div>
       {id && password ? (
         <div
           onClick={() => login()}
-          className="w-[335px] h-[51px] px-[30px] py-[15px] cursor-pointer bg-[#007aff] rounded-xl justify-center items-center gap-2.5 inline-flex mt-[283px]"
+          className="w-[335px] h-[51px] px-[30px] py-[15px] cursor-pointer bg-[#007aff] rounded-xl justify-center items-center gap-2.5 inline-flex mt-[243px]"
         >
           <div className="text-white text-lg font-semibold font-['Pretendard']">
             로그인
           </div>
         </div>
       ) : (
-        <div className="w-[335px] h-[51px] px-[30px] py-[15px] bg-[#dadde1] rounded-xl justify-center items-center gap-2.5 inline-flex mt-[283px]">
+        <div className="w-[335px] h-[51px] px-[30px] py-[15px] bg-[#dadde1] rounded-xl justify-center items-center gap-2.5 inline-flex mt-[243px]">
           <div className="text-[#a2abb4] text-lg font-semibold font-['Pretendard']">
             로그인
           </div>
