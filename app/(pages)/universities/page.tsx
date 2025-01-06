@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 
 interface University {
@@ -90,6 +90,9 @@ const UniversitiesPage: React.FC = () => {
   const [selectedUniversity, setSelectedUniversity] =
     useState<University | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
+
+  const params = useSearchParams();
+  const which = params.get("which");
 
   useEffect(() => {
     const fetchUniversities = async () => {
@@ -232,7 +235,9 @@ const UniversitiesPage: React.FC = () => {
         onClick={() => {
           if (selectedUniversity) {
             console.log("Selected university:", selectedUniversity);
-            router.push("/home");
+            router.push(
+              which === "edit" ? "/profile/edit?which=패신저" : "/home"
+            );
           }
         }}
       >
@@ -241,7 +246,7 @@ const UniversitiesPage: React.FC = () => {
             isStartButtonEnabled ? "text-white" : "text-[#a2abb4]"
           }`}
         >
-          시작하기
+          {which === "edit" ? "수정하기" : "시작하기"}
         </div>
       </button>
     </div>

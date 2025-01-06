@@ -46,7 +46,9 @@ const SignupPage: React.FC = () => {
 
   // 글자수 제한 체크 (8자 이하)
   function checkCharacterLimit(text: string): boolean {
-    return text.length <= 8;
+    // 한글만 있는지 확인하는 정규식
+    const koreanOnly = /^[ㄱ-ㅎㅏ-ㅣ가-힣]{1,8}$/;
+    return koreanOnly.test(text);
   }
 
   // 특수문자 체크
