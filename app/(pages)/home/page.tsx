@@ -45,7 +45,10 @@ const HomePage: React.FC = () => {
             카풀 생성하기
           </div>
         </div>
-        <div className="w-[38px] h-[38px] relative bg-[#f2f8ff] rounded-[105.56px]  overflow-hidden">
+        <div
+          onClick={() => router.push("/profile")}
+          className="cursor-pointer w-[38px] h-[38px] relative bg-[#f2f8ff] rounded-[105.56px]  overflow-hidden"
+        >
           <img
             className="w-[44.33px] h-[44.33px] left-[-3.17px] top-[-3.17px] absolute rounded-[105.56px]"
             src="https://via.placeholder.com/44x44"

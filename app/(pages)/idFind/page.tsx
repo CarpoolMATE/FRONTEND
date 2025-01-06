@@ -15,6 +15,7 @@ const IdFindPage: React.FC = () => {
     try {
       setNameError(true);
       setEmailError(true);
+      router.push("/idFind/result");
     } catch (e) {
       console.log(e);
       alert("서버에러");
