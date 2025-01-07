@@ -3,7 +3,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 // 타입 정의
 interface ValidationIconProps {
@@ -92,6 +92,8 @@ const PassengerProfile: React.FC<{
   checkCharacterLimit: (text: string) => boolean;
   checkSpecialCharacters: (text: string) => boolean;
   setNicknameDuplicate: (args: boolean) => void;
+  profileImage: string;
+  handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   router: any;
 }> = ({
   name,
@@ -104,134 +106,226 @@ const PassengerProfile: React.FC<{
   checkCharacterLimit,
   checkSpecialCharacters,
   setNicknameDuplicate,
+  profileImage,
+  handleImageChange,
   router,
-}) => (
-  <div className="w-[335px] h-full flex-col justify-start items-center gap-[30px] inline-flex">
-    <div className="w-20 h-20 relative">
-      <img
-        className="w-20 h-20 left-0 top-0 absolute rounded-[100px]"
-        src="https://via.placeholder.com/80x80"
-        alt="프로필 이미지"
-      />
-      <div className="p-[3px] left-[56px] top-[56px] absolute bg-[#dadde1] rounded-[75px]">
-        <div className="w-[18px] h-[18px]" />
+}) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  return (
+    <div className="w-[335px] h-full flex-col justify-start items-center gap-[30px] inline-flex">
+      <div
+        className="w-20 h-20 relative cursor-pointer"
+        onClick={() => fileInputRef.current?.click()}
+      >
+        <img
+          className="w-20 h-20 left-0 top-0 absolute rounded-[100px] object-cover"
+          src={profileImage || "https://via.placeholder.com/80x80"}
+          alt="프로필 이미지"
+        />
+        <div className="p-[3px] left-[56px] top-[56px] absolute bg-[#dadde1] rounded-[75px]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+          >
+            <path
+              d="M14.25 6.75L11.25 3.75M1.5 16.5L4.875 15.75L14.7 5.925C15.0833 5.54167 15.0833 4.95833 14.7 4.575L13.425 3.3C13.0417 2.91667 12.4583 2.91667 12.075 3.3L2.25 13.125L1.5 16.5Z"
+              stroke="#808080"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+        <input
+          type="file"
+          ref={fileInputRef}
+          className="hidden"
+          accept="image/*"
+          onChange={handleImageChange}
+        />
       </div>
-    </div>
 
-    <div className="flex flex-col gap-5 w-full">
-      <div className="flex flex-col gap-2.5">
-        <label className="px-2.5 text-[#4f4f4f] text-sm font-medium font-['Pretendard']">
-          닉네임
-        </label>
-        <div className="flex items-center gap-2">
-          <input
-            value={name}
-            maxLength={8}
-            onChange={(e) => {
-              setName(e.target.value);
-              checkAllConditions(e.target.value);
-              setNicknameDuplicate(true);
-            }}
-            placeholder="이름을 입력해주세요"
-            className={`w-[247px] h-[51px] p-[15px] bg-white rounded-[10px] border ${
-              nameError ? "border-[#e0302d]" : "border-[#e9e9e9]"
-            } placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard']`}
-          />
+      <div className="flex flex-col gap-5 w-full">
+        <div className="flex flex-col gap-2.5">
+          <label className="px-2.5 text-[#4f4f4f] text-sm font-medium font-['Pretendard']">
+            닉네임
+          </label>
+          <div className="flex items-center gap-2">
+            <input
+              value={name}
+              maxLength={8}
+              onChange={(e) => {
+                setName(e.target.value);
+                checkAllConditions(e.target.value);
+                setNicknameDuplicate(true);
+              }}
+              placeholder="이름을 입력해주세요"
+              className={`w-[247px] h-[51px] p-[15px] bg-white rounded-[10px] border ${
+                nameError ? "border-[#e0302d]" : "border-[#e9e9e9]"
+              } placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard']`}
+            />
 
-          {nicknameDuplicate ? (
-            <div>
-              {nameError && (
-                <div className="w-[80px]  h-[51px] px-3 py-2.5 bg-[#c3c3c3] rounded-[10px] text-white text-base font-medium flex items-center">
-                  중복확인
-                </div>
-              )}
-              {!nameError && (
-                <button
-                  onClick={checkDuplicateName}
-                  className="w-[80px]  h-[51px] px-3 py-2.5 bg-[#007aff] rounded-[10px] text-white text-base font-medium flex items-center"
-                >
-                  중복확인
-                </button>
-              )}
-            </div>
-          ) : (
-            <div className="min-w-[80px]  h-[51px] px-[10px] py-2.5 bg-[#d4e8ff] rounded-[10px] border border-[#007aff]/20 text-[#007aff] text-base font-medium flex items-center">
-              사용가능
+            {nicknameDuplicate ? (
+              <div>
+                {nameError && (
+                  <div className="w-[80px] h-[51px] px-3 py-2.5 bg-[#c3c3c3] rounded-[10px] text-white text-base font-medium flex items-center">
+                    중복확인
+                  </div>
+                )}
+                {!nameError && (
+                  <button
+                    onClick={checkDuplicateName}
+                    className="w-[80px] h-[51px] px-3 py-2.5 bg-[#007aff] rounded-[10px] text-white text-base font-medium flex items-center"
+                  >
+                    중복확인
+                  </button>
+                )}
+              </div>
+            ) : (
+              <div className="min-w-[80px] h-[51px] px-[10px] py-2.5 bg-[#d4e8ff] rounded-[10px] border border-[#007aff]/20 text-[#007aff] text-base font-medium flex items-center">
+                사용가능
+              </div>
+            )}
+          </div>
+
+          {name && (
+            <div className="flex flex-wrap gap-x-11 gap-y-2 mt-2">
+              <ValidationIcon
+                isValid={checkCharacterLimit(name)}
+                text="한글 8자 이내"
+              />
+              <ValidationIcon
+                isValid={!checkSpecialCharacters(name)}
+                text="특수문자 금지"
+              />
+              <ValidationIcon
+                isValid={checkSpacing(name)}
+                text="띄어쓰기 금지"
+              />
             </div>
           )}
         </div>
 
-        {name && (
-          <div className="flex flex-wrap gap-x-11 gap-y-2 mt-2">
-            <ValidationIcon
-              isValid={checkCharacterLimit(name)}
-              text="한글 8자 이내"
+        <div className="flex flex-col gap-2.5">
+          <label className="px-2.5 text-[#4f4f4f] text-sm font-medium font-['Pretendard']">
+            학교
+          </label>
+          <div className="flex items-center">
+            <input
+              disabled
+              placeholder="ㅇㅇ대학교"
+              className="mr-[8px] w-[247px] max-h-[51px] p-[15px] bg-white rounded-[10px] border border-[#e9e9e9] placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard']"
             />
-            <ValidationIcon
-              isValid={!checkSpecialCharacters(name)}
-              text="특수문자 금지"
-            />
-            <ValidationIcon isValid={checkSpacing(name)} text="띄어쓰기 금지" />
+            <button
+              onClick={() => router.push(`/universities?which=edit`)}
+              className="w-full h-[51px] py-2.5 bg-[#007aff] rounded-[10px] text-white text-base font-semibold"
+            >
+              학교검색
+            </button>
           </div>
-        )}
+        </div>
       </div>
+    </div>
+  );
+};
 
-      <div className="flex flex-col gap-2.5">
-        <label className="px-2.5 text-[#4f4f4f] text-sm font-medium font-['Pretendard']">
-          학교
-        </label>
-        <div className="flex items-center">
-          <input
-            disabled
-            placeholder="ㅇㅇ대학교"
-            className="mr-[8px] w-[247px] max-h-[51px] p-[15px] bg-white rounded-[10px] border border-[#e9e9e9] placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard']"
-          />
-          <button
-            onClick={() => router.push(`/universities?which=edit`)}
-            className="w-full h-[51px] py-2.5 bg-[#007aff] rounded-[10px] text-white text-base font-semibold"
+const DriverProfile: React.FC<{
+  profileImage: string;
+  handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}> = ({ profileImage, handleImageChange }) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  return (
+    <div className="w-[335px] h-[272px] flex-col justify-start items-center gap-[30px] inline-flex">
+      <div
+        className="w-20 h-20 relative cursor-pointer"
+        onClick={() => fileInputRef.current?.click()}
+      >
+        <img
+          className="w-20 h-20 left-0 top-0 absolute rounded-[100px] object-cover"
+          src={profileImage || "https://via.placeholder.com/80x80"}
+          alt="프로필 이미지"
+        />
+        <div className="p-[3px] left-[56px] top-[56px] absolute bg-[#dadde1] rounded-[75px]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
           >
-            학교검색
-          </button>
+            <path
+              d="M14.25 6.75L11.25 3.75M1.5 16.5L4.875 15.75L14.7 5.925C15.0833 5.54167 15.0833 4.95833 14.7 4.575L13.425 3.3C13.0417 2.91667 12.4583 2.91667 12.075 3.3L2.25 13.125L1.5 16.5Z"
+              stroke="#808080"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+        <input
+          type="file"
+          ref={fileInputRef}
+          className="hidden"
+          accept="image/*"
+          onChange={handleImageChange}
+        />
+
+        <div className="p-[3px] absolute left-[56px] top-[56px] bg-[#dadde1] rounded-[75px]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+          >
+            <path
+              d="M14.25 6.75L11.25 3.75M1.5 16.5L4.875 15.75L14.7 5.925C15.0833 5.54167 15.0833 4.95833 14.7 4.575L13.425 3.3C13.0417 2.91667 12.4583 2.91667 12.075 3.3L2.25 13.125L1.5 16.5Z"
+              stroke="#808080"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+        <input
+          type="file"
+          ref={fileInputRef}
+          className="hidden"
+          accept="image/*"
+          onChange={handleImageChange}
+        />
+      </div>
+
+      <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-2.5">
+          <label className="px-2.5 text-[#4f4f4f] text-sm font-medium">
+            차량 번호
+          </label>
+
+          <input
+            placeholder="12가3456"
+            className="w-[335px] h-[51px] p-[15px] bg-[#f7f7f7] rounded-[10px] border border-[#dadada] text-[#3c3c3c] text-base font-medium leading-[14px]"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2.5">
+          <label className="px-2.5 text-[#4f4f4f] text-sm font-medium">
+            전화번호
+          </label>
+          <input
+            placeholder="010-1234-5678"
+            className="w-[335px] h-[51px] p-[15px] bg-[#f7f7f7] rounded-[10px] border border-[#dadada] text-[#3c3c3c] text-base font-medium leading-[14px]"
+          />
         </div>
       </div>
     </div>
-  </div>
-);
-
-const DriverProfile: React.FC = () => (
-  <div className="w-[335px] h-[272px] flex-col justify-start items-center gap-[30px] inline-flex">
-    <div className="w-20 h-20 relative overflow-hidden bg-[#007aff] rounded-[100px]">
-      <img
-        className="w-20 h-20 rotate-180"
-        src="https://via.placeholder.com/80x80"
-        alt="운전자 프로필"
-      />
-      <div className="p-[3px] absolute left-[56px] top-[56px] bg-[#dadde1] rounded-[75px]">
-        <div className="w-[18px] h-[18px]" />
-      </div>
-    </div>
-
-    <div className="flex flex-col gap-5">
-      <div className="flex flex-col gap-2.5">
-        <label className="px-2.5 text-[#4f4f4f] text-sm font-medium">
-          차량 번호
-        </label>
-        <div className="h-[51px] p-[15px] bg-[#f7f7f7] rounded-[10px] border border-[#dadada] text-[#3c3c3c] text-base font-medium leading-[14px]">
-          12가3456
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-2.5">
-        <label className="px-2.5 text-[#4f4f4f] text-sm font-medium">
-          전화번호
-        </label>
-        <div className="h-[51px] p-[15px] bg-[#f7f7f7] rounded-[10px] border border-[#dadada] text-[#3c3c3c] text-base font-medium leading-[14px]">
-          010-1234-5678
-        </div>
-      </div>
-    </div>
-  </div>
-);
+  );
+};
 
 const EditProfilePage: React.FC = () => {
   const router = useRouter();
@@ -242,6 +336,7 @@ const EditProfilePage: React.FC = () => {
   const [nicknameDuplicate, setNicknameDuplicate] = useState(true);
   const [modal, setModal] = useState(false);
   const [modalMsg, setModalMsg] = useState("");
+  const [profileImage, setProfileImage] = useState("");
 
   function checkAllConditions(text: string) {
     if (
@@ -272,6 +367,17 @@ const EditProfilePage: React.FC = () => {
     const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
     return specialCharRegex.test(text);
   }
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const clickHandler = () => {
     console.log("끝");
@@ -314,11 +420,16 @@ const EditProfilePage: React.FC = () => {
             checkSpacing={checkSpacing}
             checkCharacterLimit={checkCharacterLimit}
             checkSpecialCharacters={checkSpecialCharacters}
-            router={router}
             setNicknameDuplicate={setNicknameDuplicate}
+            profileImage={profileImage}
+            handleImageChange={handleImageChange}
+            router={router}
           />
         ) : (
-          <DriverProfile />
+          <DriverProfile
+            profileImage={profileImage}
+            handleImageChange={handleImageChange}
+          />
         )}
       </div>
 
@@ -326,7 +437,9 @@ const EditProfilePage: React.FC = () => {
         onClick={clickHandler}
         className={`w-[335px] h-[51px] px-[30px] py-[15px] ${
           name && !nicknameDuplicate ? "bg-[#007aff]" : "bg-[#dadde1]"
-        } rounded-xl justify-center items-center gap-2.5 inline-flex mt-[232px]`}
+        } rounded-xl justify-center items-center gap-2.5 inline-flex ${
+          which === "패신저" ? "mt-[300px]" : "mt-[322px]"
+        }`}
       >
         <span className="text-white text-lg font-semibold font-['Pretendard']">
           수정하기
