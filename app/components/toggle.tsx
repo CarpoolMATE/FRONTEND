@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 
-const ToggleSwitch = ({ initialState = false, onChange }: any) => {
+const ToggleSwitch = ({ initialState = false, onChange, which }: any) => {
   const [isOn, setIsOn] = useState(initialState);
 
   const handleToggle = () => {
@@ -36,7 +36,8 @@ const ToggleSwitch = ({ initialState = false, onChange }: any) => {
           isOn ? "text-[#007aff]" : "opacity-50 text-center text-[#3c3c3c]"
         } text-center  text-xl font-semibold font-['Pretendard'] leading-7`}
       >
-        {isOn ? "활성화" : "비활성화"}
+        {which && (isOn ? "처리완료" : "처리중")}
+        {!which && (isOn ? "활성화" : "비활성화")}
       </div>
     </div>
   );

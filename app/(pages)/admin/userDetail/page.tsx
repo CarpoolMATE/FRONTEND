@@ -24,7 +24,7 @@ const UserDetailPage: React.FC = () => {
         </div>
         <div className="cursor-pointer pt-[5px] justify-start items-center gap-[120px] flex ">
           <div
-            onClick={() => router.push("/admin")}
+            onClick={() => router.push("/admin/main")}
             className="text-white text-2xl font-bold font-['Pretendard'] leading-[38.40px]"
           >
             회원 관리

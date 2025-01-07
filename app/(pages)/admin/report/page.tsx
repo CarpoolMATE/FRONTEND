@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import ToggleSwitch from "@/app/components/toggle";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -9,10 +10,10 @@ const AdminPage: React.FC = () => {
 
   return (
     <div className="w-screen h-screen">
-      <div className="w-full h-[118px] px-[200px] pt-[30px] pb-[35px] bg-[#3c3c3c] justify-start items-center gap-[150px] inline-flex  ">
+      <div className="fixed left-0 top-0 w-full h-[118px] px-[200px] pt-[30px] pb-[35px] bg-[#3c3c3c] justify-start items-center gap-[150px] inline-flex  ">
         <div
           className="justify-start items-center gap-2.5 flex"
-          onClick={() => router.push("/admin")}
+          onClick={() => router.push("/admin/main")}
         >
           <div className="text-center">
             <span className="text-[#007aff] text-[40px] font-normal font-['Hancom Sans SemiBold']">
@@ -41,13 +42,18 @@ const AdminPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-screen jusity-center items-center flex-col inline-flex bg-[#f7f7f7] pt-[70px]">
+      <div className="w-full h-screen jusity-center items-center flex-col inline-flex bg-[#f7f7f7] pt-[180px]">
         <div className="mx-[200px] w-[1520px] flex justify-center items-center flex-col">
-          <div className="text-[#3c3c3c] text-4xl font-semibold font-['Pretendard'] leading-7  mb-[20px]">
+          <div className="text-[#3c3c3c] text-4xl font-semibold font-['Pretendard'] leading-7  w-full mb-[30px] text-left">
             신고 관리
           </div>
 
           <div className="h-[90px] w-[1520px] py-5 justify-start items-center  inline-flex bg-white rounded-[10px] pl-[140px]">
+            <div className="w-[180px] h-[50px] justify-start items-center gap-2.5 flex">
+              <div className="text-[#3c3c3c] text-xl font-semibold font-['Pretendard'] leading-7">
+                상태
+              </div>
+            </div>
             <div className="w-[180px] h-[50px] justify-start items-center gap-2.5 flex">
               <div className="text-[#3c3c3c] text-xl font-semibold font-['Pretendard'] leading-7">
                 신고일자
@@ -66,6 +72,11 @@ const AdminPage: React.FC = () => {
                   </div>
                 </div>
                 <div className="w-[180px] h-[50px] justify-start items-center gap-2.5 flex">
+                  <div className="text-[#3c3c3c] text-xl font-semibold font-['Pretendard'] leading-7">
+                    카풀 ID
+                  </div>
+                </div>
+                <div className="w-[180px] h-[50px] justify-start items-center gap-2.5 flex">
                   <div className="text-center text-[#3c3c3c] text-xl font-semibold font-['Pretendard'] leading-7">
                     제목
                   </div>
@@ -78,24 +89,32 @@ const AdminPage: React.FC = () => {
             return (
               <div
                 key={index}
-                className="w-[1520px] flex items-center pl-[60px] border-t border-[#e0e0e0] py-[26px] bg-white"
+                className="w-[1520px] flex items-center pl-[60px] border-t border-[#e0e0e0] py-[9px] bg-white"
               >
-                <div className="ml-[80px] text-center  text-xl font-semibold font-['Pretendard'] leading-7">
+                <div className="min-w-[240px]">
+                  <ToggleSwitch which="hi" />
+                </div>
+                <div className=" text-center  text-xl font-semibold font-['Pretendard'] leading-7">
                   24/12/22
                 </div>
                 <div className="ml-[60px] w-[992.37px] h-[50px] justify-start items-start  inline-flex">
                   <div className="justify-start items-center flex">
-                    <div className="w-[180px] h-[50px] flex-col justify-center items-start gap-2.5 inline-flex">
+                    <div className="w-[220px] h-[50px] flex-col justify-center items-start gap-2.5 inline-flex ml-[20px]">
                       <div className="text-center text-[#3c3c3c] text-xl font-normal font-['Pretendard'] leading-7">
                         김ㅇㅇㅇ
                       </div>
                     </div>
-                    <div className="w-[180px] h-[50px] flex-col justify-center items-start gap-2.5 inline-flex ml-[100px] mr-[150px]">
+                    <div className="w-[180px] h-[50px] flex-col justify-center items-start gap-2.5 inline-flex ml-[10px]">
                       <div className="text-center text-[#3c3c3c] text-xl font-normal font-['Pretendard'] leading-7">
                         메이트
                       </div>
                     </div>
-                    <div className="w-full h-[50px] flex-col justify-center items-start gap-2.5 inline-flex">
+                    <div className="w-[180px] h-[50px] flex-col justify-center items-start gap-2.5 inline-flex ml-[10px] mr-[10px]">
+                      <div className="text-center text-[#3c3c3c] text-xl font-normal font-['Pretendard'] leading-7">
+                        120
+                      </div>
+                    </div>
+                    <div className="w-[180px] h-[50px] flex-col justify-center items-start gap-2.5 inline-flex">
                       <div className="text-center text-[#3c3c3c] text-xl font-normal font-['Pretendard'] leading-7">
                         드라이버가 나타나지 않았어요
                       </div>
@@ -104,7 +123,7 @@ const AdminPage: React.FC = () => {
                 </div>
                 <div
                   onClick={() => router.push(`/admin/reportDetail?id=1`)}
-                  className="ml-[100px] cursor-pointer h-10 pl-3 pr-2.5 py-1.5 rounded-lg border border-[#dadada] justify-start items-center gap-3 inline-flex"
+                  className="ml-[50px] cursor-pointer h-10 pl-3 pr-2.5 py-1.5 rounded-lg border border-[#dadada] justify-start items-center gap-3 inline-flex"
                 >
                   <div className="opacity-60 text-center text-[#3c3c3c] text-lg font-medium font-['Pretendard'] leading-7">
                     상세 정보

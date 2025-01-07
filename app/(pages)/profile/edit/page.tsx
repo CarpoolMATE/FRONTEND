@@ -3,7 +3,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, Suspense } from "react";
 
 // 타입 정의
 interface ValidationIconProps {
@@ -327,7 +327,7 @@ const DriverProfile: React.FC<{
   );
 };
 
-const EditProfilePage: React.FC = () => {
+const ProfileContent: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const which = searchParams.get("which");
@@ -448,6 +448,14 @@ const EditProfilePage: React.FC = () => {
 
       {modal && <Modal message={modalMsg} onClose={() => setModal(false)} />}
     </div>
+  );
+};
+
+const EditProfilePage: React.FC = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ProfileContent />
+    </Suspense>
   );
 };
 
