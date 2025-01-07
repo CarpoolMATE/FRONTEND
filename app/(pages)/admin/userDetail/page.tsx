@@ -11,7 +11,7 @@ const UserDetailPage: React.FC = () => {
       <div className="w-full h-[118px] px-[200px] pt-[30px] pb-[35px] bg-[#3c3c3c] justify-start items-center gap-[150px] inline-flex">
         <div
           className="justify-start items-center gap-2.5 flex"
-          onClick={() => router.push("/admin")}
+          onClick={() => router.push("/admin/main")}
         >
           <div className="text-center">
             <span className="text-[#007aff] text-[40px] font-normal font-['Hancom Sans SemiBold']">

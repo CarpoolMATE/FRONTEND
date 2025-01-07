@@ -20,7 +20,7 @@ export default function RootLayout({
   const [desktop, setDesktop] = useState(false);
 
   useEffect(() => {
-    if (pathname === "/admin") {
+    if (pathname.includes("admin")) {
       setDesktop(true);
     }
   }, [pathname]);
