@@ -1,6 +1,6 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useState } from "react";
 
 interface University {
   name: string;
@@ -81,7 +81,7 @@ const UniversityDropdown: React.FC<UniversityDropdownProps> = ({
 };
 
 // UniversitiesPage.tsx
-const UniversitiesPage: React.FC = () => {
+const Universities: React.FC = () => {
   const router = useRouter();
   const [filteredUniversities, setFilteredUniversities] = useState<
     University[]
@@ -250,6 +250,14 @@ const UniversitiesPage: React.FC = () => {
         </div>
       </button>
     </div>
+  );
+};
+
+const UniversitiesPage: React.FC = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Universities />
+    </Suspense>
   );
 };
 
