@@ -34,7 +34,7 @@ const Dots = () => {
       {drop && (
         <div
           onClick={() => router.push("/report")}
-          className="w-[85px] absolute top-[0px] right-[0px] cursor-pointer h-[41px] px-[10px] py-3 bg-white rounded-xl shadow-[3px_3px_8px_0px_rgba(0,0,0,0.10)] border border-[#e9e9e9] flex-col justify-center items-center gap-[15px] inline-flex"
+          className="w-[85px] absolute top-[32px] right-[-10px] cursor-pointer h-[41px] px-[10px] py-3 bg-white rounded-xl shadow-[3px_3px_8px_0px_rgba(0,0,0,0.10)] border border-[#e9e9e9] flex-col justify-center items-center gap-[15px] inline-flex"
         >
           <div className="text-[#3c3c3c] text-sm font-medium font-['Pretendard']">
             신고하기
