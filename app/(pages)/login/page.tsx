@@ -1,5 +1,6 @@
 "use client";
 
+import { axiosInstance } from "@/app/api/axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -14,11 +15,14 @@ const LoginPage: React.FC = () => {
 
   const login = async () => {
     try {
+      axiosInstance.post("/member/login", {
+        memberId: id,
+        password: password,
+      });
+    } catch (e) {
       setIdError(true);
       setPasswordError(true);
-    } catch (e) {
-      console.log(e);
-      alert("서버에러");
+      console.error(e);
     }
   };
 
