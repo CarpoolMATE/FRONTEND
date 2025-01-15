@@ -1,4 +1,5 @@
 "use client";
+import { axiosInstance } from "@/app/api/axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -12,11 +13,15 @@ const PwFindPage: React.FC = () => {
 
   const findPw = async () => {
     try {
-      setIdError(true);
-      setEmailError(true);
+      await axiosInstance.post("/member/findPassword", {
+        memberId: id,
+        email,
+      });
+      router.push(`/pwReset`);
     } catch (e) {
       console.log(e);
-      alert("서버에러");
+      setIdError(true);
+      setEmailError(true);
     }
   };
 

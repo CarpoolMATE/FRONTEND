@@ -4,6 +4,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { Suspense, useEffect } from "react";
 import { useUniversitiesStore } from "../../store/universities";
 import { University } from "@/app/store/universities";
+import { ParamType, signupAPI } from "@/app/api/signup";
+import { useSignupStore } from "@/app/store/signup";
 
 interface UniversityItemProps {
   university: University;
@@ -124,6 +126,28 @@ const Universities: React.FC = () => {
 
   const isStartButtonEnabled = selectedUniversity !== null;
 
+  const onclickHandler = async () => {
+    if (selectedUniversity) {
+      const signupStore = useSignupStore.getState(); // Zustand store의 현재 상태 가져오기
+      const universitiesStore = useUniversitiesStore.getState();
+
+      const param: ParamType = {
+        memberId: signupStore.id,
+        email: signupStore.email,
+        password: signupStore.password,
+        nickname: signupStore.name,
+        university: universitiesStore.selectedUniversity?.name || "",
+      };
+
+      try {
+        await signupAPI(param);
+        router.push(which === "edit" ? "/profile/edit?which=패신저" : "/login");
+      } catch (error) {
+        console.error("Signup failed:", error);
+      }
+    }
+  };
+
   return (
     <div className="relative w-full px-5 pt-[150px]">
       <div className="flex top-[57.5px]">
@@ -201,13 +225,7 @@ const Universities: React.FC = () => {
             : "bg-[#dadde1] cursor-not-allowed"
         }`}
         disabled={!isStartButtonEnabled}
-        onClick={() => {
-          if (selectedUniversity) {
-            router.push(
-              which === "edit" ? "/profile/edit?which=패신저" : "/home"
-            );
-          }
-        }}
+        onClick={onclickHandler}
       >
         <div
           className={`text-lg font-semibold font-['Pretendard'] ${

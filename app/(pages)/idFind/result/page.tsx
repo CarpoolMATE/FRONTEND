@@ -1,9 +1,10 @@
 "use client";
-import { useRouter } from "next/navigation";
-import React from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { Suspense } from "react";
 
-const ResultPage: React.FC = () => {
+const ResultPageData: React.FC = () => {
   const router = useRouter();
+  const params = useSearchParams();
 
   return (
     <div className="relative w-full h-full flex   items-center flex-col">
@@ -35,7 +36,7 @@ const ResultPage: React.FC = () => {
           <br />
         </span>
         <span className="text-[#007aff] text-2xl font-medium font-['Pretendard'] leading-[38.40px]">
-          matecarpool
+          {params.get("email")}
         </span>
         <span className="text-[#3c3c3c] text-2xl font-semibold font-['Pretendard'] leading-[38.40px]">
           입니다
@@ -70,4 +71,10 @@ const ResultPage: React.FC = () => {
   );
 };
 
-export default ResultPage;
+export default function ResultPage() {
+  return (
+    <Suspense>
+      <ResultPageData />
+    </Suspense>
+  );
+}

@@ -19,6 +19,7 @@ const LoginPage: React.FC = () => {
         memberId: id,
         password: password,
       });
+      router.push("/home");
     } catch (e) {
       setIdError(true);
       setPasswordError(true);
