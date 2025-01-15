@@ -1,17 +1,10 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { Suspense, useCallback, useEffect, useState } from "react";
 
-interface University {
-  name: string;
-  campusName: string;
-  type: string;
-  category: string;
-  region: string;
-  address: string;
-  websiteUrl: string;
-}
-// UniversityItem.tsx
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { Suspense, useEffect } from "react";
+import { useUniversitiesStore } from "../../store/universities";
+import { University } from "@/app/store/universities";
+
 interface UniversityItemProps {
   university: University;
   onSelect: (university: University) => void;
@@ -37,7 +30,6 @@ const UniversityItem: React.FC<UniversityItemProps> = ({
   );
 };
 
-// UniversityDropdown.tsx
 interface UniversityDropdownProps {
   universities: University[];
   onSelect: (university: University) => void;
@@ -48,7 +40,6 @@ const UniversityDropdown: React.FC<UniversityDropdownProps> = ({
   onSelect,
 }) => {
   const handleClick = (event: React.MouseEvent) => {
-    // 클릭된 요소와 그 부모들을 확인
     let target = event.target as HTMLElement;
     while (target) {
       const index = target.getAttribute("data-university-index");
@@ -80,62 +71,44 @@ const UniversityDropdown: React.FC<UniversityDropdownProps> = ({
   );
 };
 
-// UniversitiesPage.tsx
 const Universities: React.FC = () => {
   const router = useRouter();
-  const [filteredUniversities, setFilteredUniversities] = useState<
-    University[]
-  >([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedUniversity, setSelectedUniversity] =
-    useState<University | null>(null);
-  const [showDropdown, setShowDropdown] = useState(false);
-
   const params = useSearchParams();
   const which = params.get("which");
 
+  // 상태 가져오기
+  const filteredUniversities = useUniversitiesStore(
+    (state) => state.filteredUniversities
+  );
+  const searchTerm = useUniversitiesStore((state) => state.searchTerm);
+  const selectedUniversity = useUniversitiesStore(
+    (state) => state.selectedUniversity
+  );
+  const showDropdown = useUniversitiesStore((state) => state.showDropdown);
+
+  // 액션들 가져오기
+  const setSearchTerm = useUniversitiesStore((state) => state.setSearchTerm);
+  const setShowDropdown = useUniversitiesStore(
+    (state) => state.setShowDropdown
+  );
+  const handleUniversitySelect = useUniversitiesStore(
+    (state) => state.handleUniversitySelect
+  );
+  const fetchUniversities = useUniversitiesStore(
+    (state) => state.fetchUniversities
+  );
+
   useEffect(() => {
-    const fetchUniversities = async () => {
-      try {
-        const response = await fetch(
-          `/api/universities${
-            searchTerm ? `?searchSchulNm=${encodeURIComponent(searchTerm)}` : ""
-          }`
-        );
-
-        if (!response.ok) {
-          throw new Error("API 호출에 실패했습니다");
-        }
-
-        const data = await response.json();
-        if (data.success) {
-          setFilteredUniversities(data.universities);
-          setShowDropdown(true);
-        }
-      } catch (err) {
-        console.error("Error:", err);
-      }
-    };
-
     const timeoutId = setTimeout(() => {
       if (searchTerm) {
-        fetchUniversities();
+        fetchUniversities(searchTerm);
       } else {
         setShowDropdown(false);
       }
     }, 300);
 
     return () => clearTimeout(timeoutId);
-  }, [searchTerm]);
-
-  const handleUniversitySelect = useCallback((university: University) => {
-    setSelectedUniversity(university);
-    const displayName = university.campusName
-      ? `${university.name} ${university.campusName}`
-      : university.name;
-    setSearchTerm(displayName);
-    setShowDropdown(false);
-  }, []);
+  }, [searchTerm, fetchUniversities, setShowDropdown]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -147,7 +120,7 @@ const Universities: React.FC = () => {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [setShowDropdown]);
 
   const isStartButtonEnabled = selectedUniversity !== null;
 
@@ -185,10 +158,7 @@ const Universities: React.FC = () => {
         <div className="w-full max-w-[335px] h-[51px] p-[15px] bg-white rounded-[10px] border border-[#e9e9e9] justify-between items-center inline-flex">
           <input
             value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-              setSelectedUniversity(null);
-            }}
+            onChange={(e) => setSearchTerm(e.target.value)}
             onFocus={() => {
               if (filteredUniversities.length > 0) {
                 setShowDropdown(true);
@@ -214,7 +184,6 @@ const Universities: React.FC = () => {
           </svg>
         </div>
 
-        {/* 드롭다운 */}
         {showDropdown && filteredUniversities.length > 0 && (
           <div className="absolute top-full left-0 right-0 w-full max-w-[335px] mt-2 z-50">
             <UniversityDropdown
@@ -234,7 +203,6 @@ const Universities: React.FC = () => {
         disabled={!isStartButtonEnabled}
         onClick={() => {
           if (selectedUniversity) {
-            console.log("Selected university:", selectedUniversity);
             router.push(
               which === "edit" ? "/profile/edit?which=패신저" : "/home"
             );

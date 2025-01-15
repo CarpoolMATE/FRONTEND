@@ -1,130 +1,120 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React from "react";
+import { useSignupStore } from "../../store/signup";
 
 const SignupPage: React.FC = () => {
   const router = useRouter();
 
-  const [canView, setCanView] = useState(false);
+  // 각각의 상태를 개별적으로 가져오기
+  const id = useSignupStore((state: { id: any }) => state.id);
+  const password = useSignupStore((state: { password: any }) => state.password);
+  const passwordConfirm = useSignupStore(
+    (state: { passwordConfirm: any }) => state.passwordConfirm
+  );
+  const name = useSignupStore((state: { name: any }) => state.name);
+  const email = useSignupStore((state: { email: any }) => state.email);
+  const canView = useSignupStore((state: { canView: any }) => state.canView);
+  const idError = useSignupStore((state: { idError: any }) => state.idError);
+  const passwordError = useSignupStore(
+    (state: { passwordError: any }) => state.passwordError
+  );
+  const passwordConfirmError = useSignupStore(
+    (state: { passwordConfirmError: any }) => state.passwordConfirmError
+  );
+  const nameError = useSignupStore(
+    (state: { nameError: any }) => state.nameError
+  );
+  const passwordLengthError = useSignupStore(
+    (state: { passwordLengthError: any }) => state.passwordLengthError
+  );
+  const emailError = useSignupStore(
+    (state: { emailError: any }) => state.emailError
+  );
+  const duplicate = useSignupStore(
+    (state: { duplicate: any }) => state.duplicate
+  );
+  const duplicateName = useSignupStore(
+    (state: { duplicateName: any }) => state.duplicateName
+  );
+  const duplicateEmail = useSignupStore(
+    (state: { duplicateEmail: any }) => state.duplicateEmail
+  );
+  const modal = useSignupStore((state: { modal: any }) => state.modal);
+  const modalMsg = useSignupStore((state: { modalMsg: any }) => state.modalMsg);
 
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [id, setId] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  // 액션들 가져오기
+  const setId = useSignupStore((state: { setId: any }) => state.setId);
+  const setPassword = useSignupStore(
+    (state: { setPassword: any }) => state.setPassword
+  );
+  const setPasswordConfirm = useSignupStore(
+    (state: { setPasswordConfirm: any }) => state.setPasswordConfirm
+  );
+  const setName = useSignupStore((state: { setName: any }) => state.setName);
+  const setEmail = useSignupStore((state: { setEmail: any }) => state.setEmail);
+  const setCanView = useSignupStore(
+    (state: { setCanView: any }) => state.setCanView
+  );
+  const setIdError = useSignupStore(
+    (state: { setIdError: any }) => state.setIdError
+  );
+  const setPasswordError = useSignupStore(
+    (state: { setPasswordError: any }) => state.setPasswordError
+  );
+  const setPasswordConfirmError = useSignupStore(
+    (state: { setPasswordConfirmError: any }) => state.setPasswordConfirmError
+  );
+  const setNameError = useSignupStore(
+    (state: { setNameError: any }) => state.setNameError
+  );
+  const setEmailError = useSignupStore(
+    (state: { setEmailError: any }) => state.setEmailError
+  );
+  const setDuplicate = useSignupStore(
+    (state: { setDuplicate: any }) => state.setDuplicate
+  );
+  const setModal = useSignupStore((state: { setModal: any }) => state.setModal);
 
-  const [idError, setIdError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const [passwordConfirmError, setPasswordConfirmError] = useState(false);
-  const [nameError, setNameError] = useState(false);
-  const [passwordLengthError, setPasswordLengthError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
+  // 유틸리티 함수들 가져오기
+  const validateId = useSignupStore(
+    (state: { validateId: any }) => state.validateId
+  );
+  const validateString = useSignupStore(
+    (state: { validateString: any }) => state.validateString
+  );
+  const validateEmail = useSignupStore(
+    (state: { validateEmail: any }) => state.validateEmail
+  );
+  const checkAllConditions = useSignupStore(
+    (state: { checkAllConditions: any }) => state.checkAllConditions
+  );
+  const checkDuplicate = useSignupStore(
+    (state: { checkDuplicate: any }) => state.checkDuplicate
+  );
+  const checkDuplicateName = useSignupStore(
+    (state: { checkDuplicateName: any }) => state.checkDuplicateName
+  );
+  const checkDuplicateEmail = useSignupStore(
+    (state: { checkDuplicateEmail: any }) => state.checkDuplicateEmail
+  );
 
-  const [duplicate, setDuplicate] = useState(true);
-  const [duplicateName, setDuplicateName] = useState(true);
-  const [duplicateEmail, setDuplicateEmail] = useState(true);
-  const [modal, setModal] = useState(false);
+  const checkSpacing = useSignupStore((state) => state.checkSpacing);
+  const checkCharacterLimit = useSignupStore(
+    (state) => state.checkCharacterLimit
+  );
+  const checkSpecialCharacters = useSignupStore(
+    (state) => state.checkSpecialCharacters
+  );
 
-  const [modalMsg, setModalMsg] = useState("");
-
-  function checkAllConditions(text: string) {
-    if (
-      checkSpacing(text) &&
-      checkCharacterLimit(text) &&
-      !checkSpecialCharacters(text)
-    ) {
-      setNameError(false);
-    } else setNameError(true);
-  }
-
-  // 띄어쓰기 체크 (연속된 공백 체크)
-  function checkSpacing(text: string): boolean {
-    return !text.includes(" ");
-  }
-
-  // 글자수 제한 체크 (8자 이하)
-  function checkCharacterLimit(text: string): boolean {
-    // 한글만 있는지 확인하는 정규식
-    const koreanOnly = /^[ㄱ-ㅎㅏ-ㅣ가-힣]{1,8}$/;
-    return koreanOnly.test(text);
-  }
-
-  // 특수문자 체크
-  function checkSpecialCharacters(text: string): boolean {
-    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
-    return specialCharRegex.test(text);
-  }
-
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     router.push("/universities");
   };
-
-  const checkDuplicate = async () => {
-    setModal(true);
-    setModalMsg("사용 가능한 아이디입니다.");
-    setDuplicate(false);
-  };
-
-  const checkDuplicateName = async () => {
-    setModal(true);
-    setModalMsg("사용 가능한 닉네임입니다.");
-    setDuplicateName(false);
-  };
-
-  const checkDuplicateEmail = async () => {
-    setModal(true);
-    setModalMsg("사용 가능한 이메일입니다.");
-    setDuplicateEmail(false);
-  };
-
-  const validateId = (value: string) => {
-    const alphanumericPattern = /^[A-Za-z0-9]+$/;
-    return alphanumericPattern.test(value);
-  };
-  function validateString(input: string): boolean {
-    // 3~20자 체크
-    setPasswordLengthError(false);
-
-    if (input.length < 3 || input.length > 20) {
-      setPasswordLengthError(true);
-    }
-
-    // 영문자가 최소 1개 있는지 확인
-    const hasLetter = /[a-zA-Z]/.test(input);
-    // 숫자가 최소 1개 있는지 확인
-    const hasNumber = /[0-9]/.test(input);
-
-    // 둘 다 있어야 true 반환
-    return !(hasLetter && hasNumber);
-  }
-
-  function validateEmail(email: string): boolean {
-    // RFC 5322 표준을 준수하는 정교한 이메일 정규식
-    const emailRegex =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-    // 기본 형식 검증
-    if (!emailRegex.test(email)) {
-      return false;
-    }
-
-    // 추가 검증
-    // 1. 전체 길이 체크 (RFC 5321에 따라 최대 254자)
-    if (email.length > 254) {
-      return false;
-    }
-
-    // 2. 로컬 파트(@ 이전 부분) 길이 체크 (최대 64자)
-    const localPart = email.split("@")[0];
-    if (localPart.length > 64) {
-      return false;
-    }
-
-    return true;
-  }
 
   return (
     <div className="relative w-full px-[20px] pt-[100px]">

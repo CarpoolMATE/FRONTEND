@@ -15,7 +15,7 @@ const LoginPage: React.FC = () => {
 
   const login = async () => {
     try {
-      axiosInstance.post("/member/login", {
+      await axiosInstance.post("/member/signIn", {
         memberId: id,
         password: password,
       });
