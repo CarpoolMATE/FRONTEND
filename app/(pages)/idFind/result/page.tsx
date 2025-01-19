@@ -32,7 +32,7 @@ const ResultPageData: React.FC = () => {
       </div>
       <div className="text-center pt-[106px] mb-[136px]">
         <span className="text-[#3c3c3c] text-2xl font-semibold font-['Pretendard'] leading-[38.40px]">
-          김OO님의 아이디는
+          {params.get("name")}님의 아이디는
           <br />
         </span>
         <span className="text-[#007aff] text-2xl font-medium font-['Pretendard'] leading-[38.40px]">

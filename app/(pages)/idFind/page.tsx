@@ -20,7 +20,7 @@ const IdFindPage: React.FC = () => {
         name,
         email,
       });
-      router.push(`/idFind/result?email=${res.data}`);
+      router.push(`/idFind/result?name=${name}&email=${res.data}`);
     } catch (e) {
       setNameError(true);
       setEmailError(true);
