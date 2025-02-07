@@ -1,11 +1,14 @@
 'use client';
 
-import { useSignupStore } from '@/store/signup';
-import { useRouter } from 'next/navigation';
 import React from 'react';
+import { useRouter } from 'next/navigation';
+
+import usePostSignUp from '@/app/signup/apis/usePostSignUp';
+import { useSignupStore } from '@/store/signup';
 
 const SignupPage: React.FC = () => {
   const router = useRouter();
+  const { mutateAsync: postSignUp } = usePostSignUp();
 
   // 각각의 상태를 개별적으로 가져오기
   const id = useSignupStore((state: { id: any }) => state.id);
@@ -110,7 +113,19 @@ const SignupPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    router.push('/universities');
+
+    try {
+      const response = postSignUp({
+        email,
+        memberId: id,
+        password,
+        nickname: name,
+        university: '',
+      });
+      console.log({ response });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
