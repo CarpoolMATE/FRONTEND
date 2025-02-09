@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
@@ -113,10 +114,12 @@ const UserDetailPage: React.FC = () => {
                 드라이버
               </div>
               <div className="py-2.5 justify-start items-center gap-[30px] inline-flex">
-                <img
-                  className="w-[50px] h-[50px] relative rounded-[100px]"
+                <Image
                   src="https://via.placeholder.com/50x50"
                   alt="img"
+                  width={50}
+                  height={50}
+                  className="relative rounded-[100px]"
                 />
                 <div className="text-center text-[#3c3c3c] text-xl font-normal font-['Pretendard'] leading-7">
                   {'{이름'}
@@ -144,10 +147,12 @@ const UserDetailPage: React.FC = () => {
                 <div className="grow shrink basis-0 h-[70px] py-2.5 border-b justify-start items-center gap-[100px] flex">
                   <div className="justify-start items-center gap-[30px] flex">
                     <div className="w-[50px] h-[50px] relative bg-[#f2f8ff] rounded-[113.64px]  overflow-hidden">
-                      <img
-                        className="w-[56.82px] h-[53.41px] left-[-3.41px] top-[-3.41px] absolute rounded-[113.64px]"
+                      <Image
                         src="https://via.placeholder.com/57x53"
                         alt="img"
+                        width={56.82}
+                        height={53.41}
+                        className="left-[-3.41px] top-[-3.41px] absolute rounded-[113.64px]"
                       />
                     </div>
                     <div className="text-center text-[#3c3c3c] text-xl font-normal font-['Pretendard'] leading-7">
@@ -158,10 +163,12 @@ const UserDetailPage: React.FC = () => {
                 <div className="grow shrink basis-0 h-[70px] py-2.5 border-b justify-start items-center gap-[100px] flex">
                   <div className="justify-start items-center gap-[30px] flex">
                     <div className="w-[50px] h-[50px] relative bg-[#f2f8ff] rounded-[113.64px]  overflow-hidden">
-                      <img
-                        className="w-[56.82px] h-[53.41px] left-[-3.41px] top-[-3.41px] absolute rounded-[113.64px]"
+                      <Image
                         src="https://via.placeholder.com/57x53"
                         alt="img"
+                        width={56.82}
+                        height={53.41}
+                        className="left-[-3.41px] top-[-3.41px] absolute rounded-[113.64px]"
                       />
                     </div>
                     <div className="flex-col justify-start items-start inline-flex">
@@ -176,10 +183,12 @@ const UserDetailPage: React.FC = () => {
                 <div className="grow shrink basis-0 h-[70px] py-2.5 border-b justify-start items-center gap-[100px] flex">
                   <div className="justify-start items-center gap-[30px] flex">
                     <div className="w-[50px] h-[50px] relative bg-[#f2f8ff] rounded-[113.64px]  overflow-hidden">
-                      <img
-                        className="w-[56.82px] h-[53.41px] left-[-3.41px] top-[-3.41px] absolute rounded-[113.64px]"
+                      <Image
                         src="https://via.placeholder.com/57x53"
                         alt="img"
+                        width={56.82}
+                        height={53.41}
+                        className="left-[-3.41px] top-[-3.41px] absolute rounded-[113.64px]"
                       />
                     </div>
                     <div className="text-center text-[#3c3c3c] text-xl font-normal font-['Pretendard'] leading-7">
@@ -190,10 +199,12 @@ const UserDetailPage: React.FC = () => {
                 <div className="grow shrink basis-0 h-[70px] py-2.5 border-b justify-start items-center gap-[100px] flex">
                   <div className="justify-start items-center gap-[30px] flex">
                     <div className="w-[50px] h-[50px] relative bg-[#f2f8ff] rounded-[113.64px]  overflow-hidden">
-                      <img
-                        className="w-[56.82px] h-[53.41px] left-[-3.41px] top-[-3.41px] absolute rounded-[113.64px]"
+                      <Image
                         src="https://via.placeholder.com/57x53"
                         alt="img"
+                        width={56.82}
+                        height={53.41}
+                        className="left-[-3.41px] top-[-3.41px] absolute rounded-[113.64px]"
                       />
                     </div>
                     <div className="text-center text-[#3c3c3c] text-xl font-normal font-['Pretendard'] leading-7">

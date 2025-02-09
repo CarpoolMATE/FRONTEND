@@ -11,96 +11,59 @@ const SignupPage: React.FC = () => {
   const { mutateAsync: postSignUp } = usePostSignUp();
 
   // 각각의 상태를 개별적으로 가져오기
-  const id = useSignupStore((state: { id: any }) => state.id);
-  const password = useSignupStore((state: { password: any }) => state.password);
-  const passwordConfirm = useSignupStore(
-    (state: { passwordConfirm: any }) => state.passwordConfirm,
-  );
-  const name = useSignupStore((state: { name: any }) => state.name);
-  const email = useSignupStore((state: { email: any }) => state.email);
-  const canView = useSignupStore((state: { canView: any }) => state.canView);
-  const idError = useSignupStore((state: { idError: any }) => state.idError);
-  const passwordError = useSignupStore(
-    (state: { passwordError: any }) => state.passwordError,
-  );
+  const id = useSignupStore((state) => state.id);
+  const password = useSignupStore((state) => state.password);
+  const passwordConfirm = useSignupStore((state) => state.passwordConfirm);
+  const name = useSignupStore((state) => state.name);
+  const email = useSignupStore((state) => state.email);
+  const canView = useSignupStore((state) => state.canView);
+  const idError = useSignupStore((state) => state.idError);
+  const passwordError = useSignupStore((state) => state.passwordError);
   const passwordConfirmError = useSignupStore(
-    (state: { passwordConfirmError: any }) => state.passwordConfirmError,
+    (state) => state.passwordConfirmError,
   );
-  const nameError = useSignupStore(
-    (state: { nameError: any }) => state.nameError,
-  );
+  const nameError = useSignupStore((state) => state.nameError);
   const passwordLengthError = useSignupStore(
-    (state: { passwordLengthError: any }) => state.passwordLengthError,
+    (state) => state.passwordLengthError,
   );
-  const emailError = useSignupStore(
-    (state: { emailError: any }) => state.emailError,
-  );
-  const duplicate = useSignupStore(
-    (state: { duplicate: any }) => state.duplicate,
-  );
-  const duplicateName = useSignupStore(
-    (state: { duplicateName: any }) => state.duplicateName,
-  );
-  const duplicateEmail = useSignupStore(
-    (state: { duplicateEmail: any }) => state.duplicateEmail,
-  );
-  const modal = useSignupStore((state: { modal: any }) => state.modal);
-  const modalMsg = useSignupStore((state: { modalMsg: any }) => state.modalMsg);
+  const emailError = useSignupStore((state) => state.emailError);
+  const duplicate = useSignupStore((state) => state.duplicate);
+  const duplicateName = useSignupStore((state) => state.duplicateName);
+  const duplicateEmail = useSignupStore((state) => state.duplicateEmail);
+  const modal = useSignupStore((state) => state.modal);
+  const modalMsg = useSignupStore((state) => state.modalMsg);
 
   // 액션들 가져오기
-  const setId = useSignupStore((state: { setId: any }) => state.setId);
-  const setPassword = useSignupStore(
-    (state: { setPassword: any }) => state.setPassword,
-  );
+  const setId = useSignupStore((state) => state.setId);
+  const setPassword = useSignupStore((state) => state.setPassword);
   const setPasswordConfirm = useSignupStore(
-    (state: { setPasswordConfirm: any }) => state.setPasswordConfirm,
+    (state) => state.setPasswordConfirm,
   );
-  const setName = useSignupStore((state: { setName: any }) => state.setName);
-  const setEmail = useSignupStore((state: { setEmail: any }) => state.setEmail);
-  const setCanView = useSignupStore(
-    (state: { setCanView: any }) => state.setCanView,
-  );
-  const setIdError = useSignupStore(
-    (state: { setIdError: any }) => state.setIdError,
-  );
-  const setPasswordError = useSignupStore(
-    (state: { setPasswordError: any }) => state.setPasswordError,
-  );
+  const setName = useSignupStore((state) => state.setName);
+  const setEmail = useSignupStore((state) => state.setEmail);
+  const setCanView = useSignupStore((state) => state.setCanView);
+  const setIdError = useSignupStore((state) => state.setIdError);
+  const setPasswordError = useSignupStore((state) => state.setPasswordError);
   const setPasswordConfirmError = useSignupStore(
-    (state: { setPasswordConfirmError: any }) => state.setPasswordConfirmError,
+    (state) => state.setPasswordConfirmError,
   );
-  const setNameError = useSignupStore(
-    (state: { setNameError: any }) => state.setNameError,
-  );
-  const setEmailError = useSignupStore(
-    (state: { setEmailError: any }) => state.setEmailError,
-  );
-  const setDuplicate = useSignupStore(
-    (state: { setDuplicate: any }) => state.setDuplicate,
-  );
-  const setModal = useSignupStore((state: { setModal: any }) => state.setModal);
+  const setEmailError = useSignupStore((state) => state.setEmailError);
+  const setDuplicate = useSignupStore((state) => state.setDuplicate);
+  const setModal = useSignupStore((state) => state.setModal);
 
   // 유틸리티 함수들 가져오기
-  const validateId = useSignupStore(
-    (state: { validateId: any }) => state.validateId,
-  );
-  const validateString = useSignupStore(
-    (state: { validateString: any }) => state.validateString,
-  );
-  const validateEmail = useSignupStore(
-    (state: { validateEmail: any }) => state.validateEmail,
-  );
+  const validateId = useSignupStore((state) => state.validateId);
+  const validateString = useSignupStore((state) => state.validateString);
+  const validateEmail = useSignupStore((state) => state.validateEmail);
   const checkAllConditions = useSignupStore(
-    (state: { checkAllConditions: any }) => state.checkAllConditions,
+    (state) => state.checkAllConditions,
   );
-  const checkDuplicate = useSignupStore(
-    (state: { checkDuplicate: any }) => state.checkDuplicate,
-  );
+  const checkDuplicate = useSignupStore((state) => state.checkDuplicate);
   const checkDuplicateName = useSignupStore(
-    (state: { checkDuplicateName: any }) => state.checkDuplicateName,
+    (state) => state.checkDuplicateName,
   );
   const checkDuplicateEmail = useSignupStore(
-    (state: { checkDuplicateEmail: any }) => state.checkDuplicateEmail,
+    (state) => state.checkDuplicateEmail,
   );
 
   const checkSpacing = useSignupStore((state) => state.checkSpacing);

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 const AdminPage: React.FC = () => {
-  const [toggles, setToggles] = useState<boolean[]>([]);
+  const [toggles, setToggles] = useState<{ id: number; isOn: boolean }[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
   const totalItems = 216; // 전체 회원 수
@@ -16,7 +16,7 @@ const AdminPage: React.FC = () => {
   // 특정 토글의 상태를 변경하는 함수
   const handleToggle = (id: number) => {
     setToggles(
-      toggles.map((toggle: any) =>
+      toggles.map((toggle) =>
         toggle.id === id ? { ...toggle, isOn: !toggle.isOn } : toggle,
       ),
     );

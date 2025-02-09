@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -46,10 +47,12 @@ const HomePage: React.FC = () => {
           onClick={() => router.push('/profile')}
           className="cursor-pointer w-[38px] h-[38px] relative bg-[#f2f8ff] rounded-[105.56px]  overflow-hidden"
         >
-          <img
-            className="w-[44.33px] h-[44.33px] left-[-3.17px] top-[-3.17px] absolute rounded-[105.56px]"
+          <Image
+            width={44.33}
+            height={44.33}
             src="https://via.placeholder.com/44x44"
             alt="img"
+            className="left-[-3.17px] top-[-3.17px] absolute rounded-[105.56px]"
           />
         </div>
       </div>
@@ -144,10 +147,12 @@ const HomePage: React.FC = () => {
             className="w-[343px] cursor-pointer px-[15px] py-5  justify-start items-center gap-3 inline-flex"
           >
             <div className="w-11 h-11 relative bg-[#f2f8ff] rounded-[100px]  overflow-hidden">
-              <img
-                className="w-[50px] h-[47px] left-[-2.89px] top-[-1.60px] absolute rounded-[100px]"
+              <Image
+                width={50}
+                height={47}
                 src="https://via.placeholder.com/50x47"
                 alt="img"
+                className="left-[-2.89px] top-[-1.60px] absolute rounded-[100px]"
               />
             </div>
             <div className="grow shrink basis-0 self-stretch flex-col justify-start items-start gap-2.5 inline-flex">
@@ -264,10 +269,12 @@ const HomePage: React.FC = () => {
                       <div className="self-stretch justify-start items-center inline-flex">
                         <div className="grow shrink basis-0 h-11 justify-start items-center gap-2 flex">
                           <div className="w-11 h-11 relative bg-[#f2f8ff] rounded-[100px]  overflow-hidden">
-                            <img
-                              className="w-[50px] h-[47px] left-[-3px] top-[-3px] absolute rounded-[100px]"
+                            <Image
+                              width={50}
+                              height={47}
                               src="https://via.placeholder.com/50x47"
                               alt="img"
+                              className="left-[-3px] top-[-3px] absolute rounded-[100px]"
                             />
                           </div>
                           <div className="grow shrink basis-0 flex-col justify-start items-start inline-flex">

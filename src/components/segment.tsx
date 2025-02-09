@@ -1,6 +1,10 @@
 'use client';
 
-const SegmentControl = ({ setWhich, which }: any) => {
+type SegmentControlProps = {
+  which: string;
+  setWhich: (value: string) => void;
+};
+const SegmentControl = ({ setWhich, which }: SegmentControlProps) => {
   const tabs = [
     { id: 'passenger', label: '패신저' },
     { id: 'driver', label: '드라이버' },

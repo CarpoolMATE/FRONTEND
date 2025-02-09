@@ -1,6 +1,7 @@
 'use client';
 
 import ToggleSwitch from '@/components/toggle';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
@@ -51,10 +52,12 @@ const UserDetailPage: React.FC = () => {
               <div className="text-[#3c3c3c] text-xl font-semibold font-['Pretendard'] leading-7">
                 프로필 이미지
               </div>
-              <img
-                className="w-[50px] h-[50px] relative rounded-[100px]"
+              <Image
                 src="https://via.placeholder.com/50x50"
                 alt="img"
+                width={50}
+                height={50}
+                className="relative rounded-[100px]"
               />
             </div>
             <div className="self-stretch py-7 border-b border-[#e0e0e0] justify-between items-center inline-flex">
@@ -115,10 +118,12 @@ const UserDetailPage: React.FC = () => {
                   차량 이미지
                 </div>
 
-                <img
-                  className="w-[50px] h-[50px]  rounded-[62.50px]"
+                <Image
                   src="https://via.placeholder.com/50x50"
                   alt="img"
+                  width={50}
+                  height={50}
+                  className="rounded-[62.50px]"
                 />
               </div>
               <div className="self-stretch py-7 border-b border-[#e0e0e0] justify-between items-center inline-flex">

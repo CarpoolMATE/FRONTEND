@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useState, useRef, Suspense } from 'react';
 
@@ -92,7 +93,6 @@ const PassengerProfile: React.FC<{
   setNicknameDuplicate: (args: boolean) => void;
   profileImage: string;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  router: any;
 }> = ({
   name,
   nameError,
@@ -106,8 +106,8 @@ const PassengerProfile: React.FC<{
   setNicknameDuplicate,
   profileImage,
   handleImageChange,
-  router,
 }) => {
+  const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -116,10 +116,12 @@ const PassengerProfile: React.FC<{
         className="w-20 h-20 relative cursor-pointer"
         onClick={() => fileInputRef.current?.click()}
       >
-        <img
-          className="w-20 h-20 left-0 top-0 absolute rounded-[100px] object-cover"
+        <Image
           src={profileImage || 'https://via.placeholder.com/80x80'}
           alt="프로필 이미지"
+          width={20}
+          height={20}
+          className="left-0 top-0 absolute rounded-[100px] object-cover"
         />
         <div className="p-[3px] left-[56px] top-[56px] absolute bg-[#dadde1] rounded-[75px]">
           <svg
@@ -243,10 +245,12 @@ const DriverProfile: React.FC<{
         className="w-20 h-20 relative cursor-pointer"
         onClick={() => fileInputRef.current?.click()}
       >
-        <img
-          className="w-20 h-20 left-0 top-0 absolute rounded-[100px] object-cover"
+        <Image
           src={profileImage || 'https://via.placeholder.com/80x80'}
           alt="프로필 이미지"
+          width={20}
+          height={20}
+          className="left-0 top-0 absolute rounded-[100px] object-cover"
         />
         <div className="p-[3px] left-[56px] top-[56px] absolute bg-[#dadde1] rounded-[75px]">
           <svg
@@ -421,7 +425,6 @@ const ProfileContent: React.FC = () => {
             setNicknameDuplicate={setNicknameDuplicate}
             profileImage={profileImage}
             handleImageChange={handleImageChange}
-            router={router}
           />
         ) : (
           <DriverProfile

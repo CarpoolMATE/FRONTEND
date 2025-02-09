@@ -1,6 +1,16 @@
 import { useState } from 'react';
 
-export const Dropdown = ({ selectedNumber, onNumberChange, type }: any) => {
+type DropdownProps = {
+  selectedNumber: number;
+  type?: string;
+  onNumberChange: (value: number) => void;
+};
+
+export const Dropdown = ({
+  selectedNumber,
+  onNumberChange,
+  type,
+}: DropdownProps) => {
   const [isNumberOpen, setIsNumberOpen] = useState(false);
 
   // 시간 옵션 생성 (0-23)
