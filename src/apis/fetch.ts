@@ -82,11 +82,8 @@ export async function fetchAPI<T, R = FetchResourceType | FetchParamObject>(
   };
   requestOptions.body = !isFetchMethodGet && data ? JSON.stringify(data) : null;
 
-  // FIXME: cors 적용 시 appche 이용, NEXT_PUBLIC_API_URL 제거
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}${requestUrl}`,
-    requestOptions,
-  );
+  // FIXME: cors 적용 시 apache 이용
+  const response = await fetch(requestUrl, requestOptions);
 
   if (!response.ok) {
     throw new Error(`Network response was not ok for URL : ${requestUrl}`);
