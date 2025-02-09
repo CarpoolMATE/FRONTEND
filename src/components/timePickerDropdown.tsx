@@ -1,11 +1,18 @@
 import { useState } from 'react';
 
+interface TimePickerProps {
+  selectedHour: number;
+  selectedMinute: number;
+  onHourChange: (hour: number) => void;
+  onMinuteChange: (minute: number) => void;
+}
+
 export const TimePicker = ({
   selectedHour,
   selectedMinute,
   onHourChange,
   onMinuteChange,
-}: any) => {
+}: TimePickerProps) => {
   const [isHourOpen, setIsHourOpen] = useState(false);
   const [isMinuteOpen, setIsMinuteOpen] = useState(false);
 

@@ -5,39 +5,27 @@ import { useRouter } from 'next/navigation';
 import { useSignupStore } from '@/store/signup';
 
 const PwFindPage: React.FC = () => {
-  const password = useSignupStore((state: { password: any }) => state.password);
-  const passwordConfirm = useSignupStore(
-    (state: { passwordConfirm: any }) => state.passwordConfirm,
-  );
-  const setCanView = useSignupStore(
-    (state: { setCanView: any }) => state.setCanView,
-  );
-  const canView = useSignupStore((state: { canView: any }) => state.canView);
+  const password = useSignupStore((state) => state.password);
+  const passwordConfirm = useSignupStore((state) => state.passwordConfirm);
+  const setCanView = useSignupStore((state) => state.setCanView);
+  const canView = useSignupStore((state) => state.canView);
 
-  const validateString = useSignupStore(
-    (state: { validateString: any }) => state.validateString,
-  );
+  const validateString = useSignupStore((state) => state.validateString);
 
-  const passwordError = useSignupStore(
-    (state: { passwordError: any }) => state.passwordError,
-  );
+  const passwordError = useSignupStore((state) => state.passwordError);
   const passwordConfirmError = useSignupStore(
-    (state: { passwordConfirmError: any }) => state.passwordConfirmError,
+    (state) => state.passwordConfirmError,
   );
   const passwordLengthError = useSignupStore(
-    (state: { passwordLengthError: any }) => state.passwordLengthError,
+    (state) => state.passwordLengthError,
   );
-  const setPassword = useSignupStore(
-    (state: { setPassword: any }) => state.setPassword,
-  );
+  const setPassword = useSignupStore((state) => state.setPassword);
   const setPasswordConfirm = useSignupStore(
-    (state: { setPasswordConfirm: any }) => state.setPasswordConfirm,
+    (state) => state.setPasswordConfirm,
   );
-  const setPasswordError = useSignupStore(
-    (state: { setPasswordError: any }) => state.setPasswordError,
-  );
+  const setPasswordError = useSignupStore((state) => state.setPasswordError);
   const setPasswordConfirmError = useSignupStore(
-    (state: { setPasswordConfirmError: any }) => state.setPasswordConfirmError,
+    (state) => state.setPasswordConfirmError,
   );
 
   const router = useRouter();

@@ -1,5 +1,6 @@
 'use client';
 import { useVehicleStore } from '@/store/register';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useRef } from 'react';
 
@@ -69,10 +70,12 @@ const RegisterCarPage: React.FC = () => {
             className="mt-[108px] w-[150px] h-[150px] rounded-[100px] overflow-hidden cursor-pointer"
             onClick={handleImageClick}
           >
-            <img
+            <Image
               src={imageUrl}
+              width={35}
+              height={35}
               alt="Selected car"
-              className="w-full h-full object-cover"
+              className="object-cover"
             />
           </div>
         ) : (

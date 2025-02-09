@@ -4,7 +4,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import React, { Suspense, useEffect } from 'react';
 
 import { University, useUniversitiesStore } from '@/store/universities';
-import { useSignupStore } from '@/store/signup';
 
 interface UniversityItemProps {
   university: University;
@@ -127,16 +126,16 @@ const Universities: React.FC = () => {
 
   const onclickHandler = async () => {
     if (selectedUniversity) {
-      const signupStore = useSignupStore.getState(); // Zustand store의 현재 상태 가져오기
-      const universitiesStore = useUniversitiesStore.getState();
+      // const signupStore = useSignupStore.getState(); // Zustand store의 현재 상태 가져오기
+      // const universitiesStore = useUniversitiesStore.getState();
 
-      const param: ParamType = {
-        memberId: signupStore.id,
-        email: signupStore.email,
-        password: signupStore.password,
-        nickname: signupStore.name,
-        university: universitiesStore.selectedUniversity?.name || '',
-      };
+      // const param: ParamType = {
+      //   memberId: signupStore.id,
+      //   email: signupStore.email,
+      //   password: signupStore.password,
+      //   nickname: signupStore.name,
+      //   university: universitiesStore.selectedUniversity?.name || '',
+      // };
 
       try {
         // await signupAPI(param);

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
@@ -113,10 +114,12 @@ const DetailCarplePage: React.FC = () => {
                   <div className="self-stretch justify-start items-center inline-flex">
                     <div className="grow shrink basis-0 h-11 justify-start items-center gap-2 flex">
                       <div className="w-11 h-11 relative bg-[#f2f8ff] rounded-[100px]  overflow-hidden">
-                        <img
-                          className="w-[50px] h-[47px] left-[-3px] top-[-3px] absolute rounded-[100px]"
+                        <Image
+                          width={50}
+                          height={47}
                           src="https://via.placeholder.com/50x47"
                           alt="img"
+                          className="left-[-3px] top-[-3px] absolute rounded-[100px]"
                         />
                       </div>
                       <div className="grow shrink basis-0 flex-col justify-start items-start inline-flex">
@@ -137,10 +140,12 @@ const DetailCarplePage: React.FC = () => {
                     <div className="grow shrink basis-0 h-11 justify-start items-center gap-2 flex">
                       <div className="w-11 h-11 relative  overflow-hidden">
                         <div className="w-11 h-11 left-0 top-0 absolute bg-[#007aff] rounded-[55px]">
-                          <img
-                            className="w-11 h-11 left-[44px] top-0 absolute origin-top-left rotate-180 rounded-[55px]"
+                          <Image
+                            width={11}
+                            height={11}
                             src="https://via.placeholder.com/44x44"
                             alt="img"
+                            className="left-[44px] top-0 absolute origin-top-left rotate-180 rounded-[55px]"
                           />
                         </div>
                       </div>
@@ -163,10 +168,12 @@ const DetailCarplePage: React.FC = () => {
                   <div className="self-stretch justify-start items-center inline-flex">
                     <div className="grow shrink basis-0 h-11 justify-start items-center gap-2 flex">
                       <div className="w-11 h-11 relative bg-[#f2f8ff] rounded-[100px]  overflow-hidden">
-                        <img
-                          className="w-[50px] h-[47px] left-[-3px] top-[-3px] absolute rounded-[100px]"
+                        <Image
+                          width={50}
+                          height={47}
                           src="https://via.placeholder.com/50x47"
                           alt="img"
+                          className="left-[-3px] top-[-3px] absolute rounded-[100px]"
                         />
                       </div>
                       <div className="grow shrink basis-0 flex-col justify-start items-start inline-flex">
@@ -181,10 +188,12 @@ const DetailCarplePage: React.FC = () => {
                   <div className="self-stretch justify-start items-center inline-flex">
                     <div className="grow shrink basis-0 h-11 justify-start items-center gap-2 flex">
                       <div className="w-11 h-11 relative bg-[#f2f8ff] rounded-[100px]  overflow-hidden">
-                        <img
-                          className="w-[50px] h-[47px] left-[-3px] top-[-3px] absolute rounded-[100px]"
+                        <Image
+                          width={50}
+                          height={47}
                           src="https://via.placeholder.com/50x47"
                           alt="img"
+                          className="left-[-3px] top-[-3px] absolute rounded-[100px]"
                         />
                       </div>
                       <div className="grow shrink basis-0 flex-col justify-start items-start inline-flex">
@@ -199,10 +208,12 @@ const DetailCarplePage: React.FC = () => {
                   <div className="self-stretch justify-start items-center inline-flex">
                     <div className="grow shrink basis-0 h-11 justify-start items-center gap-2 flex">
                       <div className="w-11 h-11 relative bg-[#f2f8ff] rounded-[100px]  overflow-hidden">
-                        <img
-                          className="w-[50px] h-[47px] left-[-3px] top-[-3px] absolute rounded-[100px]"
+                        <Image
+                          width={50}
+                          height={47}
                           src="https://via.placeholder.com/50x47"
                           alt="img"
+                          className="left-[-3px] top-[-3px] absolute rounded-[100px]"
                         />
                       </div>
                       <div className="grow shrink basis-0 flex-col justify-start items-start inline-flex">
@@ -217,10 +228,12 @@ const DetailCarplePage: React.FC = () => {
                   <div className="self-stretch justify-start items-center inline-flex">
                     <div className="grow shrink basis-0 h-11 justify-start items-center gap-2 flex">
                       <div className="w-11 h-11 relative bg-[#f2f8ff] rounded-[100px]  overflow-hidden">
-                        <img
-                          className="w-[50px] h-[47px] left-[-3px] top-[-3px] absolute rounded-[100px]"
+                        <Image
+                          width={50}
+                          height={47}
                           src="https://via.placeholder.com/50x47"
                           alt="img"
+                          className="left-[-3px] top-[-3px] absolute rounded-[100px]"
                         />
                       </div>
                       <div className="grow shrink basis-0 flex-col justify-start items-start inline-flex">

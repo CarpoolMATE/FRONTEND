@@ -2,7 +2,17 @@
 
 import { useState } from 'react';
 
-const ToggleSwitch = ({ initialState = false, onChange, which }: any) => {
+interface ToggleSwitchProps {
+  initialState?: boolean;
+  onChange?: (checked: boolean) => void;
+  which?: string;
+}
+
+const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
+  initialState = false,
+  onChange,
+  which,
+}) => {
   const [isOn, setIsOn] = useState(initialState);
 
   const handleToggle = () => {

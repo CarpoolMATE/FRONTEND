@@ -4,7 +4,7 @@ import Script from 'next/script';
 
 declare global {
   interface Window {
-    kakao: any;
+    kakao: unknown;
   }
 }
 

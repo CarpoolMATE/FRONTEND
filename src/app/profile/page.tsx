@@ -1,9 +1,11 @@
 'use client';
-import Document from '@/components/document';
 
-import SegmentControl from '@/components/segment';
-import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+
+import Document from '@/components/document';
+import SegmentControl from '@/components/segment';
 
 const ProfilePage: React.FC = () => {
   const router = useRouter();
@@ -49,11 +51,14 @@ const ProfilePage: React.FC = () => {
           </div>
         </div>
         <div className="w-20 h-20 relative">
-          <img
-            className="w-20 h-20 left-0 top-0 absolute rounded-[100px]"
+          <Image
             src="https://via.placeholder.com/80x80"
             alt="img"
+            width={20}
+            height={20}
+            className="left-0 top-0 absolute rounded-[100px] "
           />
+
           <div className="p-[3px] left-[56px] top-[56px] absolute bg-[#dadde1] rounded-[75px] justify-start items-start inline-flex">
             <div className="w-[18px] h-[18px] relative" />
           </div>
