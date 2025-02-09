@@ -1,4 +1,4 @@
-import postSignUp from '@/app/signup/apis/postSignUp';
+import postSignUp from '@/app/(auth)/sign-up/apis/postSignUp';
 import { useMutation } from '@tanstack/react-query';
 
 const usePostSignUp = () => {

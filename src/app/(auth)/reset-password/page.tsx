@@ -1,7 +1,8 @@
 'use client';
-import { useSignupStore } from '@/store/signup';
-import { useRouter } from 'next/navigation';
 import React from 'react';
+import { useRouter } from 'next/navigation';
+
+import { useSignupStore } from '@/store/signup';
 
 const PwFindPage: React.FC = () => {
   const password = useSignupStore((state: { password: any }) => state.password);

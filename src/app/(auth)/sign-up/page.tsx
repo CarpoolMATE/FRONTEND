@@ -3,7 +3,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 
-import usePostSignUp from '@/app/signup/apis/usePostSignUp';
+import usePostSignUp from '@/app/(auth)/sign-up/apis/usePostSignUp';
 import { useSignupStore } from '@/store/signup';
 
 const SignupPage: React.FC = () => {
