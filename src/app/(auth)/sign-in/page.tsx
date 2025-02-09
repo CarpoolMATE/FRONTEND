@@ -129,6 +129,7 @@ const SignInPage: React.FC = () => {
                 </g>
               </svg>
             </div>
+
             <div className="grow shrink basis-0 text-center text-white text-lg font-semibold font-pretendard leading-[27px]">
               아이디로 로그인
             </div>

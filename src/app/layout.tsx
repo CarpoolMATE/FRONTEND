@@ -1,33 +1,30 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 
-import ReactQueryProvider from '@/providers/ReactQuery';
+import RootLayout from '@/components/layout/RootLayout';
 
 import '@/app/globals.css';
 
 const pretendard = localFont({
   src: '../../public/fonts/PretendardVariable.ttf',
+  display: 'swap',
+  weight: '45 920',
   variable: '--font-pretendard',
 });
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const pathname = usePathname();
-  const [desktop, setDesktop] = useState(false);
+const hancomSans = localFont({
+  src: '../../public/fonts/HancomSans-SemiBold.otf',
+  weight: '400',
+  variable: '--font-hancomSans',
+});
 
-  useEffect(() => {
-    if (pathname.includes('admin')) {
-      setDesktop(true);
-    }
-  }, [pathname]);
+const appleSDGothicNeo = localFont({
+  src: '../../public/fonts/AppleSDGothicNeo.ttf',
+  weight: '400',
+  variable: '--font-appleSDGothicNeo',
+});
 
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
       <head>
@@ -37,17 +34,9 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${pretendard.variable} w-full h-screen flex justify-center items-center bg-black`}
+        className={`${hancomSans.className} ${appleSDGothicNeo.className} ${pretendard.className} bg-gray-300`}
       >
-        <ReactQueryProvider>
-          <div
-            className={`${
-              desktop ? 'w-screen h-screen' : 'w-[375px] h-[812px]'
-            }  flex justify-center bg-white`}
-          >
-            {children}
-          </div>
-        </ReactQueryProvider>
+        <RootLayout>{children}</RootLayout>
       </body>
     </html>
   );
