@@ -1,6 +1,9 @@
-"use client";
-import React from "react";
-import { useRouter } from "next/navigation";
+'use client';
+
+import React from 'react';
+import { useRouter } from 'next/navigation';
+
+import { APP_ROUTES } from '@/constants/routes';
 
 const SignInPage: React.FC = () => {
   const router = useRouter();
@@ -19,7 +22,7 @@ const SignInPage: React.FC = () => {
           <div
             className="self-stretch px-5 py-[15px] bg-[#fee500] rounded-[10px] justify-center items-center inline-flex overflow-hidden cursor-pointer"
             onClick={() => {
-              router.push("/home");
+              router.push('/home');
             }}
           >
             <div className="w-[20.60px] h-[20.60px] relative  overflow-hidden">
@@ -56,7 +59,7 @@ const SignInPage: React.FC = () => {
           </div>
           <div
             onClick={() => {
-              router.push("/home");
+              router.push('/home');
             }}
             className="cursor-pointer self-stretch px-5 py-[15px] bg-[#00B900] rounded-[10px] border border-[#e9e9e9] justify-center items-center inline-flex overflow-hidden"
           >
@@ -96,7 +99,7 @@ const SignInPage: React.FC = () => {
           </div>
           <div
             onClick={() => {
-              router.push("/login");
+              router.push(APP_ROUTES.LOGIN);
             }}
             className="cursor-pointer self-stretch px-5 py-[15px] bg-[#007aff] rounded-[10px] border justify-center items-center inline-flex overflow-hidden"
           >
@@ -136,7 +139,7 @@ const SignInPage: React.FC = () => {
             <span className="mr-[10px]">메이트 회원이 아니신가요?</span>
             <span
               onClick={() => {
-                router.push("/signup");
+                router.push(APP_ROUTES.SIGNUP);
               }}
               className="cursor-pointer font-bold underline"
             >

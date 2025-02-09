@@ -1,5 +1,6 @@
+import { API_ROUTES } from '@/constants/routes';
+
 import { fetchPost } from '@/apis/fetch';
-import { API_ROUTE } from '@/apis/routes';
 
 export type PostSignUpParams = {
   memberId: string;
@@ -11,7 +12,7 @@ export type PostSignUpParams = {
 
 const postSignUp = async (params: PostSignUpParams) => {
   const response = await fetchPost<string, PostSignUpParams>(
-    API_ROUTE.MEMBER.SIGN_UP,
+    API_ROUTES.MEMBER.SIGN_UP,
     params,
   );
 

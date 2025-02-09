@@ -1,7 +1,9 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
+import { APP_ROUTES } from '@/constants/routes';
 
 const LoginPage: React.FC = () => {
   const [canView, setCanView] = useState(false);
@@ -102,7 +104,7 @@ const LoginPage: React.FC = () => {
         </div>
         <div className="justify-center w-full items-center gap-[15px] inline-flex mt-[50px]">
           <div
-            onClick={() => router.push('/idFind')}
+            onClick={() => router.push(APP_ROUTES.FIND_ID)}
             className="cursor-pointer text-center text-[#aaaaaa] text-sm font-medium font-['Pretendard'] leading-[21px]"
           >
             아이디 찾기
@@ -111,7 +113,7 @@ const LoginPage: React.FC = () => {
             |
           </div>
           <div
-            onClick={() => router.push('/pwFind')}
+            onClick={() => router.push(APP_ROUTES.FIND_PASSWORD)}
             className="cursor-pointer text-center text-[#aaaaaa] text-sm font-medium font-['Pretendard'] leading-[21px]"
           >
             비밀번호 찾기
