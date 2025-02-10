@@ -12,6 +12,10 @@ export default {
         pretendard: ['var(--font-pretendard)'],
         Sans: ['var(--font-sans)', 'sans-serif'],
       },
+      colors: {
+        primary: '#007AFF',
+        error: '#E0302D',
+      },
     },
   },
   plugins: [],
