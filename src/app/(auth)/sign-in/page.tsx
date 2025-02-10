@@ -12,11 +12,10 @@ const SignInPage = () => {
     <>
       <Logo />
       <p className="text-center text-[#aaaaaa] text-xl font-['appleSDGothicNeo'] leading-[30px] mb-[111px]">
-      <div className="text-center text-[#aaaaaa] text-xl font-semibold font-['Apple SD Gothic Neo'] leading-[30px] mb-[111px]">
         우리들의 출퇴근 메이트
       </p>
 
-      <div className="w-[335px] h-[244px] flex-col justify-start items-center gap-[30px] inline-flex">
+      <div className="flex-col justify-start items-center gap-[30px] inline-flex px-5 w-full max-w-[375px]">
         <div className="self-stretch h-[187px] flex-col justify-start items-start gap-2 flex">
           <div
             className="self-stretch px-5 py-[15px] bg-[#fee500] rounded-[10px] justify-center items-center inline-flex overflow-hidden cursor-pointer"
