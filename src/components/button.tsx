@@ -8,7 +8,6 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 const CustomButton: React.FC<ButtonProps> = ({
   intent = 'default',
   size = 'default',
-  className,
   ...props
 }) => {
   return (
