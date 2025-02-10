@@ -1,21 +1,20 @@
 'use client';
 
-import React from 'react';
 import { useRouter } from 'next/navigation';
 
 import { APP_ROUTES } from '@/constants/routes';
+import Logo from '@/app/(auth)/components/Logo';
 
-const SignInPage: React.FC = () => {
+const SignInPage = () => {
   const router = useRouter();
 
   return (
-    <div>
-      <div className="text-center text-[#007aff] text-[80px] font-normal font-['Hancom Sans SemiBold'] leading-[120px] pt-[180px]">
-        mate
-      </div>
+    <>
+      <Logo />
+      <p className="text-center text-[#aaaaaa] text-xl font-['appleSDGothicNeo'] leading-[30px] mb-[111px]">
       <div className="text-center text-[#aaaaaa] text-xl font-semibold font-['Apple SD Gothic Neo'] leading-[30px] mb-[111px]">
         우리들의 출퇴근 메이트
-      </div>
+      </p>
 
       <div className="w-[335px] h-[244px] flex-col justify-start items-center gap-[30px] inline-flex">
         <div className="self-stretch h-[187px] flex-col justify-start items-start gap-2 flex">
@@ -149,7 +148,7 @@ const SignInPage: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
