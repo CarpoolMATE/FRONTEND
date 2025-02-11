@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import { ButtonIntentType } from '@/components/button/types';
+
 import { BUTTON_INTENT_CLASSES } from '@/components/button/constants';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
