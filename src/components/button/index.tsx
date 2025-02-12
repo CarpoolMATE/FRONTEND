@@ -1,7 +1,8 @@
 import React from 'react';
-import classNames from 'classnames';
 
-import { ButtonIntentType } from '@/components/button/types';
+import { ButtonIntentType } from '@/components/Button/types';
+
+import { BUTTON_INTENT_CLASSES } from '@/components/Button/constants';
 
 import { cn } from '@/utils/style';
 

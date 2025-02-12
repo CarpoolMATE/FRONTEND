@@ -1,1 +1,1 @@
-export type ButtonIntentType = 'default' | 'delete' | 'outline';
+export type ButtonIntentType = 'default' | 'delete' | 'outline' | 'icon';

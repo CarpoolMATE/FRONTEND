@@ -15,6 +15,7 @@ export default {
       colors: {
         primary: '#007AFF',
         error: '#E0302D',
+        icon: '#505050',
       },
     },
   },
