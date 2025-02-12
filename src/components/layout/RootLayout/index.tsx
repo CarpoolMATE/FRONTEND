@@ -17,13 +17,13 @@ const RootLayout = ({ children }: PropsWithChildren) => {
 
   return (
     <ReactQueryProvider>
-      <div
+      <section
         className={`${
           isAdminPage ? 'w-screen' : 'max-w-[768px] my-0 mx-auto'
         } bg-white h-screen`}
       >
         {children}
-      </div>
+      </section>
     </ReactQueryProvider>
   );
 };
