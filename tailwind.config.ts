@@ -9,13 +9,15 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        pretendard: ['var(--font-pretendard)'],
-        Sans: ['var(--font-sans)', 'sans-serif'],
+        pretendard: 'pretendard',
+        hancomSans: 'hancomSans',
+        appleSD: 'appleSDGothicNeo',
       },
       colors: {
         primary: '#007AFF',
         error: '#E0302D',
         icon: '#505050',
+        title: '#000000D9',
       },
     },
   },
