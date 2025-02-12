@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { APP_ROUTES } from '@/constants/routes';
+import Icon from '@/components/Icon';
+import Button from '@/components/Button';
 
 const LoginPage: React.FC = () => {
   const [canView, setCanView] = useState(false);
@@ -30,25 +32,9 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="relative w-full px-[20px] pt-[57.5px] mb-[20px]">
-      <svg
-        onClick={() => {
-          router.back();
-        }}
-        className="absolute left-[20px] top-[57.5px] cursor-pointer"
-        xmlns="http://www.w3.org/2000/svg"
-        width="11"
-        height="18"
-        viewBox="0 0 11 18"
-        fill="none"
-      >
-        <path
-          id="Rectangle 882"
-          d="M10 1.10938L1.82023 7.92585C1.39337 8.28157 1.39337 8.93718 1.82023 9.2929L10 16.1094"
-          stroke="#505050"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-      </svg>
+      <Button intent="icon" onClick={() => router.back()}>
+        <Icon icon="CHEVRONS_LEFT" className="text-icon" />
+      </Button>
       <div className="text-center text-[#007aff] text-[64px] font-normal font-['Hancom Sans SemiBold'] mb-[82.82px]">
         mate
       </div>
