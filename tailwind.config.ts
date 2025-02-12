@@ -17,7 +17,14 @@ export default {
         primary: '#007AFF',
         error: '#E0302D',
         icon: '#505050',
+      },
+      textColor: {
         title: '#000000D9',
+        main: '#1A1A1A',
+        placeholder: '#B2B2B2',
+      },
+      borderColor: {
+        input: '#E9E9E9',
       },
     },
   },

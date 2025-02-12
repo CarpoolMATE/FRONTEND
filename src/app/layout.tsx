@@ -7,13 +7,6 @@ import { cn } from '@/utils/style';
 
 import '@/app/globals.css';
 
-const pretendard = localFont({
-  src: '../../public/fonts/PretendardVariable.ttf',
-  display: 'swap',
-  weight: '45 920',
-  variable: '--font-pretendard',
-});
-
 const hancomSans = localFont({
   src: '../../public/fonts/HancomSans-SemiBold.otf',
   weight: '400',
@@ -24,6 +17,13 @@ const appleSDGothicNeo = localFont({
   src: '../../public/fonts/AppleSDGothicNeo.ttf',
   weight: '400',
   variable: '--font-appleSDGothicNeo',
+});
+
+const pretendard = localFont({
+  src: '../../public/fonts/PretendardVariable.ttf',
+  display: 'swap',
+  weight: '45 920',
+  variable: '--font-pretendard',
 });
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -41,7 +41,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           appleSDGothicNeo.className,
           pretendard.className,
           'bg-gray-300',
-          'font-Pretendard',
         )}
       >
         <RootLayout>{children}</RootLayout>
