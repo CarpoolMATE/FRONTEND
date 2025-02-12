@@ -3,15 +3,16 @@
 import { useRouter } from 'next/navigation';
 
 import { APP_ROUTES } from '@/constants/routes';
+
 import Logo from '@/app/(auth)/components/Logo';
 
 const SignInPage = () => {
   const router = useRouter();
 
   return (
-    <>
+    <section className="flex flex-col justify-center items-center h-full">
       <Logo />
-      <p className="text-center text-[#aaaaaa] text-xl font-['appleSDGothicNeo'] leading-[30px] mb-[111px]">
+      <p className="text-center text-[#aaaaaa] text-xl font-appleSD leading-[30px] mb-[111px]">
         우리들의 출퇴근 메이트
       </p>
 
@@ -55,6 +56,7 @@ const SignInPage = () => {
               카카오로 계속하기
             </div>
           </div>
+
           <div
             onClick={() => {
               router.push('/home');
@@ -95,6 +97,7 @@ const SignInPage = () => {
               라인으로 계속하기
             </div>
           </div>
+
           <div
             onClick={() => {
               router.push(APP_ROUTES.LOGIN);
@@ -147,7 +150,7 @@ const SignInPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </section>
   );
 };
 

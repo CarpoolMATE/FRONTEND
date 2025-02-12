@@ -3,6 +3,8 @@ import Script from 'next/script';
 
 import RootLayout from '@/components/layout/RootLayout';
 
+import { cn } from '@/utils/style';
+
 import '@/app/globals.css';
 
 const pretendard = localFont({
@@ -34,7 +36,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         />
       </head>
       <body
-        className={`${hancomSans.className} ${appleSDGothicNeo.className} ${pretendard.className} bg-gray-300`}
+        className={cn(
+          hancomSans.className,
+          appleSDGothicNeo.className,
+          pretendard.className,
+          'bg-gray-300',
+          'font-Pretendard',
+        )}
       >
         <RootLayout>{children}</RootLayout>
       </body>

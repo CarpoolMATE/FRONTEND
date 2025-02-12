@@ -1,10 +1,13 @@
 import { PropsWithChildren } from 'react';
 
+import Header from '@/app/(auth)/components/Header';
+
 const AuthLayout = ({ children }: PropsWithChildren) => {
   return (
-    <section className="flex flex-col justify-center items-center h-screen">
+    <div className="w-full h-full">
+      <Header />
       {children}
-    </section>
+    </div>
   );
 };
 
