@@ -5,8 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import { APP_ROUTES } from '@/constants/routes';
 
-import Icon from '@/components/Icon';
-import Button from '@/components/Button';
+import Logo from '@/app/(auth)/components/Logo';
 
 const LoginPage: React.FC = () => {
   const [canView, setCanView] = useState(false);
@@ -32,13 +31,8 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full px-[20px] pt-[57.5px] mb-[20px]">
-      <Button intent="icon" onClick={() => router.back()}>
-        <Icon icon="CHEVRONS_LEFT" className="text-icon" />
-      </Button>
-      <div className="text-center text-[#007aff] text-[64px] font-normal font-['Hancom Sans SemiBold'] mb-[82.82px]">
-        mate
-      </div>
+    <div>
+      <Logo className="text-6xl mb-[82.82px]" />
       <div className="w-[335px] h-[240px]">
         <div className="self-stretch  flex-col justify-start items-start flex">
           <div className="self-stretch h-[51px] flex-col justify-start items-start flex">
