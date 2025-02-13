@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { APP_ROUTES } from '@/constants/routes';
+import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import Input from '@/components/Input';
 import Button from '@/components/Button';
@@ -64,7 +64,7 @@ const LoginForm = () => {
 
         <section className="inline-flex justify-center items-center gap-4 w-full mt-9">
           <Link
-            href={APP_ROUTES.FIND_ID}
+            href={CLIENT_APP_ROUTES.FIND_ID}
             className="cursor-pointer text-center text-[#aaaaaa] text-sm font-medium leading-[21px]"
           >
             아이디 찾기
@@ -73,7 +73,7 @@ const LoginForm = () => {
             |
           </div>
           <Link
-            href={APP_ROUTES.FIND_PASSWORD}
+            href={CLIENT_APP_ROUTES.FIND_PASSWORD}
             className="cursor-pointer text-center text-[#aaaaaa] text-sm font-medium leading-[21px]"
           >
             비밀번호 찾기
