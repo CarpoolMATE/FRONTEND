@@ -53,7 +53,7 @@ const UserDetailPage: React.FC = () => {
                 프로필 이미지
               </div>
               <Image
-                src="https://via.placeholder.com/50x50"
+                src="https://placehold.co/50/png"
                 alt="img"
                 width={50}
                 height={50}
@@ -119,7 +119,7 @@ const UserDetailPage: React.FC = () => {
                 </div>
 
                 <Image
-                  src="https://via.placeholder.com/50x50"
+                  src="https://placehold.co/50/png"
                   alt="img"
                   width={50}
                   height={50}
