@@ -2,42 +2,59 @@
 
 import { useCallback } from 'react';
 import Link from 'next/link';
-import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
+import { ERROR_CODE } from '@/constants/errorCode';
 
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 
-const schema = z.object({
-  id: z.string().min(1, { message: '아이디를 입력해주세요.' }),
-  password: z.string().min(1, { message: '비밀번호를 입력해주세요.' }),
-});
+import usePostSignIn from '@/app/(auth)/login/apis/usePostSignIn';
 
-type FormValues = z.infer<typeof schema>;
+import {
+  LoginFormValues,
+  loginSchema,
+} from '@/app/(auth)/login/components/Form/schema';
 
 const LoginForm = () => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FormValues>({
-    resolver: zodResolver(schema),
+    setError,
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
   });
 
-  const handleLogin = useCallback((data: FormValues) => {
-    try {
-      // await axiosInstance.post('/member/signIn', {
-      //   memberId: id,
-      //   password: password,
-      // });
-      console.log(data);
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
+  const { mutateAsync: postSignIn } = usePostSignIn();
+
+  const handleLogin = useCallback(
+    async ({ id, password }: LoginFormValues) => {
+      try {
+        await postSignIn({
+          memberId: id.trim(),
+          password: password.trim(),
+        });
+        router.push(CLIENT_APP_ROUTES.HOME);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.log(error.name);
+          if (error.cause === ERROR_CODE['ACCOUNT-004']) {
+            setError('password', { type: 'validate', message: error.message });
+          } else {
+            // TODO: modal
+            alert(error.message);
+          }
+        }
+      }
+    },
+    [postSignIn, router, setError],
+  );
 
   return (
     <form
@@ -49,7 +66,7 @@ const LoginForm = () => {
           <Input
             {...register('id')}
             placeholder="아이디"
-            error={!!errors.id}
+            error={!!errors.id || !!errors.password}
             errorText={errors.id?.message}
           />
 

@@ -1,17 +1,8 @@
-export type FetchResourceType =
-  | string
-  | number
-  | boolean
-  | null
-  | undefined
-  | FetchResourceObject
-  | FetchResourceType[];
-
-export type FetchResourceObject = { [key: string]: FetchResourceType };
-
-export type FetchParamObject = {
-  [key: string]: string | number | boolean | null | undefined;
-};
+import {
+  ApiErrorResponse,
+  FetchParamObject,
+  FetchResourceType,
+} from '@/apis/types';
 
 export enum FetchMethodType {
   Get = 'GET',
@@ -86,7 +77,13 @@ export async function fetchAPI<T, R = FetchResourceType | FetchParamObject>(
   const response = await fetch(requestUrl, requestOptions);
 
   if (!response.ok) {
-    throw new Error(`Network response was not ok for URL : ${requestUrl}`);
+    const errorData: ApiErrorResponse = await response.json();
+
+    throw new Error(
+      errorData.message ||
+        `Network response was not ok for URL : ${requestUrl}`,
+      { cause: errorData.code },
+    );
   }
 
   return response.json();
