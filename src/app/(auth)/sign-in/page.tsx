@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { APP_ROUTES } from '@/constants/routes';
+import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import Logo from '@/app/(auth)/components/Logo';
 
@@ -100,7 +100,7 @@ const SignInPage = () => {
 
           <div
             onClick={() => {
-              router.push(APP_ROUTES.LOGIN);
+              router.push(CLIENT_APP_ROUTES.LOGIN);
             }}
             className="cursor-pointer self-stretch px-5 py-[15px] bg-[#007aff] rounded-[10px] border justify-center items-center inline-flex overflow-hidden"
           >
@@ -141,7 +141,7 @@ const SignInPage = () => {
             <span className="mr-[10px]">메이트 회원이 아니신가요?</span>
             <span
               onClick={() => {
-                router.push(APP_ROUTES.SIGNUP);
+                router.push(CLIENT_APP_ROUTES.SIGNUP);
               }}
               className="cursor-pointer font-bold underline"
             >

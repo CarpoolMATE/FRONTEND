@@ -2,7 +2,7 @@
 
 import Button from '@/components/Button';
 import Icon from '@/components/Icon';
-import { APP_ROUTES, APP_ROUTES_NAME } from '@/constants/routes';
+import { CLIENT_APP_ROUTES, CLIENT_APP_ROUTES_NAME } from '@/constants/routes';
 
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -10,7 +10,7 @@ const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  if (pathname === APP_ROUTES.SIGNIN) {
+  if (pathname === CLIENT_APP_ROUTES.SIGNIN) {
     return null;
   }
 
@@ -24,7 +24,7 @@ const Header = () => {
         <Icon icon="CHEVRONS_LEFT" className="text-icon" />
       </Button>
       <h1 className="font-semibold text-xl text-title">
-        {APP_ROUTES_NAME[pathname]}
+        {CLIENT_APP_ROUTES_NAME[pathname]}
       </h1>
     </header>
   );
