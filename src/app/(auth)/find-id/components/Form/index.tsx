@@ -5,11 +5,13 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 
+import { CLIENT_APP_ROUTES } from '@/constants/routes';
+import { ERROR_CODE } from '@/constants/errorCode';
+
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 
 import usePostFindId from '@/app/(auth)/find-id/apis/usePostSignIn';
-import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import {
   FindIdFormValues,
@@ -34,20 +36,20 @@ const FindIdForm = () => {
     async ({ email, nickname }: FindIdFormValues) => {
       try {
         const response = await postFindId({ email, nickname });
-        // TODO: 라우터 밀어주기 확인
         router.push(
           CLIENT_APP_ROUTES.FIND_ID +
-            `/result?nickname=dwadwadwa11&memberId=${response}`,
+            `/result?nickname=${nickname}&memberId=${response.memberId}`,
         );
       } catch (error) {
         if (error instanceof Error) {
-          console.log(error.name);
-          // TODO: 에러코드 분기점 처리
-          // if (error.cause === ERROR_CODE['ACCOUNT-004']) {
-          //   setError('password', { type: 'validate', message: error.message });
-          // } else {
-          //   alert(error.message);
-          // }
+          if (error.cause === ERROR_CODE['ACCOUNT-001']) {
+            setError('email', { type: 'validate', message: error.message });
+          } else if (error.cause === ERROR_CODE['ACCOUNT-008']) {
+            setError('nickname', { type: 'validate', message: error.message });
+          } else {
+            //TODO: modal 적용
+            alert(error.message);
+          }
         }
       }
     },

@@ -1,3 +1,5 @@
 export enum ERROR_CODE {
+  'ACCOUNT-001' = 'ACCOUNT-001',
   'ACCOUNT-004' = 'ACCOUNT-004',
+  'ACCOUNT-008' = 'ACCOUNT-008',
 }
