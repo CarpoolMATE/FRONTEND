@@ -1,42 +1,20 @@
-"use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { Suspense } from "react";
+'use client';
+
+import React, { Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const ResultPageData: React.FC = () => {
-  const router = useRouter();
   const params = useSearchParams();
 
   return (
-    <div className="relative w-full h-full flex   items-center flex-col">
-      <svg
-        onClick={() => {
-          router.back();
-        }}
-        className="absolute left-[20px] top-[57.5px] cursor-pointer"
-        xmlns="http://www.w3.org/2000/svg"
-        width="11"
-        height="18"
-        viewBox="0 0 11 18"
-        fill="none"
-      >
-        <path
-          id="Rectangle 882"
-          d="M10 1.10938L1.82023 7.92585C1.39337 8.28157 1.39337 8.93718 1.82023 9.2929L10 16.1094"
-          stroke="#505050"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-      </svg>
-      <div className="absolute left-[141.5px] top-[52.5px] text-center text-black/90 text-xl font-semibold font-['Pretendard'] leading-[30px]">
-        아이디 찾기
-      </div>
+    <section className="h-[calc(100%-64px)] flex flex-col items-center">
       <div className="text-center pt-[106px] mb-[136px]">
         <span className="text-[#3c3c3c] text-2xl font-semibold font-['Pretendard'] leading-[38.40px]">
-          {params.get("name")}님의 아이디는
+          {params.get('nickname')}님의 아이디는
           <br />
         </span>
         <span className="text-[#007aff] text-2xl font-medium font-['Pretendard'] leading-[38.40px]">
-          {params.get("email")}
+          {params.get('memberId')}
         </span>
         <span className="text-[#3c3c3c] text-2xl font-semibold font-['Pretendard'] leading-[38.40px]">
           입니다
@@ -67,7 +45,7 @@ const ResultPageData: React.FC = () => {
           />
         </g>
       </svg>
-    </div>
+    </section>
   );
 };
 
