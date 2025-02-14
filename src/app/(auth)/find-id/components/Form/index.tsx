@@ -10,7 +10,7 @@ import { CLIENT_APP_ROUTES } from '@/constants/routes';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 
-import usePostFindId from '@/app/(auth)/find-id/apis/usePostSignIn';
+import usePostFindId from '@/app/(auth)/find-id/apis/usePostFindId';
 
 import {
   FindIdFormValues,
