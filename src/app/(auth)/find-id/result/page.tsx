@@ -6,15 +6,12 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import Button from '@/components/Button';
+import Link from 'next/link';
 
 const ResultPageData = () => {
   const params = useSearchParams();
 
   const router = useRouter();
-
-  const onClcickHandle = () => {
-    router.push(CLIENT_APP_ROUTES.LOGIN);
-  };
 
   return (
     <section className="h-[calc(100%-64px)] pt-[46px] flex flex-col items-center justify-between pb-4 px-5">
@@ -51,7 +48,11 @@ const ResultPageData = () => {
           </g>
         </svg>
       </div>
-      <Button onClick={onClcickHandle}>로그인</Button>
+      <Button>
+        <Link href={CLIENT_APP_ROUTES.LOGIN}>
+          <Button>로그인</Button>
+        </Link>
+      </Button>
     </section>
   );
 };

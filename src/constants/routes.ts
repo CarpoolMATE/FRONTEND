@@ -4,8 +4,6 @@ export const API_ROUTES = {
   MEMBER: {
     SIGN_UP: `${BASE_API_URL}/api/member/signUp`,
     SIGN_IN: `${BASE_API_URL}/api/member/signIn`,
-  },
-  FIND: {
     FIND_ID: `${BASE_API_URL}/api/member/findMemberId`,
     FIND_PASSWORD: `${BASE_API_URL}/api/member/findPassword`,
   },
