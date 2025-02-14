@@ -21,6 +21,8 @@ export const CLIENT_APP_ROUTES = {
   FIND_PASSWORD: '/find-password',
   RESET_PASSWORD: '/reset-password',
   HOME: '/home',
+  PROFILE: '/profile',
+  CONFIRM_RESERVATION: '/confirm-reservation',
 };
 
 export const CLIENT_APP_ROUTES_NAME: Record<string, string> = {
@@ -31,4 +33,6 @@ export const CLIENT_APP_ROUTES_NAME: Record<string, string> = {
   [CLIENT_APP_ROUTES.FIND_ID_RESULT]: '아이디 찾기',
   [CLIENT_APP_ROUTES.FIND_PASSWORD]: '비밀번호 찾기',
   [CLIENT_APP_ROUTES.RESET_PASSWORD]: '비밀번호 재설정',
+  [CLIENT_APP_ROUTES.PROFILE]: '',
+  [CLIENT_APP_ROUTES.CONFIRM_RESERVATION]: '카풀 예약 확인',
 };
