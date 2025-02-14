@@ -4,10 +4,12 @@
 
 :root {
   --font-pretendard: 'Pretendard';
+  --font-color: '#3c3c3c';
 }
 
 body {
   font-family: var(--font-pretendard);
+  color: var(--font-color);
 }
 
 .hide-scrollbar {
