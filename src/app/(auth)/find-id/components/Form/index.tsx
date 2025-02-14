@@ -22,7 +22,7 @@ const FindIdForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     setError,
   } = useForm<FindIdFormValues>({
     resolver: zodResolver(findIdSchema),
@@ -79,7 +79,9 @@ const FindIdForm = () => {
           />
         </div>
       </div>
-      <Button className="mb-0">아이디 찾기</Button>
+      <Button disabled={!isValid} className="mb-0">
+        아이디 찾기
+      </Button>
     </form>
   );
 };
