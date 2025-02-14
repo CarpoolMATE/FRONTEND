@@ -19,9 +19,11 @@ export default {
         icon: '#505050',
       },
       textColor: {
+        default: '#3C3C3C',
         title: '#000000D9',
         main: '#1A1A1A',
         placeholder: '#B2B2B2',
+        sub: '#757575',
       },
       borderColor: {
         input: '#E9E9E9',
