@@ -1,31 +1,19 @@
-'use client';
-
-import { useEffect, useState } from 'react';
+import { Suspense } from 'react';
 import Link from 'next/link';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import Button from '@/components/Button';
+import MemberInfo from '@/app/(auth)/find-id/result/components/MemberInfo';
+import Spin from '@/components/Spin';
 
 const ResultPage = () => {
-  const [nickname, setNickName] = useState('');
-  const [memberId, setMemberId] = useState('');
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    setNickName(searchParams.get('nickname') || '');
-    setMemberId(searchParams.get('memberId') || '');
-  }, []);
-
   return (
     <section className="h-[calc(100%-64px)] pt-[46px] flex flex-col items-center justify-between pb-4 px-5">
       <div className="flex flex-col items-center gap-[104px]">
-        <p className="text-[24px] text-[#3C3C3C] font-medium text-center">
-          {nickname}님의 아이디는
-          <br />
-          <span className="text-[#007AFF]">{memberId}</span>
-          입니다
-        </p>
+        <Suspense fallback={<Spin />}>
+          <MemberInfo />
+        </Suspense>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="133"
