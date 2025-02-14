@@ -1,14 +1,13 @@
 'use client';
 
-import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import Button from '@/components/Button';
-import Link from 'next/link';
 
-const ResultPageData = () => {
+const ResultPage = () => {
   const params = useSearchParams();
 
   return (
@@ -47,18 +46,10 @@ const ResultPageData = () => {
         </svg>
       </div>
       <Button>
-        <Link href={CLIENT_APP_ROUTES.LOGIN}>
-          <Button>로그인</Button>
-        </Link>
+        <Link href={CLIENT_APP_ROUTES.LOGIN}>로그인</Link>
       </Button>
     </section>
   );
 };
 
-export default function ResultPage() {
-  return (
-    <Suspense>
-      <ResultPageData />
-    </Suspense>
-  );
-}
+export default ResultPage;
