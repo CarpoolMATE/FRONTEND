@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 =======
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 >>>>>>> 9466e8e (Refactor : 미사용 Suspense 제거)
 
@@ -27,15 +27,31 @@ import Link from 'next/link';
 >>>>>>> 9466e8e (Refactor : 미사용 Suspense 제거)
 
 const ResultPage = () => {
-  const params = useSearchParams();
+  const [nickname, setNickName] = useState('');
+  const [memberId, setMemberId] = useState('');
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    setNickName(searchParams.get('nickname') || '');
+    setMemberId(searchParams.get('memberId') || '');
+  }, []);
 
 >>>>>>> 2b89929 (Refactor)
   return (
     <section className="h-[calc(100%-64px)] pt-[46px] flex flex-col items-center justify-between pb-4 px-5">
       <div className="flex flex-col items-center gap-[104px]">
+<<<<<<< HEAD
         <Suspense fallback={<Spin />}>
           <MemberInfo />
         </Suspense>
+=======
+        <p className="text-[24px] text-[#3C3C3C] font-medium text-center">
+          {nickname}님의 아이디는
+          <br />
+          <span className="text-[#007AFF]">{memberId}</span>
+          입니다
+        </p>
+>>>>>>> 48df773 (Fix : Suspense 에러 수정)
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="133"
@@ -63,15 +79,21 @@ const ResultPage = () => {
         </svg>
       </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 48df773 (Fix : Suspense 에러 수정)
 
       <Link className="w-full" href={CLIENT_APP_ROUTES.LOGIN}>
         <Button>로그인</Button>
       </Link>
+<<<<<<< HEAD
 =======
       <Button>
         <Link href={CLIENT_APP_ROUTES.LOGIN}>로그인</Link>
       </Button>
 >>>>>>> 9466e8e (Refactor : 미사용 Suspense 제거)
+=======
+>>>>>>> 48df773 (Fix : Suspense 에러 수정)
     </section>
   );
 };
