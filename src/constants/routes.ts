@@ -10,10 +10,6 @@ export const API_ROUTES = {
     CHECK_MEMBERID: `${BASE_API_URL}/api/member/checkMemberId`,
     CHECK_EMAIL: `${BASE_API_URL}/api/member/checkEmail`,
   },
-  FIND: {
-    FIND_ID: `${BASE_API_URL}/api/member/findMemberId`,
-    FIND_PASSWORD: `${BASE_API_URL}/api/member/findPassword`,
-  },
 };
 
 export const CLIENT_APP_ROUTES = {
