@@ -1,13 +1,15 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import Button from '@/components/Button';
 
-const ResultPage = () => {
+const ResultPageData = () => {
   const params = useSearchParams();
+
   const router = useRouter();
 
   const onClcickHandle = () => {
@@ -54,4 +56,10 @@ const ResultPage = () => {
   );
 };
 
-export default ResultPage;
+export default function ResultPage() {
+  return (
+    <Suspense>
+      <ResultPageData />
+    </Suspense>
+  );
+}
