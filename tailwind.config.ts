@@ -27,6 +27,7 @@ export default {
       },
       borderColor: {
         input: '#E9E9E9',
+        space: '#EAEAEA',
       },
     },
   },
