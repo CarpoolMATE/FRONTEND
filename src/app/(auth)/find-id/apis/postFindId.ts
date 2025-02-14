@@ -6,7 +6,7 @@ import { FindIdDto, PostFindIdParams } from '@/app/(auth)/find-id/apis/types';
 
 const postFindId = async (params: PostFindIdParams) => {
   const response = await fetchPost<FindIdDto, PostFindIdParams>(
-    API_ROUTES.FIND.FIND_ID,
+    API_ROUTES.MEMBER.FIND_ID,
     params,
   );
 

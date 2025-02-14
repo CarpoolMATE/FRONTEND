@@ -37,8 +37,8 @@ const FindIdForm = () => {
       try {
         const response = await postFindId({ email, nickname });
         router.push(
-          CLIENT_APP_ROUTES.FIND_ID +
-            `/result?nickname=${nickname}&memberId=${response.memberId}`,
+          CLIENT_APP_ROUTES.FIND_ID_RESULT +
+            `?nickname=${nickname}&memberId=${response.memberId}`,
         );
       } catch (error) {
         if (error instanceof Error) {
@@ -63,7 +63,7 @@ const FindIdForm = () => {
     >
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-[10px]">
-          <h2 className="text-[#505050] text-[14px]">닉네임</h2>
+          <h2 className="text-icon text-[14px]">닉네임</h2>
           <Input
             placeholder="이름을 입력해주세요"
             {...register('nickname')}
@@ -72,7 +72,7 @@ const FindIdForm = () => {
           />
         </div>
         <div className="flex flex-col gap-[10px]">
-          <h2 className="text-[#505050] text-[14px]">이메일</h2>
+          <h2 className="text-icon text-[14px]">이메일</h2>
           <Input
             placeholder="이메일을 입력해주세요."
             {...register('email')}
