@@ -117,7 +117,7 @@ const PassengerProfile: React.FC<{
         onClick={() => fileInputRef.current?.click()}
       >
         <Image
-          src={profileImage || 'https://via.placeholder.com/80x80'}
+          src={profileImage || 'https://placehold.co/80/png'}
           alt="프로필 이미지"
           width={20}
           height={20}
@@ -246,7 +246,7 @@ const DriverProfile: React.FC<{
         onClick={() => fileInputRef.current?.click()}
       >
         <Image
-          src={profileImage || 'https://via.placeholder.com/80x80'}
+          src={profileImage || 'https://placehold.co/80/png'}
           alt="프로필 이미지"
           width={20}
           height={20}

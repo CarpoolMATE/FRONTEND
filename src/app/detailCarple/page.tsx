@@ -117,7 +117,7 @@ const DetailCarplePage: React.FC = () => {
                         <Image
                           width={50}
                           height={47}
-                          src="https://via.placeholder.com/50x47"
+                          src="https://placehold.co/50x47/png"
                           alt="img"
                           className="left-[-3px] top-[-3px] absolute rounded-[100px]"
                         />
@@ -143,7 +143,7 @@ const DetailCarplePage: React.FC = () => {
                           <Image
                             width={11}
                             height={11}
-                            src="https://via.placeholder.com/44x44"
+                            src="https://placehold.co/44/png"
                             alt="img"
                             className="left-[44px] top-0 absolute origin-top-left rotate-180 rounded-[55px]"
                           />
@@ -171,7 +171,7 @@ const DetailCarplePage: React.FC = () => {
                         <Image
                           width={50}
                           height={47}
-                          src="https://via.placeholder.com/50x47"
+                          src="https://placehold.co/50x47/png"
                           alt="img"
                           className="left-[-3px] top-[-3px] absolute rounded-[100px]"
                         />
@@ -191,7 +191,7 @@ const DetailCarplePage: React.FC = () => {
                         <Image
                           width={50}
                           height={47}
-                          src="https://via.placeholder.com/50x47"
+                          src="https://placehold.co/50x47/png"
                           alt="img"
                           className="left-[-3px] top-[-3px] absolute rounded-[100px]"
                         />
@@ -211,7 +211,7 @@ const DetailCarplePage: React.FC = () => {
                         <Image
                           width={50}
                           height={47}
-                          src="https://via.placeholder.com/50x47"
+                          src="https://placehold.co/50x47/png"
                           alt="img"
                           className="left-[-3px] top-[-3px] absolute rounded-[100px]"
                         />
@@ -231,7 +231,7 @@ const DetailCarplePage: React.FC = () => {
                         <Image
                           width={50}
                           height={47}
-                          src="https://via.placeholder.com/50x47"
+                          src="https://placehold.co/50x47/png"
                           alt="img"
                           className="left-[-3px] top-[-3px] absolute rounded-[100px]"
                         />

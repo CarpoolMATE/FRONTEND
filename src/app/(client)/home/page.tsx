@@ -1,5 +1,6 @@
 'use client';
 
+import Button from '@/components/Button';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
@@ -33,29 +34,28 @@ const HomePage: React.FC = () => {
   }, [setModal]);
 
   return (
-    <div className="pt-[60px] px-[20px] flex flex-col justify-center items-center  flex-1">
-      <div className="h-[69px] px-5 py-[15px] justify-between items-center inline-flex w-full">
-        <div
+    <div className="px-5 flex flex-col justify-center items-center">
+      <div className="h-16 py-4 justify-between items-center inline-flex w-full">
+        <Button
+          className="w-[117px] h-[40px] text-base font-normal"
           onClick={() => setDriverModal(true)}
-          className="cursor-pointer px-[15px] py-3.5 rotate-180 bg-[#007aff] rounded-xl flex-col justify-center items-center gap-2.5 inline-flex"
         >
-          <div className="rotate-180 text-white text-base font-semibold font-['Pretendard']">
-            카풀 생성하기
-          </div>
-        </div>
+          카풀 생성하기
+        </Button>
+
         <div
           onClick={() => router.push('/profile')}
-          className="cursor-pointer w-[38px] h-[38px] relative bg-[#f2f8ff] rounded-[105.56px]  overflow-hidden"
+          className="cursor-pointer w-[44px] h-[44px] relative bg-[#f2f8ff] rounded-full overflow-hidden"
         >
           <Image
-            width={44.33}
-            height={44.33}
-            src="https://via.placeholder.com/44x44"
+            width={44}
+            height={44}
+            src="https://placehold.co/44/png"
             alt="img"
-            className="left-[-3.17px] top-[-3.17px] absolute rounded-[105.56px]"
           />
         </div>
       </div>
+
       <div className="w-[335px] min-h-[147px] pb-2.5 bg-white rounded-[20px] shadow-[4px_4px_20px_0px_rgba(0,0,0,0.08)] border border-[#e9e9e9] flex-col justify-center items-center gap-[15px] inline-flex">
         <div className="text-[#3c3c3c] text-lg font-semibold font-['Pretendard'] leading-[27px]">
           현재 예약 중인 카풀이 없습니다
@@ -150,7 +150,7 @@ const HomePage: React.FC = () => {
               <Image
                 width={50}
                 height={47}
-                src="https://via.placeholder.com/50x47"
+                src="https://placehold.co/50x47/png"
                 alt="img"
                 className="left-[-2.89px] top-[-1.60px] absolute rounded-[100px]"
               />
@@ -272,7 +272,7 @@ const HomePage: React.FC = () => {
                             <Image
                               width={50}
                               height={47}
-                              src="https://via.placeholder.com/50x47"
+                              src="https://placehold.co/50x47/png"
                               alt="img"
                               className="left-[-3px] top-[-3px] absolute rounded-[100px]"
                             />

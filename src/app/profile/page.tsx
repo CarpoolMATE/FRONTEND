@@ -52,7 +52,7 @@ const ProfilePage: React.FC = () => {
         </div>
         <div className="w-20 h-20 relative">
           <Image
-            src="https://via.placeholder.com/80x80"
+            src="https://placehold.co/80/png"
             alt="img"
             width={20}
             height={20}

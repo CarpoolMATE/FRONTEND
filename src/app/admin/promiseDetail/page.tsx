@@ -115,7 +115,7 @@ const UserDetailPage: React.FC = () => {
               </div>
               <div className="py-2.5 justify-start items-center gap-[30px] inline-flex">
                 <Image
-                  src="https://via.placeholder.com/50x50"
+                  src="https://placehold.co/50/png"
                   alt="img"
                   width={50}
                   height={50}
@@ -148,10 +148,10 @@ const UserDetailPage: React.FC = () => {
                   <div className="justify-start items-center gap-[30px] flex">
                     <div className="w-[50px] h-[50px] relative bg-[#f2f8ff] rounded-[113.64px]  overflow-hidden">
                       <Image
-                        src="https://via.placeholder.com/57x53"
+                        src="https://placehold.co/57x53/png"
                         alt="img"
-                        width={56.82}
-                        height={53.41}
+                        width={57}
+                        height={53}
                         className="left-[-3.41px] top-[-3.41px] absolute rounded-[113.64px]"
                       />
                     </div>
@@ -164,10 +164,10 @@ const UserDetailPage: React.FC = () => {
                   <div className="justify-start items-center gap-[30px] flex">
                     <div className="w-[50px] h-[50px] relative bg-[#f2f8ff] rounded-[113.64px]  overflow-hidden">
                       <Image
-                        src="https://via.placeholder.com/57x53"
+                        src="https://placehold.co/57x53/png"
                         alt="img"
-                        width={56.82}
-                        height={53.41}
+                        width={57}
+                        height={53}
                         className="left-[-3.41px] top-[-3.41px] absolute rounded-[113.64px]"
                       />
                     </div>
@@ -184,10 +184,10 @@ const UserDetailPage: React.FC = () => {
                   <div className="justify-start items-center gap-[30px] flex">
                     <div className="w-[50px] h-[50px] relative bg-[#f2f8ff] rounded-[113.64px]  overflow-hidden">
                       <Image
-                        src="https://via.placeholder.com/57x53"
+                        src="https://placehold.co/57x53/png"
                         alt="img"
-                        width={56.82}
-                        height={53.41}
+                        width={57}
+                        height={53}
                         className="left-[-3.41px] top-[-3.41px] absolute rounded-[113.64px]"
                       />
                     </div>
@@ -200,10 +200,10 @@ const UserDetailPage: React.FC = () => {
                   <div className="justify-start items-center gap-[30px] flex">
                     <div className="w-[50px] h-[50px] relative bg-[#f2f8ff] rounded-[113.64px]  overflow-hidden">
                       <Image
-                        src="https://via.placeholder.com/57x53"
+                        src="https://placehold.co/57x53/png"
                         alt="img"
-                        width={56.82}
-                        height={53.41}
+                        width={57}
+                        height={53}
                         className="left-[-3.41px] top-[-3.41px] absolute rounded-[113.64px]"
                       />
                     </div>
