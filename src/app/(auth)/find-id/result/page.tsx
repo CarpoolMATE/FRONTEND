@@ -48,10 +48,4 @@ const ResultPage = () => {
   );
 };
 
-export default function ResultPage() {
-  return (
-    <Suspense>
-      <ResultPageData />
-    </Suspense>
-  );
-}
+export default ResultPage;
