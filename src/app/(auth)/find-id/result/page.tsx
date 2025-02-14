@@ -1,13 +1,21 @@
+<<<<<<< HEAD
 import { Suspense } from 'react';
 <<<<<<< HEAD
 import Link from 'next/link';
 =======
 import { useSearchParams } from 'next/navigation';
 >>>>>>> 2b89929 (Refactor)
+=======
+'use client';
+
+import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+>>>>>>> 9466e8e (Refactor : 미사용 Suspense 제거)
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import Button from '@/components/Button';
+<<<<<<< HEAD
 <<<<<<< HEAD
 import MemberInfo from '@/app/(auth)/find-id/result/components/MemberInfo';
 import Spin from '@/components/Spin';
@@ -15,8 +23,10 @@ import Spin from '@/components/Spin';
 const ResultPage = () => {
 =======
 import Link from 'next/link';
+=======
+>>>>>>> 9466e8e (Refactor : 미사용 Suspense 제거)
 
-const ResultPageData = () => {
+const ResultPage = () => {
   const params = useSearchParams();
 
 >>>>>>> 2b89929 (Refactor)
@@ -52,18 +62,18 @@ const ResultPageData = () => {
           </g>
         </svg>
       </div>
+<<<<<<< HEAD
 
       <Link className="w-full" href={CLIENT_APP_ROUTES.LOGIN}>
         <Button>로그인</Button>
       </Link>
+=======
+      <Button>
+        <Link href={CLIENT_APP_ROUTES.LOGIN}>로그인</Link>
+      </Button>
+>>>>>>> 9466e8e (Refactor : 미사용 Suspense 제거)
     </section>
   );
 };
 
-export default function ResultPage() {
-  return (
-    <Suspense>
-      <ResultPageData />
-    </Suspense>
-  );
-}
+export default ResultPage;
