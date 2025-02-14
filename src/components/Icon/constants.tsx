@@ -15,6 +15,21 @@ export const ICONS = {
       />
     ),
   },
+  CHEVRONS_BOTTOM: {
+    svgOptions: {
+      viewBox: '0 0 7 5',
+      fill: 'none',
+      stroke: 'currentColor',
+    },
+    icon: (
+      <path
+        d="M6 0.800781L3.5 3.80078L1 0.800781"
+        stroke="currentColor"
+        strokeLinecap="round"
+        fill="none"
+      />
+    ),
+  },
   EYE_ON: {
     svgOptions: {
       viewBox: '0 0 36 36',
