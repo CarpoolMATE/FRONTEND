@@ -1,7 +1,7 @@
 'use client';
 
 import { Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
@@ -10,8 +10,6 @@ import Link from 'next/link';
 
 const ResultPageData = () => {
   const params = useSearchParams();
-
-  const router = useRouter();
 
   return (
     <section className="h-[calc(100%-64px)] pt-[46px] flex flex-col items-center justify-between pb-4 px-5">
