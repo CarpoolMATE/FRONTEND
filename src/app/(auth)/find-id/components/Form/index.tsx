@@ -11,7 +11,7 @@ import { ERROR_CODE } from '@/constants/errorCode';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 
-import usePostFindId from '@/app/(auth)/find-id/apis/usePostSignIn';
+import usePostFindId from '@/app/(auth)/find-id/apis/usePostFindId';
 
 import {
   FindIdFormValues,
