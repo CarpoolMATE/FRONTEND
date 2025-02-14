@@ -1,13 +1,25 @@
 import { Suspense } from 'react';
+<<<<<<< HEAD
 import Link from 'next/link';
+=======
+import { useSearchParams } from 'next/navigation';
+>>>>>>> 2b89929 (Refactor)
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import Button from '@/components/Button';
+<<<<<<< HEAD
 import MemberInfo from '@/app/(auth)/find-id/result/components/MemberInfo';
 import Spin from '@/components/Spin';
 
 const ResultPage = () => {
+=======
+import Link from 'next/link';
+
+const ResultPageData = () => {
+  const params = useSearchParams();
+
+>>>>>>> 2b89929 (Refactor)
   return (
     <section className="h-[calc(100%-64px)] pt-[46px] flex flex-col items-center justify-between pb-4 px-5">
       <div className="flex flex-col items-center gap-[104px]">
