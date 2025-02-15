@@ -4,6 +4,7 @@ import {
   CheckDuplicate,
   PostCheckDuplicateParams,
 } from '@/app/(auth)/sign-up/apis/types';
+
 import { CHECK_DUPLICATE_ROUTE_CLASSES } from '@/app/(auth)/sign-up/apis/constants';
 
 const postCheckDuplicate = async (
