@@ -4,8 +4,6 @@ import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { ERROR_CODE } from '@/constants/errorCode';
-
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 
@@ -35,13 +33,8 @@ const FindPasswordForm = () => {
         console.log(response);
       } catch (error) {
         if (error instanceof Error) {
-          if (error.cause === ERROR_CODE['ACCOUNT-001']) {
-            //TODO: 에러 분기점 처리
-            setError('email', { type: 'validate', message: error.message });
-          } else {
-            //TODO: modal 적용
-            alert(error.message);
-          }
+          //TODO: modal 적용
+          alert(error.message);
         }
       }
     },
