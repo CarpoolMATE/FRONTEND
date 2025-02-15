@@ -6,6 +6,9 @@ export const API_ROUTES = {
     SIGN_IN: `${BASE_API_URL}/api/member/signIn`,
     FIND_ID: `${BASE_API_URL}/api/member/findMemberId`,
     FIND_PASSWORD: `${BASE_API_URL}/api/member/findPassword`,
+    CHECK_NICKNAME: `${BASE_API_URL}/api/member/checkNickname`,
+    CHECK_MEMBERID: `${BASE_API_URL}/api/member/checkMemberId`,
+    CHECK_EMAIL: `${BASE_API_URL}/api/member/checkEmail`,
   },
 };
 
