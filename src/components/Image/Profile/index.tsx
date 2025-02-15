@@ -8,10 +8,13 @@ const ProfileImage = ({ url, size = 44, className }: ProfileImageProps) => {
   return (
     <div
       className={cn(
-        `relative bg-[#f2f8ff] rounded-full overflow-hidden`,
-        `w-[${size}px] h-[${size}px]`,
+        'relative bg-[#f2f8ff] rounded-full overflow-hidden',
         className,
       )}
+      style={{
+        width: size,
+        height: size,
+      }}
     >
       <Image
         src={url}
