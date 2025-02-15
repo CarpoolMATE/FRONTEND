@@ -7,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
-import { ERROR_CODE } from '@/constants/errorCode';
 
 import Input from '@/components/Input';
 import Button from '@/components/Button';
@@ -43,13 +42,8 @@ const LoginForm = () => {
         router.push(CLIENT_APP_ROUTES.HOME);
       } catch (error) {
         if (error instanceof Error) {
-          console.log(error.name);
-          if (error.cause === ERROR_CODE['ACCOUNT-004']) {
-            setError('password', { type: 'validate', message: error.message });
-          } else {
-            // TODO: modal
-            alert(error.message);
-          }
+          //TODO: modal 적용
+          alert(error.message);
         }
       }
     },
