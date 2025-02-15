@@ -4,11 +4,6 @@ import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-<<<<<<< HEAD
-=======
-import { ERROR_CODE } from '@/constants/errorCode';
-
->>>>>>> bea4c88 (Feat : 비밀번호 찾기 페이지를 아이디 찾기 페이지에 맞춰 미리 적용해두었습니다.)
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 
