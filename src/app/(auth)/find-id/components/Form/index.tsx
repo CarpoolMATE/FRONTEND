@@ -6,7 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
-import { ERROR_CODE } from '@/constants/errorCode';
 
 import Input from '@/components/Input';
 import Button from '@/components/Button';
@@ -38,18 +37,12 @@ const FindIdForm = () => {
         const response = await postFindId({ email, nickname });
         router.push(
           CLIENT_APP_ROUTES.FIND_ID_RESULT +
-            `?nickname=${nickname}&memberId=${response.memberId}`,
+            `?nickname=${nickname}&memberId=${response.data}`,
         );
       } catch (error) {
         if (error instanceof Error) {
-          if (error.cause === ERROR_CODE['ACCOUNT-001']) {
-            setError('email', { type: 'validate', message: error.message });
-          } else if (error.cause === ERROR_CODE['ACCOUNT-008']) {
-            setError('nickname', { type: 'validate', message: error.message });
-          } else {
-            //TODO: modal 적용
-            alert(error.message);
-          }
+          //TODO: modal 적용
+          alert(error.message);
         }
       }
     },
