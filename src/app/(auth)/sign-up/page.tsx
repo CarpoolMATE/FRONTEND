@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+// import { useRouter } from 'next/navigation';
 
 import { useSignupStore } from '@/store/signup';
 
@@ -8,11 +9,15 @@ import usePostSignUp from '@/app/(auth)/sign-up/apis/usePostSignUp';
 import usePostCheckDuplicate from '@/app/(auth)/sign-up/apis/usePostCheckDuplicate';
 import { CheckDuplicate } from '@/app/(auth)/sign-up/apis/types';
 
+// import { CLIENT_APP_ROUTES } from '@/constants/routes';
+
 import Button from '@/components/Button';
 
 const SignupPage: React.FC = () => {
   const { mutateAsync: postSignUp } = usePostSignUp();
   const { mutateAsync: checkDuplicateAPI } = usePostCheckDuplicate();
+
+  // const router = useRouter();
 
   // 각각의 상태를 개별적으로 가져오기
   const id = useSignupStore((state) => state.id);
@@ -123,10 +128,14 @@ const SignupPage: React.FC = () => {
         nickname: name,
         university: '',
       });
-      console.log(response);
-      //TODO: 분기점 처리
+
+      if (response.data) {
+        // router.push(CLIENT_APP_ROUTES.HOME);
+        //TODO: 모달 적용 및 모달 확인시 home으로 밀어주기
+      }
     } catch (error) {
-      console.error(error);
+      //TODO: 모달 적용
+      alert(error);
     }
   };
 
