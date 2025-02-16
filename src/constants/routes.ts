@@ -23,6 +23,7 @@ export const CLIENT_APP_ROUTES = {
   HOME: '/home',
   PROFILE: '/profile',
   CONFIRM_RESERVATION: '/confirm-reservation',
+  DRIVER_REGISTRATION: '/driver-registration',
 };
 
 export const CLIENT_APP_ROUTES_NAME: Record<string, string> = {
