@@ -6,6 +6,12 @@ export type PostSignUpParams = {
   university?: string;
 };
 
+export type SignUpDto = {
+  data: boolean;
+  message: string;
+  status: string;
+};
+
 export type PostCheckDuplicateParams = {
   nickname?: string;
   memberId?: string;
