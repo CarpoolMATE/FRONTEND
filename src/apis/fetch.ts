@@ -1,3 +1,4 @@
+import { getCookieHeader } from '@/apis/cookie';
 import {
   ApiErrorResponse,
   FetchParamObject,
@@ -11,6 +12,10 @@ export enum FetchMethodType {
   Patch = 'PATCH',
   Delete = 'DELETE',
 }
+
+const isClient = (): boolean => {
+  return typeof window !== 'undefined';
+};
 
 export const getContentType = (data: FetchResourceType | FetchParamObject) => {
   let contentType = '';
@@ -50,6 +55,7 @@ export async function fetchAPI<T, R = FetchResourceType | FetchParamObject>(
   options?: RequestInit,
 ): Promise<T> {
   const isFetchMethodGet = method === FetchMethodType.Get;
+  const isServer: boolean = !isClient();
   const params = isFetchMethodGet && data && objectToQueryString(data);
 
   const requestUrl = !params
@@ -67,9 +73,16 @@ export async function fetchAPI<T, R = FetchResourceType | FetchParamObject>(
     },
   };
 
+  // [중요] 빌드시 static pages 에서 쿠키 요청하면 오류 발생함 getCookieHeader try catch 처리
+  const cookie = isServer && (await getCookieHeader());
+  const serverOptions: RequestInit = isServer && {
+    ...(cookie && { headers: { Cookie: cookie } }),
+  };
+
   const requestOptions: RequestInit = {
     ...baseOptions,
     ...(options && options),
+    ...(serverOptions && serverOptions),
   };
   requestOptions.body = !isFetchMethodGet && data ? JSON.stringify(data) : null;
 
