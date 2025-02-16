@@ -12,4 +12,10 @@ export type PostCheckDuplicateParams = {
   email?: string;
 };
 
+export type CheckDuplicateDto = {
+  data: boolean;
+  message: string;
+  status: string;
+};
+
 export type CheckDuplicate = 'checkNickname' | 'checkMemberId' | 'checkEmail';
