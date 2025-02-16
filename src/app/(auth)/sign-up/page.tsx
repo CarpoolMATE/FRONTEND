@@ -1,10 +1,7 @@
 'use client';
 
 import React from 'react';
-<<<<<<< HEAD
 // import { useRouter } from 'next/navigation';
-=======
->>>>>>> 24bb8e0 (Refactor/Feat : 회원가입 페이지 중복검사 api 연동 및 해당 페이지를 수정했습니다.)
 
 import { useSignupStore } from '@/store/signup';
 
@@ -95,12 +92,7 @@ const SignupPage: React.FC = () => {
         params: { nickname: name, email, memberId: id },
         type,
       });
-<<<<<<< HEAD
       if (response.data) {
-=======
-
-      if (response) {
->>>>>>> 24bb8e0 (Refactor/Feat : 회원가입 페이지 중복검사 api 연동 및 해당 페이지를 수정했습니다.)
         switch (type) {
           case 'checkEmail':
             checkDuplicateEmail();
