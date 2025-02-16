@@ -29,6 +29,9 @@ export default {
         input: '#E9E9E9',
         space: '#EAEAEA',
       },
+      backgroundColor: {
+        'blue-line': '#3366FF',
+      },
     },
   },
   plugins: [],
