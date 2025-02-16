@@ -2,6 +2,7 @@ import { fetchPost } from '@/apis/fetch';
 
 import {
   CheckDuplicate,
+  CheckDuplicateDto,
   PostCheckDuplicateParams,
 } from '@/app/(auth)/sign-up/apis/types';
 
@@ -11,7 +12,7 @@ const postCheckDuplicate = async (
   params: PostCheckDuplicateParams,
   type: CheckDuplicate,
 ) => {
-  const response = await fetchPost<boolean, PostCheckDuplicateParams>(
+  const response = await fetchPost<CheckDuplicateDto, PostCheckDuplicateParams>(
     CHECK_DUPLICATE_ROUTE_CLASSES[type],
     params,
   );

@@ -8,8 +8,6 @@ import usePostSignUp from '@/app/(auth)/sign-up/apis/usePostSignUp';
 import usePostCheckDuplicate from '@/app/(auth)/sign-up/apis/usePostCheckDuplicate';
 import { CheckDuplicate } from '@/app/(auth)/sign-up/apis/types';
 
-import { ERROR_CODE } from '@/constants/errorCode';
-
 import Button from '@/components/Button';
 
 const SignupPage: React.FC = () => {
@@ -89,8 +87,7 @@ const SignupPage: React.FC = () => {
         params: { nickname: name, email, memberId: id },
         type,
       });
-
-      if (response) {
+      if (response.data) {
         switch (type) {
           case 'checkEmail':
             checkDuplicateEmail();
@@ -110,16 +107,8 @@ const SignupPage: React.FC = () => {
       }
     } catch (error) {
       if (error instanceof Error) {
-        if (error.cause === ERROR_CODE['ACCOUNT-003']) {
-          alert(error.message);
-        } else if (error.cause === ERROR_CODE['ACCOUNT-004']) {
-          alert(error.message);
-        } else if (error.cause === ERROR_CODE['ACCOUNT-002']) {
-          alert(error.message);
-        } else {
-          //TODO: modal 적용
-          alert(error.message);
-        }
+        //TODO: modal 적용
+        alert(error.message);
       }
     }
   };
