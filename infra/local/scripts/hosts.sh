@@ -1,0 +1,1 @@
+grep -q "127.0.0.1 local.carpool.com" /etc/hosts || echo "\n127.0.0.1 local.carpool.com" | sudo tee -a /etc/hosts

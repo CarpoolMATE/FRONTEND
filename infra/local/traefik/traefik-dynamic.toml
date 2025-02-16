@@ -1,0 +1,18 @@
+[http]
+
+[http.routers.carpool]
+rule = "Host(`local.carpool.com`)"
+service = "carpool"
+entryPoints = ["https"]
+[http.routers.carpool.tls]
+
+
+[http.services]
+[http.services.carpool.loadbalancer]
+[[http.services.carpool.loadbalancer.servers]]
+url = "http://localhost:3000"
+
+
+[[tls.certificates]]
+certFile = "../cert/cert.pem"
+keyFile = "../cert/key.pem"
