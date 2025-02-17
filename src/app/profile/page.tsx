@@ -2,101 +2,157 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 
-import Document from '@/components/document';
-import SegmentControl from '@/components/segment';
+import { ProfileCardProps } from '@/app/profile/components/apis/types';
+
+import Button from '@/components/Button';
+import Icon from '@/components/Icon';
+import SegmentControl from '@/app/profile/components/Segment';
+import ProfileCard from '@/app/profile/components/ProfileCard';
 
 const ProfilePage: React.FC = () => {
   const router = useRouter();
-  const [which, setWhich] = useState('패신저');
+
+  const [isPassinger, setIsPassinger] = useState(true);
+
+  const [data] = useState<ProfileCardProps[]>([
+    {
+      date: '11/28',
+      from: '행복동 출발',
+      headCount: 3,
+      maxCount: 6,
+      price: 1500,
+      time: '오전 8시 30분',
+    },
+    {
+      date: '11/28',
+      from: '행복동 출발',
+      headCount: 3,
+      maxCount: 6,
+      price: 1500,
+      time: '오전 8시 30분',
+    },
+    {
+      date: '11/28',
+      from: '행복동 출발',
+      headCount: 3,
+      maxCount: 6,
+      price: 1500,
+      time: '오전 8시 30분',
+    },
+    {
+      date: '11/28',
+      from: '행복동 출발',
+      headCount: 3,
+      maxCount: 6,
+      price: 1500,
+      time: '오전 8시 30분',
+    },
+    {
+      date: '11/28',
+      from: '행복동 출발',
+      headCount: 3,
+      maxCount: 6,
+      price: 1500,
+      time: '오전 8시 30분',
+    },
+    {
+      date: '11/28',
+      from: '행복동 출발',
+      headCount: 3,
+      maxCount: 6,
+      price: 1500,
+      time: '오전 8시 30분',
+    },
+    {
+      date: '11/28',
+      from: '행복동 출발',
+      headCount: 3,
+      maxCount: 6,
+      price: 1500,
+      time: '오전 8시 30분',
+    },
+    {
+      date: '11/28',
+      from: '행복동 출발',
+      headCount: 3,
+      maxCount: 6,
+      price: 1500,
+      time: '오전 8시 30분',
+    },
+    {
+      date: '11/28',
+      from: '행복동 출발',
+      headCount: 3,
+      maxCount: 6,
+      price: 1500,
+      time: '오전 8시 30분',
+    },
+    {
+      date: '11/28',
+      from: '행복동 출발',
+      headCount: 3,
+      maxCount: 6,
+      price: 1500,
+      time: '오전 8시 30분',
+    },
+  ]);
 
   return (
-    <div className="relative w-full px-[20px] pt-[40.5px] flex flex-col items-center overflow-y-auto hide-scrollbar">
-      <div className="flex top-[57.5px]">
-        <svg
-          onClick={() => {
-            router.back();
-          }}
-          className="absolute left-[20px] top-[57.5px] cursor-pointer"
-          xmlns="http://www.w3.org/2000/svg"
-          width="11"
-          height="18"
-          viewBox="0 0 11 18"
-          fill="none"
+    <section className="w-full bg-gray_light flex flex-col h-screen">
+      <header className="relative flex items-center justify-center px-4 py-5 h-full max-h-16 bg-white">
+        <Button
+          className="absolute left-2 p-2"
+          intent="icon"
+          onClick={router.back}
         >
-          <path
-            id="Rectangle 882"
-            d="M10 1.10938L1.82023 7.92585C1.39337 8.28157 1.39337 8.93718 1.82023 9.2929L10 16.1094"
-            stroke="#505050"
-            strokeWidth="2"
-            strokeLinecap="round"
+          <Icon icon="CHEVRONS_LEFT" className="text-icon" />
+        </Button>
+        <div className="font-semibold text-xl text-title">
+          <SegmentControl
+            isPassinger={isPassinger}
+            setIsPassinger={setIsPassinger}
           />
-        </svg>
-      </div>
-      <SegmentControl setWhich={setWhich} which={which} />
-      <div className="w-[375px] h-[277px] px-4 pt-5 pb-[25px] bg-white flex-col justify-start items-center gap-5 inline-flex">
-        <div className="self-stretch justify-start items-center gap-2 inline-flex">
-          <div className="justify-start items-start flex" />
-          <div className="grow shrink basis-0 h-[30px] justify-center items-center gap-1 flex">
-            <div className="text-black/90 text-xl font-semibold font-['Pretendard'] leading-[30px]">
-              프로필
-            </div>
-          </div>
-          <div
-            onClick={() => router.push(`/profile/edit?which=${which}`)}
-            className="cursor-pointer text-[#b2b2b2] text-base font-medium font-['Pretendard'] leading-[14px]"
-          >
+        </div>
+      </header>
+      <div className="bg-white w-full h-[250px] mb-3 px-4 py-5 flex flex-col gap-5 items-center">
+        <div className="relative flex items-center justify-center w-full">
+          <h1 className="text-default text-xl font-semibold">
+            {isPassinger ? '프로필' : '차량 정보'}
+          </h1>
+          <span className="absolute right-0 top-0 text-placeholder cursor-pointer">
             수정
+          </span>
+        </div>
+        <div className="w-20 h-20 rounded-full bg-red-500 relative cursor-pointer">
+          <div className="w-6 h-6 rounded-full bg-gray_light absolute right-0 bottom-0 text-placeholder flex items-center justify-center">
+            <Icon icon="PENCLE" />
           </div>
         </div>
-        <div className="w-20 h-20 relative">
-          <Image
-            src="https://placehold.co/80/png"
-            alt="img"
-            width={20}
-            height={20}
-            className="left-0 top-0 absolute rounded-[100px] "
-          />
-
-          <div className="p-[3px] left-[56px] top-[56px] absolute bg-[#dadde1] rounded-[75px] justify-start items-start inline-flex">
-            <div className="w-[18px] h-[18px] relative" />
-          </div>
+        <div className="w-full flex justify-between text-sm font-medium">
+          <p className="text-placeholder">
+            {isPassinger ? '닉네임' : '차량 번호'}
+          </p>
+          <p className="text-default">차량 번호</p>
         </div>
-        <div className="w-full h-[82px] flex-col justify-start items-start gap-5 flex">
-          <div className="self-stretch justify-between items-center inline-flex">
-            <div className="text-[#b2b2b2] text-base font-medium font-['Pretendard'] leading-[14px]">
-              닉네임
-            </div>
-            <div className="text-[#191919] text-base font-medium font-['Pretendard'] leading-[14px]">
-              {'{이름}'}
-            </div>
-          </div>
-          <div className="self-stretch justify-between items-center inline-flex">
-            <div className="text-[#b2b2b2] text-base font-medium font-['Pretendard'] leading-[14px]">
-              아이디
-            </div>
-            <div className="text-[#191919] text-base font-medium font-['Pretendard'] leading-[14px]">
-              matecarpool
-            </div>
-          </div>
-          <div className="self-stretch justify-between items-center inline-flex">
-            <div className="text-[#b2b2b2] text-base font-medium font-['Pretendard'] leading-[14px]">
-              학교
-            </div>
-            <div className="text-[#191919] text-base font-medium font-['Pretendard'] leading-[14px]">
-              OO대학교
-            </div>
-          </div>
+        <div className="w-full flex justify-between text-sm font-medium">
+          <p className="text-placeholder">
+            {isPassinger ? '아이디' : '전화 번호'}
+          </p>
+          <p className="text-default">차량 번호</p>
         </div>
       </div>
-      <div className="text-black/90 text-xl font-semibold font-['Pretendard'] leading-[30px]">
-        {which === '패신저' ? '최근 탑승 목록' : '최근 운행 목록'}
+      <div className="px-4 pt-5 mb-2 bg-white w-full h-[calc(100%-326px)]">
+        <h2 className="text-default text-xl font-semibold mb-2">
+          최근 {isPassinger ? '탑승' : '운행'} 목록
+        </h2>
+        <div className="w-full h-[calc(100%-35px)] overflow-y-scroll">
+          {data.map((v, idx) => (
+            <ProfileCard key={idx} {...v} />
+          ))}
+        </div>
       </div>
-      <div className="flex-1 overflow-y-auto hide-scrollbar">
-        <Document />
-      </div>
-    </div>
+    </section>
   );
 };
 
