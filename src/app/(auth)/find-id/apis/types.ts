@@ -4,5 +4,7 @@ export type PostFindIdParams = {
 };
 
 export type FindIdDto = {
-  memberId: string;
+  message: string;
+  status: string;
+  data: string;
 };
