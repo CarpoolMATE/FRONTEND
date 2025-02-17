@@ -20,7 +20,7 @@ const PassengerProfileEditPage = () => {
           <div className="w-full flex flex-col gap-2">
             <div className="text-sm">닉네임</div>
             <div className="flex gap-2 w-full [&>*]:w-full">
-              <Input className="닉네임을 입력해주세요." />
+              <Input placeholder="닉네임을 입력해주세요." />
               <Button className="max-w-20">중복확인</Button>
             </div>
           </div>

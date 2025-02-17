@@ -124,8 +124,13 @@ const ProfilePage: React.FC = () => {
             {isPassinger ? '프로필' : '차량 정보'}
           </h1>
           <span
-            //TODO: 승객, 드라이버 분기점 필요
-            onClick={() => router.push(CLIENT_APP_ROUTES.PROFILE_DRIVER_EDIT)}
+            onClick={() =>
+              router.push(
+                isPassinger
+                  ? CLIENT_APP_ROUTES.PROFILE_PASSENGER_EDIT
+                  : CLIENT_APP_ROUTES.PROFILE_DRIVER_EDIT,
+              )
+            }
             className="absolute right-0 top-0 text-placeholder cursor-pointer"
           >
             수정
