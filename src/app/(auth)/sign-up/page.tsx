@@ -1,14 +1,23 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 
-import usePostSignUp from '@/app/(auth)/sign-up/apis/usePostSignUp';
 import { useSignupStore } from '@/store/signup';
 
+import usePostSignUp from '@/app/(auth)/sign-up/apis/usePostSignUp';
+import usePostCheckDuplicate from '@/app/(auth)/sign-up/apis/usePostCheckDuplicate';
+import { CheckDuplicate } from '@/app/(auth)/sign-up/apis/types';
+
+// import { CLIENT_APP_ROUTES } from '@/constants/routes';
+
+import Button from '@/components/Button';
+
 const SignupPage: React.FC = () => {
-  const router = useRouter();
   const { mutateAsync: postSignUp } = usePostSignUp();
+  const { mutateAsync: checkDuplicateAPI } = usePostCheckDuplicate();
+
+  // const router = useRouter();
 
   // 각각의 상태를 개별적으로 가져오기
   const id = useSignupStore((state) => state.id);
@@ -43,12 +52,15 @@ const SignupPage: React.FC = () => {
   const setEmail = useSignupStore((state) => state.setEmail);
   const setCanView = useSignupStore((state) => state.setCanView);
   const setIdError = useSignupStore((state) => state.setIdError);
+  const setNameError = useSignupStore((state) => state.setIdError);
   const setPasswordError = useSignupStore((state) => state.setPasswordError);
   const setPasswordConfirmError = useSignupStore(
     (state) => state.setPasswordConfirmError,
   );
   const setEmailError = useSignupStore((state) => state.setEmailError);
   const setDuplicate = useSignupStore((state) => state.setDuplicate);
+  const setDuplicateName = useSignupStore((state) => state.setDuplicateName);
+  const setDuplicateEmail = useSignupStore((state) => state.setDuplicateEmail);
   const setModal = useSignupStore((state) => state.setModal);
 
   // 유틸리티 함수들 가져오기
@@ -74,62 +86,98 @@ const SignupPage: React.FC = () => {
     (state) => state.checkSpecialCharacters,
   );
 
+  const handleCheckDuplicate = async (type: CheckDuplicate) => {
+    try {
+      const response = await checkDuplicateAPI({
+        params: { nickname: name, email, memberId: id },
+        type,
+      });
+      if (response.data) {
+        switch (type) {
+          case 'checkEmail':
+            checkDuplicateEmail();
+            break;
+
+          case 'checkMemberId':
+            checkDuplicate();
+            break;
+
+          case 'checkNickname':
+            checkDuplicateName();
+            break;
+
+          default:
+            break;
+        }
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        //TODO: modal 적용
+        alert(error.message);
+      }
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
-      const response = postSignUp({
+      const response = await postSignUp({
         email,
         memberId: id,
         password,
         nickname: name,
         university: '',
       });
-      console.log({ response });
+
+      if (response.data) {
+        // router.push(CLIENT_APP_ROUTES.HOME);
+        //TODO: 모달 적용 및 모달 확인시 home으로 밀어주기
+      }
     } catch (error) {
-      console.error(error);
+      //TODO: 모달 적용
+      alert(error);
     }
   };
 
   return (
-    <div className="relative w-full px-[20px] pt-[100px]">
-      <div className="flex top-[57.5px]">
-        <svg
-          onClick={() => {
-            router.back();
-          }}
-          className="absolute left-[20px] top-[57.5px] cursor-pointer"
-          xmlns="http://www.w3.org/2000/svg"
-          width="11"
-          height="18"
-          viewBox="0 0 11 18"
-          fill="none"
+    <section className="px-4 pb-4 h-[calc(100%-64px)] relative pt-8">
+      {modal && (
+        <div
+          className="fixed left-0 top-0 w-full h-full bg-black/40 flex justify-center items-center z-10"
+          onClick={() => setModal(false)}
         >
-          <path
-            id="Rectangle 882"
-            d="M10 1.10938L1.82023 7.92585C1.39337 8.28157 1.39337 8.93718 1.82023 9.2929L10 16.1094"
-            stroke="#505050"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        </svg>
-        <div className="absolute left-[141.5px] top-[52.5px] text-center text-black/90 text-xl font-semibold font-['Pretendard'] leading-[30px]">
-          회원가입
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-[270px] h-[102px] relative bg-white pt-[20px]  rounded-[15px]"
+          >
+            <div className="text-center text-black text-[17px] font-normal font-pretendard leading-snug mb-[15px] px-[16px]">
+              {modalMsg}
+            </div>
+            <div
+              className="cursor-pointer h-11 relative border-t border-solid border-[#808080]/60 flex justify-center items-center w-full"
+              onClick={() => setModal(false)}
+            >
+              <div className="text-center text-[#007aff] font-bold text-[17px] font-pretendard leading-snug">
+                확인
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <form onSubmit={handleSubmit}>
-        <div className="w-[335px] h-full flex-col justify-start items-start  inline-flex">
+      )}
+      <form
+        className="w-full h-full flex flex-col justify-between"
+        onSubmit={handleSubmit}
+      >
+        <div className="flex flex-col">
           <div className="pl-[10px] text-[#4f4f4f] text-sm font-medium font-['Pretendard'] mb-[10px]">
             아이디
           </div>
-          <div className="flex">
+          <div className="flex w-full gap-2">
             <input
               value={id}
               onChange={(e) => {
                 setDuplicate(true);
-                setIdError(
-                  e.target.value !== '' && !validateId(e.target.value),
-                );
+                setIdError(!validateId(e.target.value));
                 setId(e.target.value);
               }}
               placeholder="아이디를 입력해주세요"
@@ -137,32 +185,25 @@ const SignupPage: React.FC = () => {
                 idError
                   ? 'border border-solid border-[#e0302d] focus:border-[#e0302d]  focus:ring-[#e0302d] focus:ring-1 transition-colors outline-none'
                   : ' border border-[#e9e9e9]'
-              } w-[247px] self-stretch h-[51px] p-[15px] bg-white rounded-[10px] justify-start items-center gap-3 inline-flex placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard']`}
+              } w-full self-stretch h-[51px] p-[15px] bg-white rounded-[10px] justify-start items-center gap-3 inline-flex placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard']`}
             />
-            {id && duplicate && !idError ? (
-              <div
-                onClick={() => checkDuplicate()}
-                className="cursor-pointer ml-[8px] h-[51px] px-3 py-2.5 bg-[#007aff] rounded-[10px] justify-center items-center gap-2.5 inline-flex"
-              >
-                <div className="text-white text-base font-medium font-['Pretendard']">
-                  중복확인
-                </div>
-              </div>
-            ) : duplicate ? (
-              <div className="ml-[8px] h-[51px] px-3 py-2.5 bg-[#c3c3c3] rounded-[10px] justify-center items-center gap-2.5 inline-flex">
-                <div className="text-white text-base font-medium font-['Pretendard']">
-                  중복확인
-                </div>
-              </div>
-            ) : (
-              !duplicate && (
-                <div className="ml-[8px] h-[51px] px-3 py-2.5 bg-[#d4e8ff] rounded-[10px] border border-[#007aff]/20 justify-center items-center gap-2.5 flex">
-                  <div className="w-[58px] text-[#007aff] text-base font-medium font-['Pretendard']">
-                    사용가능
-                  </div>
-                </div>
-              )
-            )}
+            <Button
+              type="button"
+              onClick={
+                duplicate && !idError
+                  ? () => handleCheckDuplicate('checkMemberId')
+                  : undefined
+              }
+              disabled={!id || idError}
+              intent={duplicate && !idError ? 'default' : 'outline'}
+              className={`min-w-20 w-20 font-normal ${
+                duplicate && !idError
+                  ? ''
+                  : 'bg-[#D4E9FF] hover:bg-[#D4E9FF] cursor-default'
+              }`}
+            >
+              {duplicate ? '중복확인' : '사용가능'}
+            </Button>
           </div>
           {!idError && id ? (
             <div className="pl-[10px] flex items-center gap-[10px] mt-[15px]">
@@ -209,7 +250,7 @@ const SignupPage: React.FC = () => {
             <div className="w-full h-[20px] mt-[15px]"></div>
           )}
 
-          <div className="h-2.5 px-2.5 justify-center items-center gap-2.5 inline-flex mt-[15px]">
+          <div className="flex flex-col h-2.5 px-2.5 justify-center gap-2.5 mt-[15px]">
             <div className="text-[#4f4f4f] text-sm font-medium font-['Pretendard']">
               비밀번호
             </div>
@@ -341,7 +382,7 @@ const SignupPage: React.FC = () => {
             )}
           </div>
 
-          <div className="h-2.5 px-2.5 justify-center items-center gap-2.5 inline-flex mt-[25px]">
+          <div className="px-2.5 justify-center gap-2.5 flex flex-col mt-[25px]">
             <div className="text-[#4f4f4f] text-sm font-medium font-['Pretendard']">
               비밀번호 확인
             </div>
@@ -425,49 +466,44 @@ const SignupPage: React.FC = () => {
             <div className="w-full h-[19px]"></div>
           )}
 
-          <div className="self-stretch h-full flex-col justify-start items-start gap-2.5 flex mt-[25px]">
+          <div className="w-full self-stretch flex-col justify-start items-start gap-2.5 flex mt-[25px]">
             <div className="px-2.5 justify-center items-center gap-2.5 inline-flex">
               <div className="text-[#4f4f4f] text-sm font-medium font-['Pretendard']">
-                이름
+                닉네임
               </div>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center w-full gap-2">
               <input
                 value={name}
                 maxLength={8}
                 onChange={(e) => {
+                  setDuplicateName(true);
                   setName(e.target.value);
+                  setNameError(!e.target.value);
                   checkAllConditions(e.target.value);
                 }}
-                placeholder="이름을 입력해주세요"
+                placeholder="닉네임을 입력해주세요"
                 className={`${
                   idError ? 'rounded-[10px] border border-[#e0302d]' : ''
-                } w-[247px] self-stretch h-[51px] p-[15px] bg-white rounded-[10px] border border-[#e9e9e9] justify-start items-center gap-3 inline-flex placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard']`}
+                } w-full self-stretch h-[51px] p-[15px] bg-white rounded-[10px] border border-[#e9e9e9] justify-start items-center gap-3 inline-flex placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard']`}
               />
-              {name && duplicateName && !nameError ? (
-                <div
-                  onClick={() => checkDuplicateName()}
-                  className="cursor-pointer ml-[8px] h-[51px] px-3 py-2.5 bg-[#007aff] rounded-[10px] justify-center items-center gap-2.5 inline-flex"
-                >
-                  <div className="text-white text-base font-medium font-['Pretendard']">
-                    중복확인
-                  </div>
-                </div>
-              ) : duplicateName ? (
-                <div className="ml-[8px] h-[51px] px-3 py-2.5 bg-[#c3c3c3] rounded-[10px] justify-center items-center gap-2.5 inline-flex">
-                  <div className="text-white text-base font-medium font-['Pretendard']">
-                    중복확인
-                  </div>
-                </div>
-              ) : (
-                !duplicateName && (
-                  <div className="ml-[8px] h-[51px] px-3 py-2.5 bg-[#d4e8ff] rounded-[10px] border border-[#007aff]/20 justify-center items-center gap-2.5 flex">
-                    <div className="w-[58px] text-[#007aff] text-base font-medium font-['Pretendard']">
-                      사용가능
-                    </div>
-                  </div>
-                )
-              )}
+              <Button
+                type="button"
+                onClick={
+                  duplicateName && !nameError
+                    ? () => handleCheckDuplicate('checkNickname')
+                    : undefined
+                }
+                disabled={!name || nameError}
+                intent={duplicateName && !nameError ? 'default' : 'outline'}
+                className={`min-w-20 w-20 font-normal ${
+                  duplicateName && !nameError
+                    ? ''
+                    : 'bg-[#D4E9FF] hover:bg-[#D4E9FF] cursor-default'
+                }`}
+              >
+                {duplicateName ? '중복확인' : '사용가능'}
+              </Button>
             </div>
             <div className="flex items-center flex-wrap justify-start">
               {checkCharacterLimit(name) && name ? (
@@ -604,20 +640,21 @@ const SignupPage: React.FC = () => {
                   </div>
                 )
               ) : (
-                <div className="w-full h-[40px]"></div>
+                <div className="w-full h-[19px]"></div>
               )}
             </div>
           </div>
-          <div className="self-stretch h-[71px] flex-col justify-start items-start gap-2.5 flex mt-[15px]">
+          <div className="self-stretch h-[71px] flex-col justify-start items-start gap-2.5 flex mt-[15px] w-full">
             <div className="px-2.5 justify-center items-center gap-2.5 inline-flex">
               <div className="text-[#4f4f4f] text-sm font-medium font-['Pretendard']">
                 이메일
               </div>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center w-full gap-2">
               <input
                 value={email}
                 onChange={(e) => {
+                  setDuplicateEmail(true);
                   setEmailError(!validateEmail(e.target.value));
                   setEmail(e.target.value);
                 }}
@@ -626,32 +663,25 @@ const SignupPage: React.FC = () => {
                   emailError && email
                     ? 'rounded-[10px] border border-[#e0302d]'
                     : 'border border-[#e9e9e9]'
-                } w-[247px] self-stretch h-[51px] p-[15px] bg-white rounded-[10px]  justify-start items-center gap-3 inline-flex placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard']`}
+                } w-full self-stretch h-[51px] p-[15px] bg-white rounded-[10px]  justify-start items-center gap-3 inline-flex placeholder:text-[#b2b2b2] text-[#1A1A1A] text-lg font-medium font-['Pretendard']`}
               />
-              {email && duplicateEmail && !emailError ? (
-                <div
-                  onClick={() => checkDuplicateEmail()}
-                  className="cursor-pointer ml-[8px] h-[51px] px-3 py-2.5 bg-[#007aff] rounded-[10px] justify-center items-center gap-2.5 inline-flex"
-                >
-                  <div className="text-white text-base font-medium font-['Pretendard']">
-                    중복확인
-                  </div>
-                </div>
-              ) : duplicateEmail ? (
-                <div className="ml-[8px] h-[51px] px-3 py-2.5 bg-[#c3c3c3] rounded-[10px] justify-center items-center gap-2.5 inline-flex">
-                  <div className="text-white text-base font-medium font-['Pretendard']">
-                    중복확인
-                  </div>
-                </div>
-              ) : (
-                !duplicateEmail && (
-                  <div className="ml-[8px] h-[51px] px-3 py-2.5 bg-[#d4e8ff] rounded-[10px] border border-[#007aff]/20 justify-center items-center gap-2.5 flex">
-                    <div className="w-[58px] text-[#007aff] text-base font-medium font-['Pretendard']">
-                      사용가능
-                    </div>
-                  </div>
-                )
-              )}
+              <Button
+                type="button"
+                onClick={
+                  duplicateEmail && !emailError
+                    ? () => handleCheckDuplicate('checkEmail')
+                    : undefined
+                }
+                disabled={!email || emailError}
+                intent={duplicateEmail && !emailError ? 'default' : 'outline'}
+                className={`min-w-20 w-20 font-normal ${
+                  duplicateEmail && !emailError
+                    ? ''
+                    : 'bg-[#D4E9FF] hover:bg-[#D4E9FF] cursor-default'
+                }`}
+              >
+                {duplicateEmail ? '중복확인' : '사용가능'}
+              </Button>
             </div>
 
             {!emailError && email ? (
@@ -700,57 +730,27 @@ const SignupPage: React.FC = () => {
             )}
           </div>
         </div>
-        {id &&
-        !duplicate &&
-        password &&
-        !idError &&
-        !passwordError &&
-        !emailError &&
-        !nameError &&
-        !duplicateEmail &&
-        !duplicateName &&
-        name &&
-        email ? (
-          <div
-            onClick={(e) => handleSubmit(e)}
-            className="w-[335px] h-[51px] px-[30px] py-[15px] cursor-pointer bg-[#007aff] rounded-xl justify-center items-center gap-2.5 inline-flex mt-[50px]"
-          >
-            <div className="text-white text-lg font-semibold font-['Pretendard']">
-              회원가입
-            </div>
-          </div>
-        ) : (
-          <div className="w-[335px] h-[51px] px-[30px] py-[15px] bg-[#dadde1] rounded-xl justify-center items-center gap-2.5 inline-flex mt-[50px]">
-            <div className="text-[#a2abb4] text-lg font-semibold font-['Pretendard']">
-              회원가입
-            </div>
-          </div>
-        )}{' '}
-      </form>
-      {modal && (
-        <div
-          className="fixed left-0 top-0 w-full h-full bg-black/40 flex justify-center items-center"
-          onClick={() => setModal(false)}
+        <Button
+          disabled={
+            !(
+              id &&
+              !duplicate &&
+              password &&
+              !idError &&
+              !passwordError &&
+              !emailError &&
+              !nameError &&
+              !duplicateEmail &&
+              !duplicateName &&
+              name &&
+              email
+            )
+          }
         >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="w-[270px] h-[102px] relative bg-white pt-[20px]  rounded-[15px]"
-          >
-            <div className="text-center text-black text-[17px] font-normal font-pretendard leading-snug mb-[15px] px-[16px]">
-              {modalMsg}
-            </div>
-            <div
-              className="cursor-pointer h-11 relative border-t border-solid border-[#808080]/60 flex justify-center items-center w-full"
-              onClick={() => setModal(false)}
-            >
-              <div className="text-center text-[#007aff] font-bold text-[17px] font-pretendard leading-snug">
-                확인
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+          회원가입
+        </Button>
+      </form>
+    </section>
   );
 };
 
