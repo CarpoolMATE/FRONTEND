@@ -5,10 +5,13 @@ import { useRouter } from 'next/navigation';
 
 import { ProfileCardProps } from '@/app/profile/components/apis/types';
 
+import { CLIENT_APP_ROUTES } from '@/constants/routes';
+
 import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 import SegmentControl from '@/app/profile/components/Segment';
 import ProfileCard from '@/app/profile/components/ProfileCard';
+import ProfileImageCard from '@/app/profile/components/ProfileImage';
 
 const ProfilePage: React.FC = () => {
   const router = useRouter();
@@ -18,7 +21,7 @@ const ProfilePage: React.FC = () => {
   const [data] = useState<ProfileCardProps[]>([
     {
       date: '11/28',
-      from: '행복동 출발',
+      from: '행복동',
       headCount: 3,
       maxCount: 6,
       price: 1500,
@@ -26,7 +29,7 @@ const ProfilePage: React.FC = () => {
     },
     {
       date: '11/28',
-      from: '행복동 출발',
+      from: '행복동',
       headCount: 3,
       maxCount: 6,
       price: 1500,
@@ -34,7 +37,7 @@ const ProfilePage: React.FC = () => {
     },
     {
       date: '11/28',
-      from: '행복동 출발',
+      from: '행복동',
       headCount: 3,
       maxCount: 6,
       price: 1500,
@@ -42,7 +45,7 @@ const ProfilePage: React.FC = () => {
     },
     {
       date: '11/28',
-      from: '행복동 출발',
+      from: '행복동',
       headCount: 3,
       maxCount: 6,
       price: 1500,
@@ -50,7 +53,7 @@ const ProfilePage: React.FC = () => {
     },
     {
       date: '11/28',
-      from: '행복동 출발',
+      from: '행복동',
       headCount: 3,
       maxCount: 6,
       price: 1500,
@@ -58,7 +61,7 @@ const ProfilePage: React.FC = () => {
     },
     {
       date: '11/28',
-      from: '행복동 출발',
+      from: '행복동',
       headCount: 3,
       maxCount: 6,
       price: 1500,
@@ -66,7 +69,7 @@ const ProfilePage: React.FC = () => {
     },
     {
       date: '11/28',
-      from: '행복동 출발',
+      from: '행복동',
       headCount: 3,
       maxCount: 6,
       price: 1500,
@@ -74,7 +77,7 @@ const ProfilePage: React.FC = () => {
     },
     {
       date: '11/28',
-      from: '행복동 출발',
+      from: '행복동',
       headCount: 3,
       maxCount: 6,
       price: 1500,
@@ -82,7 +85,7 @@ const ProfilePage: React.FC = () => {
     },
     {
       date: '11/28',
-      from: '행복동 출발',
+      from: '행복동',
       headCount: 3,
       maxCount: 6,
       price: 1500,
@@ -90,7 +93,7 @@ const ProfilePage: React.FC = () => {
     },
     {
       date: '11/28',
-      from: '행복동 출발',
+      from: '행복동',
       headCount: 3,
       maxCount: 6,
       price: 1500,
@@ -120,15 +123,15 @@ const ProfilePage: React.FC = () => {
           <h1 className="text-default text-xl font-semibold">
             {isPassinger ? '프로필' : '차량 정보'}
           </h1>
-          <span className="absolute right-0 top-0 text-placeholder cursor-pointer">
+          <span
+            //TODO: 승객, 드라이버 분기점 필요
+            onClick={() => router.push(CLIENT_APP_ROUTES.PROFILE_DRIVER_EDIT)}
+            className="absolute right-0 top-0 text-placeholder cursor-pointer"
+          >
             수정
           </span>
         </div>
-        <div className="w-20 h-20 rounded-full bg-red-500 relative cursor-pointer">
-          <div className="w-6 h-6 rounded-full bg-gray_light absolute right-0 bottom-0 text-placeholder flex items-center justify-center">
-            <Icon icon="PENCLE" />
-          </div>
-        </div>
+        <ProfileImageCard src="" />
         <div className="w-full flex justify-between text-sm font-medium">
           <p className="text-placeholder">
             {isPassinger ? '닉네임' : '차량 번호'}
