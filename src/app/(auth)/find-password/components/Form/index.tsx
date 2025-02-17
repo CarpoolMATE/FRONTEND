@@ -45,7 +45,7 @@ const FindPasswordForm = () => {
         }
       }
     },
-    [postFindPassword, setError],
+    [postFindPassword, setError, setErrorText],
   );
 
   return (
