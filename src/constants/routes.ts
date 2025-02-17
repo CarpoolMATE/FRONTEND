@@ -22,6 +22,10 @@ export const CLIENT_APP_ROUTES = {
   RESET_PASSWORD: '/reset-password',
   HOME: '/home',
   PROFILE: '/profile',
+  PROFILE_DRIVER_EDIT: '/profile/driver-edit',
+  PROFILE_PASSENGER_EDIT: '/profile/passenger-edit',
+  VERIFY_PASSWORD: '/profile/verify-password',
+  CHANGE_PASSWORD: '/profile/change-password',
   CONFIRM_RESERVATION: '/confirm-reservation',
   DRIVER_REGISTRATION: '/driver-registration',
 };
@@ -36,4 +40,8 @@ export const CLIENT_APP_ROUTES_NAME: Record<string, string> = {
   [CLIENT_APP_ROUTES.RESET_PASSWORD]: '비밀번호 재설정',
   [CLIENT_APP_ROUTES.PROFILE]: '',
   [CLIENT_APP_ROUTES.CONFIRM_RESERVATION]: '카풀 예약 확인',
+  [CLIENT_APP_ROUTES.PROFILE_PASSENGER_EDIT]: '프로필',
+  [CLIENT_APP_ROUTES.PROFILE_DRIVER_EDIT]: '차량 정보',
+  [CLIENT_APP_ROUTES.VERIFY_PASSWORD]: '비밀번호 재설정',
+  [CLIENT_APP_ROUTES.CHANGE_PASSWORD]: '비밀번호 재설정',
 };
