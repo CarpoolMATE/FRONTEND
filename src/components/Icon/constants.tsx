@@ -107,6 +107,57 @@ export const ICONS = {
       </>
     ),
   },
+  DOTS: {
+    svgOptions: {
+      viewBox: '0 0 3 16',
+      fill: 'none',
+      stroke: 'currentColor',
+    },
+    icon: (
+      <>
+        <circle
+          xmlns="http://www.w3.org/2000/svg"
+          cx="1.4982"
+          cy="1.83218"
+          r="1.5018"
+          transform="rotate(-180 1.4982 1.83218)"
+          fill="#666666"
+        />
+        <circle
+          xmlns="http://www.w3.org/2000/svg"
+          cx="1.4982"
+          cy="7.83511"
+          r="1.5018"
+          transform="rotate(-180 1.4982 7.83511)"
+          fill="#666666"
+        />
+        <circle
+          xmlns="http://www.w3.org/2000/svg"
+          cx="1.4982"
+          cy="13.839"
+          r="1.5018"
+          transform="rotate(-180 1.4982 13.839)"
+          fill="#666666"
+        />
+      </>
+    ),
+  },
+  PENCLE: {
+    svgOptions: {
+      viewBox: '0 0 19 19',
+      fill: 'none',
+      stroke: 'currentColor',
+    },
+    icon: (
+      <path
+        xmlns="http://www.w3.org/2000/svg"
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M14.795 3.52859L15.8075 4.54109C16.4 5.12609 16.4 6.07859 15.8075 6.66359L5.885 16.5861H2.75V13.4511L10.55 5.64359L12.6725 3.52859C13.2575 2.94359 14.21 2.94359 14.795 3.52859ZM4.25 15.0861L5.3075 15.1311L12.6725 7.75859L11.615 6.70109L4.25 14.0661V15.0861Z"
+        fill="#A2ABB4"
+      />
+    ),
+  },
 };
 
 export type IconsList = keyof typeof ICONS;
