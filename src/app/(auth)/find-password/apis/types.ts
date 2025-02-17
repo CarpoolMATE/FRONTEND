@@ -4,5 +4,7 @@ export type PostFindPasswordParams = {
 };
 
 export type FindPasswordDto = {
-  String: string;
+  message: string;
+  status: string;
+  data: boolean;
 };
