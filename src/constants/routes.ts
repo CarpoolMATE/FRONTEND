@@ -29,6 +29,7 @@ export const CLIENT_APP_ROUTES = {
   CHANGE_PASSWORD: '/profile/change-password',
   CONFIRM_RESERVATION: '/confirm-reservation',
   DRIVER_REGISTRATION: '/driver-registration',
+  CARPOOL_REGISTRATION: '/carpool-registration',
 };
 
 export const CLIENT_APP_ROUTES_NAME: Record<string, string> = {
