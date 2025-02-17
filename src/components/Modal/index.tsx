@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useRef } from 'react';
 
 import Button from '@/components/Button';
@@ -34,7 +36,7 @@ const Modal = ({
   return (
     <dialog
       id="confirm_modal"
-      className={`modal ${isOpen ? 'modal-open flex' : ''} z-40 bg-[#0000005b] w-full h-full absolute top-0 left-0 justify-center`}
+      className={`modal ${isOpen ? 'modal-open flex' : ''} z-40 bg-[#0000005b] w-full h-full fixed top-0 left-0 justify-center`}
       open={isOpen}
     >
       <div className="rounded-lg min-w-[310px] bg-white flex items-center justify-center flex-col gap-3 p-3 h-min my-auto">
