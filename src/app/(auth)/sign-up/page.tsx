@@ -150,7 +150,7 @@ const SignupPage: React.FC = () => {
         message={modalMsg}
         onClose={() =>
           modalMsg === '회원가입 성공'
-            ? router.push(CLIENT_APP_ROUTES.HOME)
+            ? router.push(CLIENT_APP_ROUTES.LOGIN)
             : setModal(false)
         }
       />

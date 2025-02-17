@@ -55,7 +55,7 @@ const FindPasswordForm = () => {
         message={errorText}
         onClose={() =>
           errorText === '이메일이 발송되었습니다.'
-            ? router.push(CLIENT_APP_ROUTES.HOME)
+            ? router.push(CLIENT_APP_ROUTES.LOGIN)
             : setErrorText('')
         }
       />
