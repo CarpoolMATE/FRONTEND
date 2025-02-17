@@ -17,8 +17,15 @@ const Button = ({ intent = 'default', className, ...props }: ButtonProps) => {
     className,
   );
 
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (intent === 'success') {
+      event.preventDefault();
+      return;
+    }
+    props.onClick?.(event);
+  };
   return (
-    <button className={buttonClasses} {...props}>
+    <button className={buttonClasses} onClick={handleClick} {...props}>
       {props.children}
     </button>
   );
