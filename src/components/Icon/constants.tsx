@@ -142,7 +142,7 @@ export const ICONS = {
       </>
     ),
   },
-  PENCLE: {
+  PENCEL: {
     svgOptions: {
       viewBox: '0 0 19 19',
       fill: 'none',
