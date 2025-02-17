@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { useSignupStore } from '@/store/signup';
 
@@ -9,15 +9,16 @@ import usePostSignUp from '@/app/(auth)/sign-up/apis/usePostSignUp';
 import usePostCheckDuplicate from '@/app/(auth)/sign-up/apis/usePostCheckDuplicate';
 import { CheckDuplicate } from '@/app/(auth)/sign-up/apis/types';
 
-// import { CLIENT_APP_ROUTES } from '@/constants/routes';
+import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import Button from '@/components/Button';
+import Modal from '@/components/Modal';
 
 const SignupPage: React.FC = () => {
   const { mutateAsync: postSignUp } = usePostSignUp();
   const { mutateAsync: checkDuplicateAPI } = usePostCheckDuplicate();
 
-  // const router = useRouter();
+  const router = useRouter();
 
   // 각각의 상태를 개별적으로 가져오기
   const id = useSignupStore((state) => state.id);
@@ -62,6 +63,7 @@ const SignupPage: React.FC = () => {
   const setDuplicateName = useSignupStore((state) => state.setDuplicateName);
   const setDuplicateEmail = useSignupStore((state) => state.setDuplicateEmail);
   const setModal = useSignupStore((state) => state.setModal);
+  const setModalMsg = useSignupStore((state) => state.setModalMsg);
 
   // 유틸리티 함수들 가져오기
   const validateId = useSignupStore((state) => state.validateId);
@@ -112,8 +114,8 @@ const SignupPage: React.FC = () => {
       }
     } catch (error) {
       if (error instanceof Error) {
-        //TODO: modal 적용
-        alert(error.message);
+        setModal(true);
+        setModalMsg(error.message);
       }
     }
   };
@@ -130,40 +132,28 @@ const SignupPage: React.FC = () => {
       });
 
       if (response.data) {
-        // router.push(CLIENT_APP_ROUTES.HOME);
-        //TODO: 모달 적용 및 모달 확인시 home으로 밀어주기
+        setModal(true);
+        setModalMsg(response.message);
       }
     } catch (error) {
-      //TODO: 모달 적용
-      alert(error);
+      if (error instanceof Error) {
+        setModal(true);
+        setModalMsg(error.message);
+      }
     }
   };
 
   return (
     <section className="px-4 pb-4 h-[calc(100%-64px)] relative pt-8">
-      {modal && (
-        <div
-          className="fixed left-0 top-0 w-full h-full bg-black/40 flex justify-center items-center z-10"
-          onClick={() => setModal(false)}
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="w-[270px] h-[102px] relative bg-white pt-[20px]  rounded-[15px]"
-          >
-            <div className="text-center text-black text-[17px] font-normal font-pretendard leading-snug mb-[15px] px-[16px]">
-              {modalMsg}
-            </div>
-            <div
-              className="cursor-pointer h-11 relative border-t border-solid border-[#808080]/60 flex justify-center items-center w-full"
-              onClick={() => setModal(false)}
-            >
-              <div className="text-center text-[#007aff] font-bold text-[17px] font-pretendard leading-snug">
-                확인
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <Modal
+        isOpen={modal}
+        message={modalMsg}
+        onClose={() =>
+          modalMsg === '회원가입 성공'
+            ? router.push(CLIENT_APP_ROUTES.HOME)
+            : setModal(false)
+        }
+      />
       <form
         className="w-full h-full flex flex-col justify-between"
         onSubmit={handleSubmit}
