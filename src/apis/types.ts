@@ -15,7 +15,7 @@ export type FetchParamObject = {
 
 export type ApiSuccessResponse<T> = {
   message: string;
-  requestMethod: string;
+  status: string;
   data: T;
 };
 

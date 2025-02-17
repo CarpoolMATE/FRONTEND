@@ -2,6 +2,7 @@ const BASE_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const API_ROUTES = {
   MEMBER: {
+    INFO: `${BASE_API_URL}/api/member`,
     SIGN_UP: `${BASE_API_URL}/api/member/signUp`,
     SIGN_IN: `${BASE_API_URL}/api/member/signIn`,
     FIND_ID: `${BASE_API_URL}/api/member/findMemberId`,
