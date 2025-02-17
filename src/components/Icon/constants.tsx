@@ -30,6 +30,22 @@ export const ICONS = {
       />
     ),
   },
+  CHEVRONS_RIGHT: {
+    svgOptions: {
+      viewBox: '0 0 7 10',
+      fill: 'none',
+      stroke: 'currentColor',
+    },
+    icon: (
+      <path
+        d="M1 1L5.13153 4.30522C5.57676 4.66141 5.57676 5.33859 5.13153 5.69478L1 9"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        fill="none"
+      />
+    ),
+  },
   EYE_ON: {
     svgOptions: {
       viewBox: '0 0 36 36',
