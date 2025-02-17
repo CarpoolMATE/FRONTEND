@@ -14,7 +14,7 @@ const ProfileCard = ({
     <div className="h-[105px] w-full flex justify-between items-center border-b-space border-b px-4 py-5">
       <div className="flex flex-col gap-3">
         <span className="text-default">{date}</span>
-        <span className="text-placeholder">
+        <span className="text-gray">
           {from} 출발 | {price}원
         </span>
         <span className="text-default">{time}</span>

@@ -151,8 +151,8 @@ export const ICONS = {
     icon: (
       <path
         xmlns="http://www.w3.org/2000/svg"
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M14.795 3.52859L15.8075 4.54109C16.4 5.12609 16.4 6.07859 15.8075 6.66359L5.885 16.5861H2.75V13.4511L10.55 5.64359L12.6725 3.52859C13.2575 2.94359 14.21 2.94359 14.795 3.52859ZM4.25 15.0861L5.3075 15.1311L12.6725 7.75859L11.615 6.70109L4.25 14.0661V15.0861Z"
         fill="#A2ABB4"
       />
