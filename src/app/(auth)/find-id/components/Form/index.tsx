@@ -6,10 +6,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
-import { ERROR_CODE } from '@/constants/errorCode';
 
 import Input from '@/components/Input';
 import Button from '@/components/Button';
+import Modal from '@/components/Modal';
 
 import usePostFindId from '@/app/(auth)/find-id/apis/usePostFindId';
 
@@ -18,8 +18,6 @@ import {
   findIdSchema,
 } from '@/app/(auth)/find-id/components/Form/schema';
 
-import Modal from '@/components/Modal';
-
 const FindIdForm = () => {
   const router = useRouter();
 
@@ -27,7 +25,6 @@ const FindIdForm = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    setError,
   } = useForm<FindIdFormValues>({
     resolver: zodResolver(findIdSchema),
   });
@@ -50,7 +47,7 @@ const FindIdForm = () => {
         }
       }
     },
-    [postFindId, router, setError, setErrorText],
+    [postFindId, router, setErrorText],
   );
 
   return (
