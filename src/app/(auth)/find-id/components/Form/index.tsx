@@ -38,7 +38,7 @@ const FindIdForm = () => {
         const response = await postFindId({ email, nickname });
         router.push(
           CLIENT_APP_ROUTES.FIND_ID_RESULT +
-            `?nickname=${nickname}&memberId=${response.memberId}`,
+            `?nickname=${nickname}&memberId=${response.data}`,
         );
       } catch (error) {
         if (error instanceof Error) {
