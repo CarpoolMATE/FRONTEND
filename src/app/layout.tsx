@@ -1,7 +1,7 @@
 import localFont from 'next/font/local';
 import Script from 'next/script';
 
-import RootLayout from '@/components/layout/RootLayout';
+import RootLayout from '@/components/Layout/RootLayout';
 
 import { cn } from '@/utils/style';
 

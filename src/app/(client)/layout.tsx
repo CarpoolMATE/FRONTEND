@@ -1,7 +1,13 @@
 import { PropsWithChildren } from 'react';
 
-const ClientLayout = ({ children }: PropsWithChildren) => {
-  return children;
+import { getMember } from '@/app/(client)/apis/getMember';
+
+import ClientLayout from '@/components/Layout/ClientLayout';
+
+const Layout = async ({ children }: PropsWithChildren) => {
+  const data = await getMember();
+
+  return <ClientLayout member={data}>{children}</ClientLayout>;
 };
 
-export default ClientLayout;
+export default Layout;
