@@ -50,7 +50,7 @@ const FindIdForm = () => {
         }
       }
     },
-    [postFindId, router, setError],
+    [postFindId, router, setError, setErrorText],
   );
 
   return (

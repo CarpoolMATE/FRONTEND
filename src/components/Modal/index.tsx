@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
 import Button from '@/components/Button';
 
@@ -33,12 +34,10 @@ const Modal = ({
     }
   }, [isOpen]);
 
-  return (
-    <dialog
-      id="confirm_modal"
-      className={`modal ${isOpen ? 'modal-open flex' : ''} z-40 bg-[#0000005b] w-full h-full fixed top-0 left-0 justify-center`}
-      open={isOpen}
-    >
+  if (!isOpen) return null;
+
+  return createPortal(
+    <div className="modal fixed inset-0 flex items-center justify-center z-40 bg-[#0000005b] w-full h-full">
       <div className="rounded-lg min-w-[310px] bg-white flex items-center justify-center flex-col gap-3 p-3 h-min my-auto">
         {title && <h1 className="font-semibold">{title}</h1>}
         <div className="text-sm">{message}</div>
@@ -61,7 +60,8 @@ const Modal = ({
           )}
         </div>
       </div>
-    </dialog>
+    </div>,
+    document.body,
   );
 };
 
