@@ -11,7 +11,7 @@ import { CLIENT_APP_ROUTES } from '@/constants/routes';
 import { ReservationModalProps } from '@/app/(client)/home/components/Modal/ReservationModal/types';
 import DestinationSummary from '@/app/(client)/home/components/DestinationSummary';
 
-const ReservationModal = ({ onClose }: ReservationModalProps) => {
+const ReservationModal = ({ data, onClose }: ReservationModalProps) => {
   return (
     <div
       onClick={onClose}
