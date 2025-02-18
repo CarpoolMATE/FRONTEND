@@ -26,7 +26,7 @@ const ProfileVerifyPasswordPage = () => {
         className="flex h-full flex-col justify-between p-4 w-full mt-16"
       >
         <div className="w-full flex flex-col gap-2">
-          <div className="text-sm">기존 비밀번호</div>
+          <span className="text-sm">기존 비밀번호</span>
           <div className="flex gap-2 w-full [&>*]:w-full">
             <Input type="password" placeholder="기존 비밀번호를 입력해주세요" />
           </div>
