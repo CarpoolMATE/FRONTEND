@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import getMember from '@/app/(client)/apis/getMember/getMember';
+import { getMember } from '@/app/(client)/apis/getMember';
 
 import { QueryKey } from '@/constants/keys';
 
