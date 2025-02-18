@@ -6,7 +6,7 @@ import { QueryKey } from '@/constants/keys';
 
 const useGetCarpoolActive = () =>
   useQuery({
-    queryKey: [QueryKey.CarpoolActive],
+    queryKey: [QueryKey.CarpoolList, 'active'],
     queryFn: getCarpoolActive,
   });
 
