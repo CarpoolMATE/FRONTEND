@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 import { ProfileCardProps } from '@/app/profile/components/apis/types';
 
@@ -123,18 +124,16 @@ const ProfilePage: React.FC = () => {
           <h1 className="text-default text-xl font-semibold">
             {isPassinger ? '프로필' : '차량 정보'}
           </h1>
-          <span
-            onClick={() =>
-              router.push(
-                isPassinger
-                  ? CLIENT_APP_ROUTES.PROFILE_PASSENGER_EDIT
-                  : CLIENT_APP_ROUTES.PROFILE_DRIVER_EDIT,
-              )
+          <Link
+            href={
+              isPassinger
+                ? CLIENT_APP_ROUTES.PROFILE_PASSENGER_EDIT
+                : CLIENT_APP_ROUTES.PROFILE_DRIVER_EDIT
             }
             className="absolute right-0 top-0 text-placeholder cursor-pointer"
           >
             수정
-          </span>
+          </Link>
         </div>
         <ProfileImageCard src="" />
         <div className="w-full flex justify-between text-sm font-medium">
