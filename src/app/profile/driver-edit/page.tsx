@@ -17,13 +17,13 @@ const PassengerProfileEditPage = () => {
         <div className="w-full flex flex-col items-center gap-[30px]">
           <ProfileImageCard src="" isEdit={true} />
           <div className="w-full flex flex-col gap-2">
-            <div className="text-sm">차량 번호</div>
+            <span className="text-sm">차량 번호</span>
             <div className="flex gap-2 w-full [&>*]:w-full">
               <Input placeholder="차량 번호를 입력해주세요" />
             </div>
           </div>
           <div className="w-full flex flex-col gap-2">
-            <div className="text-sm">전화 번호</div>
+            <span className="text-sm">전화 번호</span>
             <div className="flex gap-2 w-full [&>*]:w-full">
               <Input placeholder="전화 번호를 입력해주세요" />
             </div>
