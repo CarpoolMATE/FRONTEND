@@ -1,10 +1,24 @@
-'use client';
+import Image from 'next/image';
+import { format } from 'date-fns';
+import { ko } from 'date-fns/locale';
+import Link from 'next/link';
 
 import Button from '@/components/Button';
 import Icon from '@/components/Icon';
-import Image from 'next/image';
 
-const DestinationSummary = () => {
+import { DestinationSummaryProps } from '@/app/(client)/home/components/DestinationSummary/types';
+
+import { formatComma } from '@/utils/format';
+
+const DestinationSummary = ({
+  data: {
+    capacity,
+    cost,
+    departureCoordinate,
+    departureTime,
+    reservationCount,
+  },
+}: DestinationSummaryProps) => {
   return (
     <>
       <div className="self-stretch justify-start items-start gap-4 inline-flex relative">
@@ -25,30 +39,38 @@ const DestinationSummary = () => {
         <div className="ml-10 flex-col flex gap-10">
           <div className="self-stretch flex-col justify-start items-start gap-3 flex">
             <div className="flex-col justify-start items-start gap-1.5 flex">
-              <p className="text-base font-medium ">홍대입구역 8번 출구</p>
+              {/* TODO: 주소 받아오기 */}
+              <p className="text-base font-medium">{departureCoordinate}</p>
             </div>
 
             <div className="justify-start items-center gap-1.5 inline-flex">
               <Icon icon="CLOCK" className="text-[#888888]" />
-              <p className="text-[#666666] text-sm font-medium">오전 08:30</p>
+              <p className="text-[#666666] text-sm font-medium">
+                {format(departureTime, 'a hh시 mm분', { locale: ko })}
+              </p>
             </div>
           </div>
 
           <div className="">
             <p className="grow shrink basis-0 text-base font-medium ">
-              OO대학교
+              경운대학교
             </p>
           </div>
         </div>
 
-        <Button intent="icon" className="absolute right-0 top-3">
-          <Image
-            width={25}
-            height={25}
-            src="/images/kakao-map.png"
-            alt="kakao-map"
-          />
-        </Button>
+        <Link
+          href={`https://map.kakao.com/?q=${departureCoordinate}`}
+          target="_blank"
+        >
+          <Button intent="icon" className="absolute right-0 top-3">
+            <Image
+              width={25}
+              height={25}
+              src="/images/kakao-map.png"
+              alt="kakao-map"
+            />
+          </Button>
+        </Link>
       </div>
 
       <div className="self-stretch justify-start items-center inline-flex">
@@ -56,14 +78,16 @@ const DestinationSummary = () => {
           <p className="text-placeholder text-sm font-medium tracking-tight">
             탑승 인원
           </p>
-          <p className="font-medium">4/4</p>
+          <p className="font-medium">
+            {reservationCount}/{capacity}
+          </p>
         </div>
 
         <div className="grow shrink basis-0 flex-col justify-start items-start gap-2.5 inline-flex">
           <p className="text-placeholder text-sm font-medium tracking-tight">
             비용
           </p>
-          <p className="font-medium">1,500원</p>
+          <p className="font-medium">{formatComma(cost)}원</p>
         </div>
       </div>
     </>
