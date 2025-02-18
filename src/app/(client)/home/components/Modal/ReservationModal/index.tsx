@@ -5,13 +5,21 @@ import Link from 'next/link';
 import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 import ProfileImage from '@/components/Image/Profile';
+import DestinationSummary from '@/app/(client)/home/components/DestinationSummary';
+
+import { useMemberStore } from '@/store/member';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import { ReservationModalProps } from '@/app/(client)/home/components/Modal/ReservationModal/types';
-import DestinationSummary from '@/app/(client)/home/components/DestinationSummary';
 
 const ReservationModal = ({ data, onClose }: ReservationModalProps) => {
+  const { driverImg, driverName, reservationCount, capacity } = data;
+  const { member } = useMemberStore();
+
+  const isCapacityFull = reservationCount === capacity;
+  const isReservation = member?.reservation;
+
   return (
     <div
       onClick={onClose}
@@ -32,20 +40,25 @@ const ReservationModal = ({ data, onClose }: ReservationModalProps) => {
         <div className="w-full flex-col justify-start items-start gap-[20px] inline-flex">
           <div className="self-stretch flex-col justify-start items-start gap-[25px] flex">
             <div className="self-stretch grow shrink justify-start items-center gap-3 flex">
-              <ProfileImage url="https://placehold.co/44/png" />
+              <ProfileImage url={driverImg} />
               <div className="grow shrink basis-0 flex-col justify-start items-start inline-flex">
                 <p className="text-placeholder text-sm font-medium">드라이버</p>
-                <span className="font-medium">{'{이름}'}</span>
+                <span className="font-medium">{driverName}</span>
               </div>
             </div>
 
-            <DestinationSummary />
+            <DestinationSummary data={data} />
           </div>
         </div>
 
-        <div className="w-full mt-auto">
+        <div className="w-full mt-auto flex-col flex gap-3">
+          {isReservation && (
+            <p className="text-center text-error text-sm font-medium">
+              이미 진행중인 카풀이 있어요
+            </p>
+          )}
           <Link href={CLIENT_APP_ROUTES.CONFIRM_RESERVATION}>
-            <Button>예약하기</Button>
+            <Button disabled={isCapacityFull || isReservation}>예약하기</Button>
           </Link>
         </div>
       </div>
