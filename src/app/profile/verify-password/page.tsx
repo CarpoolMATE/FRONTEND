@@ -1,10 +1,12 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
+import { CLIENT_APP_ROUTES } from '@/constants/routes';
+
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import Header from '@/app/(auth)/components/Header';
-import { useRouter } from 'next/navigation';
-import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 const ProfileVerifyPasswordPage = () => {
   const router = useRouter();
