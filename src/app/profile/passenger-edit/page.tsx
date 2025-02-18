@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
@@ -10,7 +10,6 @@ import Header from '@/app/(auth)/components/Header';
 import ProfileImageCard from '@/app/profile/components/ProfileImage';
 
 const PassengerProfileEditPage = () => {
-  const router = useRouter();
   return (
     <section className="w-full flex flex-col h-screen">
       <Header />
@@ -25,12 +24,12 @@ const PassengerProfileEditPage = () => {
             </div>
           </div>
           <div className="w-full flex items-start">
-            <span
-              onClick={() => router.push(CLIENT_APP_ROUTES.VERIFY_PASSWORD)}
+            <Link
+              href={CLIENT_APP_ROUTES.VERIFY_PASSWORD}
               className="text-placeholder cursor-pointer"
             >
               비밀번호 변경
-            </span>
+            </Link>
           </div>
         </div>
         <Button>수정하기</Button>
