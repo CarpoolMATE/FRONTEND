@@ -1,23 +1,54 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { addDays, format } from 'date-fns';
+import { ko } from 'date-fns/locale';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 import Icon from '@/components/Icon';
 
-import { SORT_OPTIONS } from '@/app/(client)/home/components/CarpoolFilter/constants';
-import { SortOption } from '@/app/(client)/home/constants';
+import {
+  CarpoolSearchKey,
+  SORT_OPTIONS,
+} from '@/app/(client)/home/components/CarpoolFilter/constants';
+import { CarpoolType } from '@/app/(client)/home/apis/getCarpoolList/constants';
+import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import { cn } from '@/utils/style';
 
 const CarpoolFilter = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [showSort, setShowSort] = useState<boolean>(false);
-  const [check, setCheck] = useState<boolean>(false);
-  const [sort, setSort] = useState<SortOption>(SortOption.FASTEST);
 
   const ulRef = useRef<HTMLUListElement>(null);
 
-  const getCurrentColor = (isActive: boolean) => {
+  const tomorrow = useMemo(
+    () => format(addDays(new Date(), 1), 'MM/dd(E)', { locale: ko }),
+    [],
+  );
+
+  const filter =
+    (searchParams.get(CarpoolSearchKey.Filter) as CarpoolType) ||
+    CarpoolType.Default;
+
+  const getCurrentColor = (value: CarpoolType) => {
+    const isActive = filter === value;
+
     return isActive ? 'text-default' : 'text-placeholder';
+  };
+
+  const handleChangeAcitve = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      router.push(
+        `${CLIENT_APP_ROUTES.HOME}?${CarpoolSearchKey.Filter}=${CarpoolType.Active}`,
+      );
+      return;
+    }
+
+    router.push(`${CLIENT_APP_ROUTES.HOME}`);
   };
 
   useEffect(() => {
@@ -37,8 +68,8 @@ const CarpoolFilter = () => {
   return (
     <div className="w-full mt-5 py-5 flex-col justify-start items-start gap-6 inline-flex">
       <div>
-        <span className="text-primary text-lg font-semibold">12/27(금)</span>
-        <span className="text-lg font-semibold">OO대 카풀 목록</span>
+        <span className="text-primary text-lg font-semibold">{tomorrow}</span>
+        <span className="text-lg font-semibold"> 카풀 목록</span>
       </div>
 
       <div className="self-stretch justify-between items-center inline-flex relative">
@@ -46,7 +77,8 @@ const CarpoolFilter = () => {
           <input
             id="checkbox"
             className="w-[14.60px] h-[14.60px] relative rounded border border-input"
-            onChange={() => setCheck(!check)}
+            checked={filter === CarpoolType.Active}
+            onChange={handleChangeAcitve}
             type="checkbox"
           />
 
@@ -62,7 +94,10 @@ const CarpoolFilter = () => {
           className=" flex items-center gap-2.5 text-sub "
           onClick={() => setShowSort((prev) => !prev)}
         >
-          <span className="text-sm font-medium">{sort}</span>
+          <span className="text-sm font-medium">
+            {SORT_OPTIONS.find((item) => item.value === filter)?.label ??
+              '필터'}
+          </span>
           <Icon icon="CHEVRONS_BOTTOM" className="w-2 h-2" />
         </button>
 
@@ -73,18 +108,17 @@ const CarpoolFilter = () => {
           >
             {SORT_OPTIONS.map(({ value, label }) => (
               <li key={value} className="flex-1 flex px-[1.25rem] py-[7.5px]">
-                <button
-                  onClick={() => {
-                    setShowSort(false);
-                    setSort(value);
-                  }}
-                  className={cn(
-                    getCurrentColor(sort === value),
-                    'text-sm font-medium',
-                  )}
+                <Link
+                  href={
+                    filter === value
+                      ? CLIENT_APP_ROUTES.HOME
+                      : `${CLIENT_APP_ROUTES.HOME}?${CarpoolSearchKey.Filter}=${value}`
+                  }
+                  onClick={() => setShowSort(false)}
+                  className={cn(getCurrentColor(value), 'text-sm font-medium')}
                 >
                   {label}
-                </button>
+                </Link>
               </li>
             ))}
           </ul>
