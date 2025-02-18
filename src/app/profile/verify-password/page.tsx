@@ -12,6 +12,7 @@ const ProfileVerifyPasswordPage = () => {
   const router = useRouter();
 
   const onConfirmHandle = () => {
+    //TODO: api 연동 후 라우팅 적용
     router.push(CLIENT_APP_ROUTES.CHANGE_PASSWORD);
   };
 
