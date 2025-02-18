@@ -11,6 +11,9 @@ export const API_ROUTES = {
     CHECK_MEMBERID: `${BASE_API_URL}/api/member/checkMemberId`,
     CHECK_EMAIL: `${BASE_API_URL}/api/member/checkEmail`,
   },
+  CARPOOL: {
+    ACTIVE: `${BASE_API_URL}/api/carpool/active`,
+  },
 };
 
 export const CLIENT_APP_ROUTES = {
