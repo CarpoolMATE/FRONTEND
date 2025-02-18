@@ -1,7 +1,11 @@
 import { SortOption } from '@/app/(client)/home/constants';
+import { CarpoolType } from '@/app/(client)/home/apis/getCarpoolList/constants';
 
-// TODO: value 변경
 export const SORT_OPTIONS = [
-  { label: SortOption.FASTEST, value: SortOption.FASTEST },
-  { label: SortOption.LOWEST_FARE, value: SortOption.LOWEST_FARE },
+  { label: SortOption.FASTEST, value: CarpoolType.Fast },
+  { label: SortOption.LOWEST_FARE, value: CarpoolType.Low },
 ];
+
+export enum CarpoolSearchKey {
+  Filter = 'filter',
+}
