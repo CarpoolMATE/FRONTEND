@@ -1,70 +1,138 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useSearchParams } from 'next/navigation';
+import { format } from 'date-fns';
+import { ko } from 'date-fns/locale';
+
+import { useGetCarpoolList } from '@/app/(client)/home/apis/getCarpoolList';
 
 import ReservationModal from '@/app/(client)/home/components/Modal/ReservationModal';
 import ProfileImage from '@/components/Image/Profile';
-import Icon from '@/components/Icon';
+import CarpoolEmpty from '@/app/(client)/home/components/CarpoolEmpty';
+
+import { CarpoolSearchKey } from '@/app/(client)/home/components/CarpoolFilter/constants';
+import { CarpoolType } from '@/app/(client)/home/apis/getCarpoolList/constants';
+
+import { CarpoolDto } from '@/types/dtos/carpool';
+
+import { formatComma } from '@/utils/format';
+import { cn } from '@/utils/style';
 
 const CarpoolList = () => {
-  const noData = false;
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const searchParams = useSearchParams();
 
-  if (noData) {
+  const [carpool, setCarpool] = useState<CarpoolDto>();
+
+  const filter =
+    (searchParams.get(CarpoolSearchKey.Filter) as CarpoolType) ||
+    CarpoolType.Default;
+
+  const { data } = useGetCarpoolList({ type: filter });
+
+  const handleClickCarpool = useCallback((carpool: CarpoolDto) => {
+    setCarpool(carpool);
+  }, []);
+
+  // TODO: 예약 불가 시간 체크
+  if (false) {
     return (
-      <div className="w-full justify-center items-center flex flex-col mt-12">
-        <div className="h-[150.32px] flex-col justify-start items-center gap-[45px] inline-flex">
+      <CarpoolEmpty>
+        <div className="flex flex-col gap-2">
           <p className="text-center text-xl font-semibold">
-            현재 모집 중인 카풀이 없습니다
+            현재 카풀 예약 불가 시간입니다
           </p>
-          <div className="opacity-40 w-[125.55px] h-[75.32px] relative">
-            <Icon
-              icon="CAR"
-              className="text-[#D1D5D9] w-[133px] h-[83px] opacity-40"
-            />
-          </div>
+          <p className="text-center text-sm font-medium text-[#888888]">
+            오전 10시부터 다음날 카풀 예약이 가능해요
+          </p>
         </div>
-      </div>
+      </CarpoolEmpty>
+    );
+  }
+
+  if (!data?.length) {
+    return (
+      <CarpoolEmpty>
+        <p className="text-center text-xl font-semibold">
+          현재 모집 중인 카풀이 없습니다
+        </p>
+      </CarpoolEmpty>
     );
   }
 
   return (
     <>
-      <div className="w-full flex-col justify-start items-start inline-flex">
-        <div
-          className="w-full cursor-pointer px-[15px] py-5 justify-start items-center gap-3 inline-flex border-t border-t-space"
-          onClick={() => setShowModal(true)}
-        >
-          <ProfileImage url="https://placehold.co/44/png" />
+      <ul>
+        {data.map((item) => {
+          const {
+            carpoolId,
+            driverImg,
+            cost,
+            departureTime,
+            departureCoordinate,
+            capacity,
+            reservationCount,
+          } = item;
 
-          <div className="grow shrink basis-0 self-stretch flex-col justify-start items-start gap-2.5 inline-flex">
-            <div className="self-stretch justify-start items-start gap-[5px] inline-flex">
-              <div className="text-[#666666] text-sm font-semibold font-['Pretendard'] leading-[14px] tracking-tight">
-                OO동 출발{' '}
-              </div>
-              <div className="text-[#888888] text-xs font-normal font-['Pretendard'] leading-[14px] tracking-tight">
-                |
-              </div>
-              <div className="text-[#666666] text-sm font-semibold font-['Pretendard'] leading-[14px] tracking-tight">
-                1,500원
-              </div>
-            </div>
-            <div className="text-[#3c3c3c] text-base font-medium font-['Pretendard'] leading-[14px]">
-              오전 7시 30분
-            </div>
-          </div>
-          <div className="px-3 py-2 bg-[#007aff] rounded-[15px] justify-center items-center gap-2.5 flex">
-            <div className="text-white text-base font-medium font-['Pretendard'] tracking-wide">
-              2/4
-            </div>
-          </div>
-        </div>
-      </div>
+          const isCapacityFull = reservationCount === capacity;
 
-      {showModal &&
+          return (
+            <li
+              key={carpoolId}
+              className="w-full flex-col justify-start items-start inline-flex border-t border-t-space"
+            >
+              <div
+                className={cn(
+                  'w-full cursor-pointer px-[15px] py-5 justify-start items-center gap-3 inline-flex ',
+                  isCapacityFull && 'opacity-50',
+                )}
+                onClick={() => handleClickCarpool(item)}
+              >
+                <ProfileImage url={driverImg} />
+
+                <div
+                  className={
+                    'grow shrink basis-0 self-stretch flex-col justify-start items-start gap-2.5 inline-flex'
+                  }
+                >
+                  <div className="self-stretch justify-start items-start gap-[5px] inline-flex">
+                    <div className="text-[#666666] text-sm font-semibold leading-[14px] tracking-tight">
+                      {departureCoordinate} 출발{' '}
+                    </div>
+                    <div className="text-[#888888] text-xs font-normal leading-[14px] tracking-tight">
+                      |
+                    </div>
+                    <div className="text-[#666666] text-sm font-semibold leading-[14px] tracking-tight">
+                      {formatComma(cost)}원
+                    </div>
+                  </div>
+                  <div className="text-[#3c3c3c] text-base font-medium leading-[14px]">
+                    {format(departureTime, 'a h시 mm분', { locale: ko })}
+                  </div>
+                </div>
+                <div
+                  className={cn(
+                    'px-3 py-2  rounded-[15px] justify-center items-center gap-2.5 flex',
+                    isCapacityFull ? 'bg-gray' : 'bg-primary',
+                  )}
+                >
+                  <div className="text-white text-base font-medium tracking-wide">
+                    {reservationCount}/{capacity}
+                  </div>
+                </div>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+
+      {carpool &&
         createPortal(
-          <ReservationModal onClose={() => setShowModal(false)} />,
+          <ReservationModal
+            data={carpool}
+            onClose={() => setCarpool(undefined)}
+          />,
           document.body,
         )}
     </>
