@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 import Button from '@/components/Button';
 import Icon from '@/components/Icon';
@@ -13,26 +14,46 @@ import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import { ReservationModalProps } from '@/app/(client)/home/components/Modal/ReservationModal/types';
 
+import { cn } from '@/utils/style';
+
 const ReservationModal = ({ data, onClose }: ReservationModalProps) => {
   const { driverImg, driverName, reservationCount, capacity } = data;
   const { member } = useMemberStore();
 
+  const [mounted, setMounted] = useState(false);
+  const [closing, setClosing] = useState(false);
+
   const isCapacityFull = reservationCount === capacity;
   const isReservation = member?.reservation;
 
+  const handleClose = () => {
+    setClosing(true);
+    setTimeout(onClose, 300);
+  };
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <div
-      onClick={onClose}
-      className="fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.5)] flex justify-center items-end z-50"
+      onClick={handleClose}
+      className={cn(
+        'fixed top-0 left-0 w-full h-full z-50 flex justify-center items-end bg-[rgba(0,0,0,0.5)] transition-opacity duration-300',
+        mounted && !closing ? 'opacity-100' : 'opacity-0',
+      )}
     >
       <div
         onClick={(e) => {
           e.stopPropagation();
         }}
-        className="max-w-[768px] w-full min-h-[60dvh] h-fit px-5 py-4 bg-white rounded-t-2xl shadow-[0px_1px_4px_0px_rgba(0,0,0,0.16)] flex flex-col"
+        className={cn(
+          'max-w-[768px] w-full min-h-[60dvh] h-fit px-5 py-4 bg-white rounded-t-2xl shadow-[0px_1px_4px_0px_rgba(0,0,0,0.16)] transition-transform duration-300',
+          mounted && !closing ? 'translate-y-0' : 'translate-y-full',
+        )}
       >
         <div className="flex justify-end">
-          <Button className="size-6" intent="icon" onClick={onClose}>
+          <Button className="size-6" intent="icon" onClick={handleClose}>
             <Icon icon="CLOSE" />
           </Button>
         </div>
