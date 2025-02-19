@@ -90,29 +90,29 @@ const CarpoolList = () => {
                   }
                 >
                   <div className="self-stretch justify-start items-start gap-[5px] inline-flex">
-                    <div className="text-[#666666] text-sm font-semibold leading-[14px] tracking-tight">
+                    <span className="text-[#666666] text-sm font-semibold leading-[14px] tracking-tight">
                       {departureCoordinate} 출발{' '}
-                    </div>
-                    <div className="text-[#888888] text-xs font-normal leading-[14px] tracking-tight">
+                    </span>
+                    <span className="text-[#888888] text-xs font-normal leading-[14px] tracking-tight">
                       |
-                    </div>
-                    <div className="text-[#666666] text-sm font-semibold leading-[14px] tracking-tight">
+                    </span>
+                    <span className="text-[#666666] text-sm font-semibold leading-[14px] tracking-tight">
                       {formatComma(cost)}원
-                    </div>
+                    </span>
                   </div>
-                  <div className="text-[#3c3c3c] text-base font-medium leading-[14px]">
+                  <span className="text-[#3c3c3c] text-base font-medium leading-[14px]">
                     {format(departureTime, 'a h시 mm분', { locale: ko })}
-                  </div>
+                  </span>
                 </div>
                 <div
                   className={cn(
                     'px-3 py-2  rounded-[15px] justify-center items-center gap-2.5 flex',
-                    isCapacityFull ? 'bg-gray' : 'bg-primary',
+                    isCapacityFull ? 'bg-gray-dark' : 'bg-primary',
                   )}
                 >
-                  <div className="text-white text-base font-medium tracking-wide">
+                  <span className="text-white text-base font-medium tracking-wide">
                     {reservationCount}/{capacity}
-                  </div>
+                  </span>
                 </div>
               </div>
             </li>
