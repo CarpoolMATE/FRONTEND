@@ -103,7 +103,7 @@ const ProfilePage: React.FC = () => {
   ]);
 
   return (
-    <section className="w-full bg-gray_light flex flex-col h-screen">
+    <section className="w-full bg-gray-light flex flex-col h-screen">
       <header className="relative flex items-center justify-center px-4 py-5 h-full max-h-16 bg-white">
         <Button
           className="absolute left-2 p-2"

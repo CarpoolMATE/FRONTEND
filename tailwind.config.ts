@@ -17,8 +17,8 @@ export default {
         primary: '#007AFF',
         error: '#E0302D',
         icon: '#505050',
-        gray: '#A2ABB4',
-        gray_light: '#F4F4F4',
+        'gray-dark': '#A2ABB4',
+        'gray-light': '#F4F4F4',
       },
       textColor: {
         default: '#3C3C3C',

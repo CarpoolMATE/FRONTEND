@@ -40,15 +40,15 @@ const ProfileCard = ({
       )}
       <div className="flex flex-col gap-3">
         <span className="text-default">{date}</span>
-        <span className="text-gray font-semibold">
+        <span className="text-gray-dark font-semibold">
           {from} 출발 | {price}원
         </span>
         <span className="text-default font-semibold">{time}</span>
       </div>
       <div className="flex h-full items-center gap-5">
-        <div className="rounded-2xl bg-gray text-white h-9 w-[52px] flex items-center justify-center">
+        <span className="rounded-2xl bg-gray-dark text-white h-9 w-[52px] flex items-center justify-center">
           {headCount}/{maxCount}
-        </div>
+        </span>
         <div
           onClick={(e) => {
             e.stopPropagation();

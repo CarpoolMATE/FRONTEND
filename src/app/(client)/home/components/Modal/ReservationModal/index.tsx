@@ -48,7 +48,7 @@ const ReservationModal = ({ data, onClose }: ReservationModalProps) => {
           e.stopPropagation();
         }}
         className={cn(
-          'max-w-[768px] w-full min-h-[60dvh] h-fit px-5 py-4 bg-white rounded-t-2xl shadow-[0px_1px_4px_0px_rgba(0,0,0,0.16)] transition-transform duration-300',
+          'max-w-[768px] w-full min-h-[60dvh] h-fit px-5 py-4 bg-white rounded-t-2xl shadow-[0px_1px_4px_0px_rgba(0,0,0,0.16)] transition-transform duration-300 flex flex-col',
           mounted && !closing ? 'translate-y-0' : 'translate-y-full',
         )}
       >
