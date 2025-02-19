@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
       {
         hostname: 'placehold.co',
       },
+      {
+        hostname: 'carool-s3.s3.ap-northeast-2.amazonaws.com',
+      },
     ],
   },
 };

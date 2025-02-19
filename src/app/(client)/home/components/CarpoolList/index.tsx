@@ -11,6 +11,7 @@ import { useGetCarpoolList } from '@/app/(client)/home/apis/getCarpoolList';
 import ReservationModal from '@/app/(client)/home/components/Modal/ReservationModal';
 import ProfileImage from '@/components/Image/Profile';
 import CarpoolEmpty from '@/app/(client)/home/components/CarpoolEmpty';
+import Spin from '@/components/Spin';
 
 import { CarpoolSearchKey } from '@/app/(client)/home/components/CarpoolFilter/constants';
 import { CarpoolType } from '@/app/(client)/home/apis/getCarpoolList/constants';
@@ -29,25 +30,17 @@ const CarpoolList = () => {
     (searchParams.get(CarpoolSearchKey.Filter) as CarpoolType) ||
     CarpoolType.Default;
 
-  const { data } = useGetCarpoolList({ type: filter });
+  const { data, isLoading } = useGetCarpoolList({ type: filter });
 
   const handleClickCarpool = useCallback((carpool: CarpoolDto) => {
     setCarpool(carpool);
   }, []);
 
-  // TODO: 예약 불가 시간 체크
-  if (false) {
+  if (isLoading) {
     return (
-      <CarpoolEmpty>
-        <div className="flex flex-col gap-2">
-          <p className="text-center text-xl font-semibold">
-            현재 카풀 예약 불가 시간입니다
-          </p>
-          <p className="text-center text-sm font-medium text-[#888888]">
-            오전 10시부터 다음날 카풀 예약이 가능해요
-          </p>
-        </div>
-      </CarpoolEmpty>
+      <div className="flex items-center h-[30dvh]">
+        <Spin />
+      </div>
     );
   }
 
@@ -63,7 +56,7 @@ const CarpoolList = () => {
 
   return (
     <>
-      <ul>
+      <ul className="w-full">
         {data.map((item) => {
           const {
             carpoolId,
