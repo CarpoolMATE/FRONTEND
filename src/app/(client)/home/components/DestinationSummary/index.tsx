@@ -39,7 +39,6 @@ const DestinationSummary = ({
         <div className="ml-10 flex-col flex gap-10">
           <div className="self-stretch flex-col justify-start items-start gap-3 flex">
             <div className="flex-col justify-start items-start gap-1.5 flex">
-              {/* TODO: 주소 받아오기 */}
               <p className="text-base font-medium">{departureCoordinate}</p>
             </div>
 
