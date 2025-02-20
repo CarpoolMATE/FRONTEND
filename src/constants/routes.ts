@@ -10,6 +10,7 @@ export const API_ROUTES = {
     CHECK_NICKNAME: `${BASE_API_URL}/api/member/checkNickname`,
     CHECK_MEMBERID: `${BASE_API_URL}/api/member/checkMemberId`,
     CHECK_EMAIL: `${BASE_API_URL}/api/member/checkEmail`,
+    DRIVER: `${BASE_API_URL}/api/member/driver`,
   },
   CARPOOL: {
     ACTIVE: `${BASE_API_URL}/api/carpool/active`,
@@ -36,6 +37,7 @@ export const CLIENT_APP_ROUTES = {
   CONFIRM_RESERVATION: '/confirm-reservation',
   DRIVER_REGISTRATION: '/driver-registration',
   CARPOOL_REGISTRATION: '/carpool-registration',
+  DRIVER_REGISTRATION_DONE: '/driver-registration/done',
 };
 
 export const CLIENT_APP_ROUTES_NAME: Record<string, string> = {
@@ -52,4 +54,6 @@ export const CLIENT_APP_ROUTES_NAME: Record<string, string> = {
   [CLIENT_APP_ROUTES.PROFILE_DRIVER_EDIT]: '차량 정보',
   [CLIENT_APP_ROUTES.VERIFY_PASSWORD]: '비밀번호 재설정',
   [CLIENT_APP_ROUTES.CHANGE_PASSWORD]: '비밀번호 재설정',
+  [CLIENT_APP_ROUTES.DRIVER_REGISTRATION]: '드라이버 등록',
+  [CLIENT_APP_ROUTES.DRIVER_REGISTRATION_DONE]: '',
 };
