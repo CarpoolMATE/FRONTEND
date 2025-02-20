@@ -55,7 +55,7 @@ const LoginForm = () => {
       className=" flex-1 relative  flex flex-col"
       onSubmit={handleSubmit(handleLogin)}
     >
-      <div className="px-4">
+      <div className="px-5">
         <section className="flex flex-col gap-4">
           <Input
             {...register('id')}
@@ -92,7 +92,7 @@ const LoginForm = () => {
         </section>
       </div>
 
-      <div className="mt-auto p-4">
+      <div className="mt-auto p-5">
         <Button disabled={!isValid} type="submit">
           로그인
         </Button>

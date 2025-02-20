@@ -46,9 +46,9 @@ const ProfileCard = ({
         <span className="text-default font-semibold">{time}</span>
       </div>
       <div className="flex h-full items-center gap-5">
-        <span className="rounded-2xl bg-gray-dark text-white h-9 w-[52px] flex items-center justify-center">
+        <div className="rounded-2xl bg-gray-dark text-white h-9 w-[52px] flex items-center justify-center">
           {headCount}/{maxCount}
-        </span>
+        </div>
         <div
           onClick={(e) => {
             e.stopPropagation();
