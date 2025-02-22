@@ -48,7 +48,7 @@ const PhoneNumber = ({ onSubmit }: PhoneNumberProps) => {
           disabled={!phoneNumber || !!error}
           onClick={handleSubmit(onSubmit)}
         >
-          다음
+          드라이버 등록하기
         </Button>
       </div>
     </section>
