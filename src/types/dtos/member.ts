@@ -9,6 +9,10 @@ export type MemberDto = {
   updateDate: string;
   reservation: boolean;
   isBanned: boolean;
+  carNumber?: string;
+  phoneNumber?: string;
+  carImage?: string;
+  driverRegistrationDate?: string;
   isDriver: boolean;
   carpoolCount: number;
 };
