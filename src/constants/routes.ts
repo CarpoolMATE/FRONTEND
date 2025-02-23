@@ -18,6 +18,7 @@ export const API_ROUTES = {
     FAST: `${BASE_API_URL}/api/carpool/fast`,
     LOW: `${BASE_API_URL}/api/carpool/low`,
   },
+  REPORT: `${BASE_API_URL}/api/report`,
 };
 
 export const CLIENT_APP_ROUTES = {
