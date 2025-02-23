@@ -3,6 +3,9 @@
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useParams } from 'next/navigation';
+
+import { usePostReport } from '@/app/(client)/report/[carpoolId]/apis/postReport';
 
 import {
   ReportFormValues,
@@ -13,6 +16,8 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 
 const ReportForm = () => {
+  const { carpoolId } = useParams();
+
   const {
     register,
     watch,
@@ -28,9 +33,21 @@ const ReportForm = () => {
 
   const reportContent = watch('reportContent');
 
-  const handleReport = useCallback((values: ReportFormValues) => {
-    console.log(values);
-  }, []);
+  const { mutateAsync: postReport } = usePostReport();
+
+  const handleReport = useCallback(
+    async (values: ReportFormValues) => {
+      try {
+        await postReport({ carpoolId: carpoolId as string, ...values });
+      } catch (error) {
+        if (error instanceof Error) {
+          // TODO: modal 추가
+          alert(error.message);
+        }
+      }
+    },
+    [carpoolId, postReport],
+  );
 
   return (
     <form
