@@ -38,6 +38,8 @@ export const CLIENT_APP_ROUTES = {
   DRIVER_REGISTRATION: '/driver-registration',
   CARPOOL_REGISTRATION: '/carpool-registration',
   DRIVER_REGISTRATION_DONE: '/driver-registration/done',
+  REPORT: '/report',
+  REPORT_DONE: '/report/done',
 };
 
 export const CLIENT_APP_ROUTES_NAME: Record<string, string> = {
@@ -56,4 +58,6 @@ export const CLIENT_APP_ROUTES_NAME: Record<string, string> = {
   [CLIENT_APP_ROUTES.CHANGE_PASSWORD]: '비밀번호 재설정',
   [CLIENT_APP_ROUTES.DRIVER_REGISTRATION]: '드라이버 등록',
   [CLIENT_APP_ROUTES.DRIVER_REGISTRATION_DONE]: '',
+  [CLIENT_APP_ROUTES.REPORT]: '신고하기',
+  [CLIENT_APP_ROUTES.REPORT_DONE]: '',
 };
