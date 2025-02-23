@@ -2,6 +2,8 @@
 
 import { ProgressBarProps } from '@/app/(client)/driver-registration/components/ProgressBar/types';
 
+import { DriverRegistrationStep } from '@/app/(client)/driver-registration/constants';
+
 import { cn } from '@/utils/style';
 
 const ProgressBar = ({ step }: ProgressBarProps) => {
@@ -11,15 +13,17 @@ const ProgressBar = ({ step }: ProgressBarProps) => {
       <div
         className={cn(
           baseClassName,
-          step === 'CarNumber' || step === 'PhoneNumber'
-            ? 'bg-primary'
-            : 'bg-[#eaeaea]/95 ',
+          step === DriverRegistrationStep.CarImage
+            ? 'bg-[#eaeaea]/95 '
+            : 'bg-primary',
         )}
       />
       <div
         className={cn(
           baseClassName,
-          step === 'PhoneNumber' ? 'bg-primary' : 'bg-[#eaeaea]/95 ',
+          step === DriverRegistrationStep.PhoneNumber
+            ? 'bg-primary'
+            : 'bg-[#eaeaea]/95 ',
         )}
       />
     </div>

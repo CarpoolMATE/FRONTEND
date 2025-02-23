@@ -6,10 +6,9 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 
 import { CarNumberProps } from '@/app/(client)/driver-registration/components/CarNumber/types';
+import { DriverRegistrationFormValues } from '@/app/(client)/driver-registration/components/Form/schema';
 
 import { DRIVER_REGISTRATION_HEADER_HEIGHT } from '@/app/(client)/driver-registration/constants';
-
-import { DriverRegistrationFormValues } from '@/app/(client)/driver-registration/components/Form/schema';
 
 const CarNumber = ({ onNext }: CarNumberProps) => {
   const { register, watch, formState, trigger } =
