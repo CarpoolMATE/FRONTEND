@@ -1,22 +1,49 @@
 'use client';
 
+import { useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import { useFormContext } from 'react-hook-form';
+
+import { usePostMemberDriver } from '@/app/(client)/driver-registration/apis/postMemberDriver';
 
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 
 import { DRIVER_REGISTRATION_HEADER_HEIGHT } from '@/app/(client)/driver-registration/constants';
-
-import { PhoneNumberProps } from '@/app/(client)/driver-registration/components/PhoneNumber/types';
+import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import { DriverRegistrationFormValues } from '@/app/(client)/driver-registration/components/Form/schema';
 
-const PhoneNumber = ({ onSubmit }: PhoneNumberProps) => {
+const PhoneNumber = () => {
+  const router = useRouter();
+
   const { register, watch, formState, trigger, handleSubmit } =
     useFormContext<DriverRegistrationFormValues>();
 
+  const { mutateAsync: postMemberDriver } = usePostMemberDriver();
+
   const phoneNumber = watch('phoneNumber');
   const error = formState.errors.phoneNumber;
+
+  const handleDriverRegistration = useCallback(
+    async (values: DriverRegistrationFormValues) => {
+      const { carImage, ...rest } = values;
+
+      // TODO: 이미지 S3 업로드 API 구현 시 변경 예정
+      try {
+        await postMemberDriver({
+          carImage: carImage.name,
+          ...rest,
+        });
+        router.push(CLIENT_APP_ROUTES.DRIVER_REGISTRATION_DONE);
+      } catch (error) {
+        if (error instanceof Error) {
+          alert(error.message);
+        }
+      }
+    },
+    [postMemberDriver, router],
+  );
 
   return (
     <section
@@ -46,7 +73,7 @@ const PhoneNumber = ({ onSubmit }: PhoneNumberProps) => {
       <div className="mt-auto p-5">
         <Button
           disabled={!phoneNumber || !!error}
-          onClick={handleSubmit(onSubmit)}
+          onClick={handleSubmit(handleDriverRegistration)}
         >
           드라이버 등록하기
         </Button>

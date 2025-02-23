@@ -8,10 +8,9 @@ import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 
 import { DriverRegistrationFormValues } from '@/app/(client)/driver-registration/components/Form/schema';
+import { CarImageProps } from '@/app/(client)/driver-registration/components/CarImage/types';
 
 import { DRIVER_REGISTRATION_HEADER_HEIGHT } from '@/app/(client)/driver-registration/constants';
-
-import { CarImageProps } from '@/app/(client)/driver-registration/components/CarImage/types';
 
 const CarImage = ({ onNext }: CarImageProps) => {
   const { watch, setValue } = useFormContext<DriverRegistrationFormValues>();
