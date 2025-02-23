@@ -12,6 +12,8 @@ import {
   reportSchema,
 } from '@/app/(client)/report/[carpoolId]/components/Form/schema';
 
+import { HEADER_HEIGHT } from '@/constants/common';
+
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 
@@ -52,7 +54,7 @@ const ReportForm = () => {
   return (
     <form
       className="flex flex-col px-5"
-      style={{ height: `calc(100vh - 64px)` }}
+      style={{ height: `calc(100vh - ${HEADER_HEIGHT}px)` }}
       onSubmit={handleSubmit(handleReport)}
     >
       <div className="flex flex-col gap-2.5">
