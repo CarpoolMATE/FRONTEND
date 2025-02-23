@@ -11,9 +11,9 @@ import ProgressBar from '@/app/(client)/driver-registration/components/ProgressB
 import { usePostMemberDriver } from '@/app/(client)/driver-registration/apis/postMemberDriver';
 
 import { DriverRegistrationStep } from '@/app/(client)/driver-registration/constants';
+import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import { DriverRegistrationFormValues } from '@/app/(client)/driver-registration/components/Form/schema';
-import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 const DriverRegistrationFunnel = () => {
   const router = useRouter();
