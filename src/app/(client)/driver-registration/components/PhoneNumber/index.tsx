@@ -4,6 +4,8 @@ import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useFormContext } from 'react-hook-form';
 
+import { useMemberStore } from '@/store/member';
+
 import { usePostMemberDriver } from '@/app/(client)/driver-registration/apis/postMemberDriver';
 
 import Button from '@/components/Button';
@@ -16,6 +18,7 @@ import { DriverRegistrationFormValues } from '@/app/(client)/driver-registration
 
 const PhoneNumber = () => {
   const router = useRouter();
+  const { setMember } = useMemberStore();
 
   const { register, watch, formState, trigger, handleSubmit } =
     useFormContext<DriverRegistrationFormValues>();
@@ -31,18 +34,22 @@ const PhoneNumber = () => {
 
       // TODO: 이미지 S3 업로드 API 구현 시 변경 예정
       try {
-        await postMemberDriver({
+        const member = await postMemberDriver({
           carImage: carImage.name,
           ...rest,
         });
+
+        setMember(member);
+
         router.push(CLIENT_APP_ROUTES.DRIVER_REGISTRATION_DONE);
       } catch (error) {
         if (error instanceof Error) {
+          // TODO: modal 적용
           alert(error.message);
         }
       }
     },
-    [postMemberDriver, router],
+    [router, postMemberDriver, setMember],
   );
 
   return (
