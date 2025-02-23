@@ -14,6 +14,17 @@ const Header = () => {
     return null;
   }
 
+  const getClientAppRouteName = () => {
+    if (
+      pathname.startsWith(CLIENT_APP_ROUTES.REPORT) &&
+      pathname !== CLIENT_APP_ROUTES.REPORT_DONE
+    ) {
+      return CLIENT_APP_ROUTES_NAME[CLIENT_APP_ROUTES.REPORT];
+    }
+
+    return CLIENT_APP_ROUTES_NAME[pathname];
+  };
+
   return (
     <header className="relative flex items-center justify-center px-4 py-5 h-full max-h-16">
       <Button
@@ -24,7 +35,7 @@ const Header = () => {
         <Icon icon="CHEVRONS_LEFT" className="text-icon" />
       </Button>
       <h1 className="font-semibold text-xl text-title">
-        {CLIENT_APP_ROUTES_NAME[pathname]}
+        {getClientAppRouteName()}
       </h1>
     </header>
   );
