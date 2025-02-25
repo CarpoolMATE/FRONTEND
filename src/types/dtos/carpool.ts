@@ -10,4 +10,7 @@ export type CarpoolDto = {
   capacity: number;
   cost: number;
   reservationCount: number;
+  latitude: number;
+  longitude: number;
+  createAt: string;
 };

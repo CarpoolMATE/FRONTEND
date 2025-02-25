@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
-import { GetProfileCarpoolListDto } from '@/app/(client)/profile/apis/types';
+import { CarpoolDto } from '@/types/dtos/carpool';
 
 import { useMemberStore } from '@/store/member';
 
@@ -25,7 +25,7 @@ const ProfilePage = () => {
 
   const [isPassinger, setIsPassinger] = useState(true);
   const [driverModalVisible, setDriverModalVisible] = useState(false);
-  const [data, setData] = useState<GetProfileCarpoolListDto[]>([]);
+  const [data, setData] = useState<CarpoolDto[]>([]);
 
   const onChangeIsPassingerHandle = () => {
     if (member?.isDriver) {
@@ -107,7 +107,7 @@ const ProfilePage = () => {
         <div className="w-full h-[calc(100%-35px)] overflow-y-scroll">
           {data.length === 0
             ? `최근 ${isPassinger ? '탑승' : '운행'} 내역이 없습니다. `
-            : data.map((v) => <ProfileCard key={v.carpoolId} {...v} />)}
+            : data.map((v) => <ProfileCard key={v.carpoolId} data={v} />)}
         </div>
       </div>
     </section>
