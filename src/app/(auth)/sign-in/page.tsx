@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { signIn } from 'next-auth/react';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
@@ -21,7 +22,10 @@ const SignInPage = () => {
 
       <div className="flex-col justify-start items-center gap-[30px] inline-flex px-5 w-full max-w-[375px]">
         <div className="self-stretch h-[187px] flex-col justify-start items-start gap-2 flex">
-          <Button className="flex items-center px-5 bg-[#fee500]">
+          <Button
+            className="flex items-center px-5 bg-[#fee500]"
+            onClick={() => signIn('kakao')}
+          >
             <Icon icon="KAKAO" className="text-black size-[22px]" />
 
             <span className="grow shrink basis-0 text-center text-black/85 text-lg font-semibold">
@@ -29,7 +33,10 @@ const SignInPage = () => {
             </span>
           </Button>
 
-          <Button className="flex items-center px-5 bg-[#00B900]">
+          <Button
+            className="flex items-center px-5 bg-[#00B900]"
+            onClick={() => signIn('line')}
+          >
             <Icon icon="LINE" className="size-[22px]" />
 
             <span className="grow shrink basis-0 text-center text-white text-lg font-semibold">
