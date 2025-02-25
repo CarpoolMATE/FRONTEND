@@ -2,13 +2,10 @@
 
 type SegmentControlProps = {
   isPassinger: boolean;
-  setIsPassinger: React.Dispatch<React.SetStateAction<boolean>>;
+  onClick: () => void;
 };
 
-const SegmentControl = ({
-  isPassinger,
-  setIsPassinger,
-}: SegmentControlProps) => {
+const SegmentControl = ({ isPassinger, onClick }: SegmentControlProps) => {
   const tabs = [
     { id: 'passenger', label: '패신저' },
     { id: 'driver', label: '드라이버' },
@@ -16,7 +13,7 @@ const SegmentControl = ({
 
   return (
     <div
-      onClick={() => setIsPassinger((prev) => !prev)}
+      onClick={onClick}
       className="relative flex bg-[#F1F1F1] rounded-2xl p-[2px] transition-all duration-300 w-[150px] h-[38px] cursor-pointer"
     >
       <div

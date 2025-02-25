@@ -7,7 +7,7 @@ import { CLIENT_APP_ROUTES } from '@/constants/routes';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import Header from '@/app/(auth)/components/Header';
-import ProfileImageCard from '@/app/profile/components/ProfileImage';
+import ProfileImageCard from '@/app/(client)/profile/components/ProfileImage';
 
 const PassengerProfileEditPage = () => {
   return (
@@ -17,10 +17,15 @@ const PassengerProfileEditPage = () => {
         <div className="w-full flex flex-col items-center gap-[30px]">
           <ProfileImageCard src="" isEdit={true} />
           <div className="w-full flex flex-col gap-2">
-            <span className="text-sm">닉네임</span>
+            <span className="text-sm">차량 번호</span>
             <div className="flex gap-2 w-full [&>*]:w-full">
-              <Input placeholder="닉네임을 입력해주세요." />
-              <Button className="max-w-20">중복확인</Button>
+              <Input placeholder="차량 번호를 입력해주세요" />
+            </div>
+          </div>
+          <div className="w-full flex flex-col gap-2">
+            <span className="text-sm">전화 번호</span>
+            <div className="flex gap-2 w-full [&>*]:w-full">
+              <Input placeholder="전화 번호를 입력해주세요" />
             </div>
           </div>
           <div className="w-full flex items-start">
