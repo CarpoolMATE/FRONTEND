@@ -1,22 +1,20 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
-import { CarpoolDto } from '@/types/dtos/carpool';
-
 import { useMemberStore } from '@/store/member';
 
-import Button from '@/components/Button';
-import Icon from '@/components/Icon';
 import SegmentControl from '@/app/(client)/profile/components/Segment';
 import ProfileImageCard from '@/app/(client)/profile/components/ProfileImage';
-import getProfileCarpoorList from '@/app/(client)/profile/apis/getProfileCarpoolList';
 import ProfileCard from '@/app/(client)/profile/components/ProfileCard';
+import useGetProfileCarpoolList from '@/app/(client)/profile/apis/useGetProfileCarpoolList';
 import DriverRegistrationModal from '@/app/(client)/home/components/Modal/DriverRegistrationModal';
+import Button from '@/components/Button';
+import Icon from '@/components/Icon';
 
 const ProfilePage = () => {
   const router = useRouter();
@@ -25,7 +23,6 @@ const ProfilePage = () => {
 
   const [isPassinger, setIsPassinger] = useState(true);
   const [driverModalVisible, setDriverModalVisible] = useState(false);
-  const [data, setData] = useState<CarpoolDto[]>([]);
 
   const onChangeIsPassingerHandle = () => {
     if (member?.isDriver) {
@@ -35,16 +32,9 @@ const ProfilePage = () => {
     }
   };
 
-  useEffect(() => {
-    const getProfileList = async () => {
-      const result = await getProfileCarpoorList(
-        isPassinger ? 'history' : 'driveHis',
-      );
-      setData(result.data);
-    };
-
-    getProfileList();
-  }, [isPassinger]);
+  const { data } = useGetProfileCarpoolList(
+    isPassinger ? 'history' : 'driveHis',
+  );
 
   return (
     <section className="w-full bg-gray_light flex flex-col h-screen">
@@ -105,9 +95,9 @@ const ProfilePage = () => {
           최근 {isPassinger ? '탑승' : '운행'} 목록
         </h2>
         <div className="w-full h-[calc(100%-35px)] overflow-y-scroll">
-          {data.length === 0
+          {data?.length === 0
             ? `최근 ${isPassinger ? '탑승' : '운행'} 내역이 없습니다. `
-            : data.map((v) => <ProfileCard key={v.carpoolId} data={v} />)}
+            : data?.map((v) => <ProfileCard key={v.carpoolId} data={v} />)}
         </div>
       </div>
     </section>

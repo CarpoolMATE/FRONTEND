@@ -8,11 +8,7 @@ import { GetProfileListType } from '@/app/(client)/profile/apis/types';
 
 const useGetProfileCarpoolList = (type: GetProfileListType) =>
   useQuery({
-    queryKey: [
-      type === 'history'
-        ? QueryKey.ProfileCarpoolList
-        : QueryKey.ProfileDriveList,
-    ],
+    queryKey: [QueryKey.ProfileCarpoolList, type],
     queryFn: () => getProfileCarpoorList(type),
   });
 
