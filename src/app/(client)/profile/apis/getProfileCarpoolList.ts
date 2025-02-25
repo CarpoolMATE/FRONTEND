@@ -11,7 +11,7 @@ const getProfileCarpoorList = async (type: GetProfileListType) => {
     CHECK_GETPROFILE_LIST_ROUTE_CLASSES[type],
   );
 
-  return response;
+  return response.data;
 };
 
 export default getProfileCarpoorList;
