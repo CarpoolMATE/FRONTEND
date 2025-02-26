@@ -11,6 +11,7 @@ export const API_ROUTES = {
     CHECK_MEMBERID: `${BASE_API_URL}/api/member/checkMemberId`,
     CHECK_EMAIL: `${BASE_API_URL}/api/member/checkEmail`,
     DRIVER: `${BASE_API_URL}/api/member/driver`,
+    PASSINGER_PROFILE: `${BASE_API_URL}/api/member/member`,
   },
   CARPOOL: {
     ACTIVE: `${BASE_API_URL}/api/carpool/active`,
@@ -21,6 +22,7 @@ export const API_ROUTES = {
     HISTORY: `${BASE_API_URL}/api/carpool/history`,
   },
   REPORT: `${BASE_API_URL}/api/report`,
+  FILE: `${BASE_API_URL}/file/upload`,
 };
 
 export const CLIENT_APP_ROUTES = {
