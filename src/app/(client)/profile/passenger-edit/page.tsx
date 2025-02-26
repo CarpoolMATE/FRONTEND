@@ -10,12 +10,14 @@ import { useMemberStore } from '@/store/member';
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import usePostCheckDuplicate from '@/app/(auth)/sign-up/apis/usePostCheckDuplicate';
-import usePostUpload from '@/app/(client)/apis/getMember/usePostUpload';
+import usePostUpload from '@/apis/usePostUpload';
 
 import {
   EditProfileFormValues,
   editProfileSchema,
 } from '@/app/(client)/profile/components/schema';
+
+import usePutProfileEdit from '@/app/(client)/profile/apis/usePutProfileEdit';
 
 import { MemberDto } from '@/types/dtos/member';
 
@@ -24,7 +26,6 @@ import ProfileImageCard from '@/app/(client)/profile/components/ProfileImage';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import Modal from '@/components/Modal';
-import usePutProfileEdit from '@/app/(client)/apis/getMember/usePutProfileEdit';
 
 const PassengerProfileEditPage = () => {
   const {
@@ -49,7 +50,7 @@ const PassengerProfileEditPage = () => {
 
   const imgFileRef = useRef<File | undefined>(undefined);
 
-  const onImageChangeHandle = (file: File, url: string) => {
+  const onChangeImage = (file: File, url: string) => {
     imgFileRef.current = file;
     setValue('profileImage', url, { shouldValidate: true, shouldDirty: true });
   };
@@ -144,9 +145,9 @@ const PassengerProfileEditPage = () => {
       >
         <div className="w-full flex flex-col items-center gap-[30px]">
           <ProfileImageCard
-            onImageChangeHandle={onImageChangeHandle}
+            onChangeImage={onChangeImage}
             src={watch('profileImage')}
-            isEdit={true}
+            isEdit
           />
           <div className="w-full flex flex-col gap-2">
             <span className="text-sm">닉네임</span>
