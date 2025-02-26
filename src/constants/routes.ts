@@ -25,6 +25,9 @@ export const API_ROUTES = {
   },
   REPORT: `${BASE_API_URL}/api/report`,
   FILE_UPLOAD: `${BASE_API_URL}/file/upload`,
+  SOCIAL: {
+    KAKAO: `${BASE_API_URL}/api/social/kakao/callback`,
+  },
 };
 
 export const CLIENT_APP_ROUTES = {
