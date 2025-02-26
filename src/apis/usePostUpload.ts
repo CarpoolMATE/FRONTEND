@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import postUpload from '@/app/(client)/apis/getMember/postUpload';
+import postUpload from '@/apis/postUpload';
 
 const usePostUpload = () => {
   return useMutation({

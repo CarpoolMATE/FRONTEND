@@ -25,3 +25,13 @@ export type ApiErrorResponse = {
   code: string;
   message: string;
 };
+
+export type PostUploadParams = {
+  file: string;
+};
+
+export type UploadDto = {
+  data: string;
+  message: string;
+  status: string;
+};
