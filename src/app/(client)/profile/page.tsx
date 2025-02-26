@@ -8,10 +8,11 @@ import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import { useMemberStore } from '@/store/member';
 
+import useGetProfileCarpoolList from '@/app/(client)/profile/apis/useGetProfileCarpoolList';
+
 import SegmentControl from '@/app/(client)/profile/components/Segment';
 import ProfileImageCard from '@/app/(client)/profile/components/ProfileImage';
 import ProfileCard from '@/app/(client)/profile/components/ProfileCard';
-import useGetProfileCarpoolList from '@/app/(client)/profile/apis/useGetProfileCarpoolList';
 import DriverRegistrationModal from '@/app/(client)/home/components/Modal/DriverRegistrationModal';
 import Button from '@/components/Button';
 import Icon from '@/components/Icon';
