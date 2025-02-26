@@ -22,7 +22,7 @@ export const API_ROUTES = {
     HISTORY: `${BASE_API_URL}/api/carpool/history`,
   },
   REPORT: `${BASE_API_URL}/api/report`,
-  FILE: `${BASE_API_URL}/file/upload`,
+  FILE_UPLOAD: `${BASE_API_URL}/file/upload`,
 };
 
 export const CLIENT_APP_ROUTES = {

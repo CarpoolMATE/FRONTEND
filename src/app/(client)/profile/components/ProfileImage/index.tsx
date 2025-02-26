@@ -5,18 +5,18 @@ import Icon from '@/components/Icon';
 type Props = {
   src: string;
   isEdit?: boolean;
-  onImageChangeHandle?: (file: File, url: string) => void;
+  onChangeImage?: (file: File, url: string) => void;
 };
 
-const ProfileImageCard = ({ src, isEdit, onImageChangeHandle }: Props) => {
+const ProfileImageCard = ({ src, isEdit, onChangeImage }: Props) => {
   const [imageSrc, setImageSrc] = useState(src);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0] && onImageChangeHandle) {
+    if (event.target.files && event.target.files[0] && onChangeImage) {
       const file = event.target.files[0];
       const newImageUrl = URL.createObjectURL(file);
       setImageSrc(newImageUrl);
-      onImageChangeHandle(file, newImageUrl);
+      onChangeImage(file, newImageUrl);
     }
   };
 
