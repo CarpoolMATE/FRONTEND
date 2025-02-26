@@ -1,15 +1,12 @@
-import { fetchPost } from '@/apis/fetch';
+import { PostUploadParams, UploadDto } from '@/apis/types';
 
 import { API_ROUTES } from '@/constants/routes';
 
-import {
-  PostUploadParams,
-  UploadDto,
-} from '@/app/(client)/apis/getMember/types';
+import { fetchPost } from '@/apis/fetch';
 
 const postUpload = async (params: PostUploadParams) => {
   const response = await fetchPost<UploadDto, PostUploadParams>(
-    API_ROUTES.FILE,
+    API_ROUTES.FILE_UPLOAD,
     params,
   );
 
