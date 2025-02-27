@@ -65,8 +65,10 @@ export async function fetchAPI<T, R = FetchResourceType | FetchParamObject>(
       Accept: 'application/json',
       // FIXME: 쿠키 적용 시 Authorization 제거
       Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqaW5iZSIsInJvbGUiOiJST0xFX1VTRVIiLCJuaWNrbmFtZSI6IuynleuyoCIsImV4cCI6MTc0MDM4MjA5NH0.9wT374cf0pYv6PKMLfnditHrlK8Rqp6hXX1mPSVSItw',
-      ...(!isFetchMethodGet && data && { 'Content-Type': 'application/json' }),
+        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqaW5iZSIsInJvbGUiOiJST0xFX1VTRVIiLCJuaWNrbmFtZSI6IuynleuyoCIsImV4cCI6MTc0MTIyOTEwM30.Vyp5whhb2_Gy9dLNf3tcqtp1y3foY5_c6wt8O1t6a4s',
+      ...(!isFetchMethodGet &&
+        data &&
+        !(data instanceof FormData) && { 'Content-Type': 'application/json' }),
     },
   };
 
@@ -74,7 +76,13 @@ export async function fetchAPI<T, R = FetchResourceType | FetchParamObject>(
     ...baseOptions,
     ...(options && options),
   };
-  requestOptions.body = !isFetchMethodGet && data ? JSON.stringify(data) : null;
+
+  if (!isFetchMethodGet && data) {
+    requestOptions.body =
+      data instanceof FormData ? data : JSON.stringify(data);
+  } else {
+    requestOptions.body = null;
+  }
 
   // FIXME: cors 적용 시 apache 이용
   const response = await fetch(requestUrl, requestOptions);

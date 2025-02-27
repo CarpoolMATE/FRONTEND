@@ -1,16 +1,16 @@
-import { PostUploadParams, UploadDto } from '@/apis/types';
+import { fetchPost } from '@/apis/fetch';
 
 import { API_ROUTES } from '@/constants/routes';
 
-import { fetchPost } from '@/apis/fetch';
+import { ApiSuccessResponse } from '@/apis/types';
 
-const postUpload = async (params: PostUploadParams) => {
-  const response = await fetchPost<UploadDto, PostUploadParams>(
+const postUpload = async (formData: FormData) => {
+  const response = await fetchPost<ApiSuccessResponse<string>>(
     API_ROUTES.FILE_UPLOAD,
-    params,
+    formData,
   );
 
-  return response;
+  return response.data;
 };
 
 export default postUpload;
