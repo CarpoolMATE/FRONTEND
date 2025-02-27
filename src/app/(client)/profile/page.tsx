@@ -36,7 +36,6 @@ const ProfilePage = () => {
   const { data } = useGetProfileCarpoolList(
     isPassinger ? 'history' : 'driveHis',
   );
-
   return (
     <section className="w-full bg-gray_light flex flex-col h-screen">
       {driverModalVisible && (
@@ -73,7 +72,7 @@ const ProfilePage = () => {
             수정
           </Link>
         </div>
-        <ProfileImageCard src={member?.profileImage ?? ''} />
+        <ProfileImageCard src={member?.profileImage!} />
         <div className="w-full flex justify-between text-sm font-medium">
           <p className="text-placeholder">
             {isPassinger ? '닉네임' : '차량 번호'}
