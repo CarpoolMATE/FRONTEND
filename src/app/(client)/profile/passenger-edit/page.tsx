@@ -40,7 +40,6 @@ const PassengerProfileEditPage = () => {
   });
 
   const { member, setMember } = useMemberStore();
-
   const { mutateAsync: checkDuplicateAPI } = usePostCheckDuplicate();
   const { mutateAsync: postUpload } = usePostUpload();
   const { mutateAsync: postPutProfileEdit } = usePutProfileEdit();
@@ -73,58 +72,49 @@ const PassengerProfileEditPage = () => {
     }
   };
 
-  // const convertFileToBase64 = (file: File): Promise<string> => {
-  //   return new Promise((resolve, reject) => {
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file);
-  //     reader.onload = () => resolve(reader.result as string);
-  //     reader.onerror = (error) => reject(error);
-  //   });
-  // };
   const handleEditProfile = useCallback(
     async ({ nickname }: EditProfileFormValues) => {
-      // try {
-      //   if (!imgFileRef.current) return;
-
-      //   const base64String = await convertFileToBase64(imgFileRef.current);
-      //   const { data } = await postUpload({ file: base64String });
-
-      //   if (data) {
-      //     const profileEditResponse = await postPutProfileEdit({
-      //       nickname,
-      //       profileImage: data,
-      //     });
-
-      //     console.log(profileEditResponse);
-      //   }
-      // } catch (error) {
-      //   if (error instanceof Error) {
-      //     setErrorText(error.message);
-      //   }
-      // }
-      //TODO: s3 이미지 업로드 후 수정 api 호출
       try {
+        let profileImage = watch('profileImage');
+
+        if (imgFileRef.current) {
+          const formData = new FormData();
+          formData.append('file', imgFileRef.current);
+          const uploadUrl = await postUpload(formData);
+          profileImage = uploadUrl;
+        }
+
         const profileEditResponse = await postPutProfileEdit({
           nickname,
-          profileImage: watch('profileImage'),
+          profileImage,
         });
 
         if (profileEditResponse.status === 'OK') {
-          setMember({
+          const updatedMember = {
             ...member,
             ...profileEditResponse.data,
-          } as MemberDto);
+          } as MemberDto;
+
+          setMember(updatedMember);
           reset(profileEditResponse.data);
           setErrorText('수정이 완료되었습니다.');
           setDisableButton(false);
         }
       } catch (error) {
-        if (error instanceof Error) {
-          setErrorText(error.message);
-        }
+        setErrorText(
+          error instanceof Error ? error.message : '프로필 수정 중 오류 발생',
+        );
       }
     },
-    [postUpload, setErrorText],
+    [
+      postUpload,
+      postPutProfileEdit,
+      setErrorText,
+      setMember,
+      member,
+      reset,
+      watch,
+    ],
   );
 
   useEffect(() => {
