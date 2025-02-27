@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Icon from '@/components/Icon';
 
@@ -19,6 +19,10 @@ const ProfileImageCard = ({ src, isEdit, onChangeImage }: Props) => {
       onChangeImage(file, newImageUrl);
     }
   };
+
+  useEffect(() => {
+    setImageSrc(src);
+  }, [src]);
 
   return (
     <div
