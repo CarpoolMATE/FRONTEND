@@ -7,6 +7,7 @@ import { useFormContext } from 'react-hook-form';
 import { useMemberStore } from '@/store/member';
 
 import { usePostMemberDriver } from '@/app/(client)/driver-registration/apis/postMemberDriver';
+import usePostUpload from '@/apis/usePostUpload';
 
 import Button from '@/components/Button';
 import Input from '@/components/Input';
@@ -24,18 +25,33 @@ const PhoneNumber = () => {
     useFormContext<DriverRegistrationFormValues>();
 
   const { mutateAsync: postMemberDriver } = usePostMemberDriver();
+  const { mutateAsync: postUpload } = usePostUpload();
 
   const phoneNumber = watch('phoneNumber');
   const error = formState.errors.phoneNumber;
+
+  const handleUploadFile = useCallback(
+    async (file: File) => {
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        return await postUpload(formData);
+      } catch (error) {
+        throw error;
+      }
+    },
+    [postUpload],
+  );
 
   const handleDriverRegistration = useCallback(
     async (values: DriverRegistrationFormValues) => {
       const { carImage, ...rest } = values;
 
-      // TODO: 이미지 S3 업로드 API 구현 시 변경 예정
+      const imageUrl = await handleUploadFile(carImage);
+
       try {
         const member = await postMemberDriver({
-          carImage: carImage.name,
+          carImage: imageUrl,
           ...rest,
         });
 
@@ -49,7 +65,7 @@ const PhoneNumber = () => {
         }
       }
     },
-    [router, postMemberDriver, setMember],
+    [handleUploadFile, postMemberDriver, setMember, router],
   );
 
   return (
