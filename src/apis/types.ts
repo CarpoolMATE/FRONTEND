@@ -2,6 +2,7 @@ export type FetchResourceType =
   | string
   | number
   | boolean
+  | FormData
   | null
   | undefined
   | FetchResourceObject
@@ -10,7 +11,7 @@ export type FetchResourceType =
 export type FetchResourceObject = { [key: string]: FetchResourceType };
 
 export type FetchParamObject = {
-  [key: string]: string | number | boolean | null | undefined;
+  [key: string]: string | number | boolean | FormData | null | undefined;
 };
 
 export type ApiSuccessResponse<T> = {
@@ -24,14 +25,4 @@ export type ApiErrorResponse = {
   name: string;
   code: string;
   message: string;
-};
-
-export type PostUploadParams = {
-  file: string;
-};
-
-export type UploadDto = {
-  data: string;
-  message: string;
-  status: string;
 };
