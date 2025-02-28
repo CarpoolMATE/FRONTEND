@@ -55,7 +55,6 @@ const PassengerProfileEditPage = () => {
 
   const handleEditProfile = useCallback(
     async ({ carNumber, phoneNumber }: EditDriverProfileFormValues) => {
-      //TODO: 업로드 api 404발생으로 재테스트 필요.
       try {
         let carImage = watch('carImage');
 
