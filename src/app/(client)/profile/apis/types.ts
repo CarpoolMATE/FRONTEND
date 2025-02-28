@@ -22,3 +22,7 @@ export type DriverProfileEditDto = {
   status: string;
   data: PutDriverProfileEditParams;
 };
+
+export type PostChangepasswordParams = {
+  password: string;
+};

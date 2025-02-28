@@ -9,9 +9,11 @@ export const API_ROUTES = {
     FIND_PASSWORD: `${BASE_API_URL}/api/member/findPassword`,
     CHECK_NICKNAME: `${BASE_API_URL}/api/member/checkNickname`,
     CHECK_MEMBERID: `${BASE_API_URL}/api/member/checkMemberId`,
+    CHECK_PASSWORD: `${BASE_API_URL}/api/member/checkPassword`,
     CHECK_EMAIL: `${BASE_API_URL}/api/member/checkEmail`,
     DRIVER: `${BASE_API_URL}/api/member/driver`,
     PASSINGER_PROFILE: `${BASE_API_URL}/api/member/member`,
+    CHANGE_PASSWORD: `${BASE_API_URL}/api/member/changePassword`,
   },
   CARPOOL: {
     ACTIVE: `${BASE_API_URL}/api/carpool/active`,
