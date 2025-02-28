@@ -31,7 +31,7 @@ const ProfileImageCard = ({ src, isEdit, onChangeImage }: Props) => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
-      className={`w-20 h-20 rounded-full bg-red-500 relative ${isEdit ? 'cursor-pointer' : 'cursor-default'}`}
+      className={`w-20 h-20 rounded-full border border-gray-200 relative ${isEdit ? 'cursor-pointer' : 'cursor-default'}`}
       onClick={() => isEdit && document.getElementById('fileInput')?.click()}
     >
       {isEdit && (
