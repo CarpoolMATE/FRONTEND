@@ -10,3 +10,15 @@ export type ProfileEditDto = {
   status: string;
   data: PutProfileEditParams;
 };
+
+export type PutDriverProfileEditParams = {
+  carNumber: string;
+  phoneNumber: string;
+  carImage: string;
+};
+
+export type DriverProfileEditDto = {
+  message: string;
+  status: string;
+  data: PutDriverProfileEditParams;
+};

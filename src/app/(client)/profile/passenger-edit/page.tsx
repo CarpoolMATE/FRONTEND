@@ -110,7 +110,7 @@ const PassengerProfileEditPage = () => {
   );
 
   useEffect(() => {
-    reset({ nickname: member?.nickname, profileImage: member?.profileImage });
+    reset({ ...member });
   }, [member]);
 
   return (
