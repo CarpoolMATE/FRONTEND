@@ -16,7 +16,7 @@ import Modal from '@/components/Modal';
 
 const SignupPage: React.FC = () => {
   const { mutateAsync: postSignUp } = usePostSignUp();
-  const { mutateAsync: checkDuplicateAPI } = usePostCheckDuplicate();
+  const { mutateAsync: postCheckDuplicateAPI } = usePostCheckDuplicate();
 
   const router = useRouter();
 
@@ -90,7 +90,7 @@ const SignupPage: React.FC = () => {
 
   const handleCheckDuplicate = async (type: CheckDuplicate) => {
     try {
-      const response = await checkDuplicateAPI({
+      const response = await postCheckDuplicateAPI({
         params: { nickname: name, email, memberId: id },
         type,
       });

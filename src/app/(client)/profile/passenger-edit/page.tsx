@@ -40,9 +40,9 @@ const PassengerProfileEditPage = () => {
   });
 
   const { member, setMember } = useMemberStore();
-  const { mutateAsync: checkDuplicateAPI } = usePostCheckDuplicate();
+  const { mutateAsync: postCheckDuplicateAPI } = usePostCheckDuplicate();
   const { mutateAsync: postUpload } = usePostUpload();
-  const { mutateAsync: postPutProfileEdit } = usePutProfileEdit();
+  const { mutateAsync: putProfileEdit } = usePutProfileEdit();
 
   const [errorText, setErrorText] = useState('');
   const [disableButton, setDisableButton] = useState(false);
@@ -56,7 +56,7 @@ const PassengerProfileEditPage = () => {
 
   const onDuplicateHandle = async () => {
     try {
-      const response = await checkDuplicateAPI({
+      const response = await postCheckDuplicateAPI({
         params: { nickname: watch('nickname') },
         type: 'checkNickname',
       });
@@ -84,7 +84,7 @@ const PassengerProfileEditPage = () => {
           profileImage = uploadUrl;
         }
 
-        const profileEditResponse = await postPutProfileEdit({
+        const profileEditResponse = await putProfileEdit({
           nickname,
           profileImage,
         });
@@ -106,15 +106,7 @@ const PassengerProfileEditPage = () => {
         );
       }
     },
-    [
-      postUpload,
-      postPutProfileEdit,
-      setErrorText,
-      setMember,
-      member,
-      reset,
-      watch,
-    ],
+    [postUpload, putProfileEdit, setErrorText, setMember, member, reset, watch],
   );
 
   useEffect(() => {
