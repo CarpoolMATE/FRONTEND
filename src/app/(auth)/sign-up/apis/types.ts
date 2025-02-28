@@ -16,6 +16,7 @@ export type PostCheckDuplicateParams = {
   nickname?: string;
   memberId?: string;
   email?: string;
+  password?: string;
 };
 
 export type CheckDuplicateDto = {
@@ -24,4 +25,8 @@ export type CheckDuplicateDto = {
   status: string;
 };
 
-export type CheckDuplicate = 'checkNickname' | 'checkMemberId' | 'checkEmail';
+export type CheckDuplicate =
+  | 'checkNickname'
+  | 'checkMemberId'
+  | 'checkEmail'
+  | 'checkPassword';
