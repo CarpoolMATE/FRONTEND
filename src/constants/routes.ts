@@ -27,6 +27,7 @@ export const API_ROUTES = {
   FILE_UPLOAD: `${BASE_API_URL}/file/upload`,
   SOCIAL: {
     KAKAO: `${BASE_API_URL}/api/social/kakao/callback`,
+    LINE: `${BASE_API_URL}/api/social/line/callback`,
   },
 };
 

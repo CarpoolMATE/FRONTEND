@@ -64,8 +64,8 @@ export async function fetchAPI<T, R = FetchResourceType | FetchParamObject>(
     headers: {
       Accept: 'application/json',
       // FIXME: 쿠키 적용 시 Authorization 제거
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqaW5iZSIsInJvbGUiOiJST0xFX1VTRVIiLCJuaWNrbmFtZSI6IuynleuyoCIsImV4cCI6MTc0MTIyOTEwM30.Vyp5whhb2_Gy9dLNf3tcqtp1y3foY5_c6wt8O1t6a4s',
+      // Authorization:
+      //   'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqaW5iZSIsInJvbGUiOiJST0xFX1VTRVIiLCJuaWNrbmFtZSI6IuynleuyoCIsImV4cCI6MTc0MTIyOTEwM30.Vyp5whhb2_Gy9dLNf3tcqtp1y3foY5_c6wt8O1t6a4s',
       ...(!isFetchMethodGet &&
         data &&
         !(data instanceof FormData) && { 'Content-Type': 'application/json' }),

@@ -3,29 +3,29 @@
 import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import useKakaoLogin from '@/app/api/auth/callback/kakao/useKakaoLogin';
+import useLineLogin from '@/app/api/auth/callback/line/useLineLogin';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import Spin from '@/components/Spin';
 
-const CallbackKakao = () => {
+const CallbackLine = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
 
-  const { mutate: kakaoLogin } = useKakaoLogin();
+  const { mutate: lineLogin } = useLineLogin();
 
   useEffect(() => {
     if (code) {
-      kakaoLogin(code, {
+      lineLogin(code, {
         onSuccess: () => {
           router.replace(CLIENT_APP_ROUTES.HOME);
         },
         onError: (error) => alert(error.message),
       });
     }
-  }, [code, router, kakaoLogin]);
+  }, [code, router, lineLogin]);
 
   return (
     <div className="h-screen flex items-center justify-center">
@@ -34,4 +34,4 @@ const CallbackKakao = () => {
   );
 };
 
-export default CallbackKakao;
+export default CallbackLine;
