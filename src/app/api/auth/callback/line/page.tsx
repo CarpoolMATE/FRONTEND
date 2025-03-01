@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import useLineLogin from '@/app/api/auth/callback/line/useLineLogin';
+import { useLineLogin } from '@/app/api/auth/callback/line/apis';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 

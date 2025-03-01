@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import getSocialKakao from '@/app/api/auth/callback/kakao/getSocialKakao';
+import getSocialKakao from '@/app/api/auth/callback/kakao/apis/getSocialKakao';
 
 const useKakaoLogin = () => useMutation({ mutationFn: getSocialKakao });
 
