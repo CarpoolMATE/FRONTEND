@@ -18,7 +18,7 @@ const DestinationSummary = ({
     departureTime,
     reservationCount,
   },
-  useMapIcon,
+  showMapIcon,
 }: DestinationSummaryProps) => {
   return (
     <>
@@ -56,7 +56,7 @@ const DestinationSummary = ({
             </p>
           </div>
         </div>
-        {useMapIcon && (
+        {showMapIcon && (
           <Link
             href={`https://map.kakao.com/?q=${departureCoordinate}`}
             target="_blank"
@@ -79,7 +79,7 @@ const DestinationSummary = ({
             탑승 인원
           </p>
           <p className="font-medium">
-            {useMapIcon ? `${reservationCount}/${capacity}` : `${capacity}명`}
+            {showMapIcon ? `${reservationCount}/${capacity}` : `${capacity}명`}
           </p>
         </div>
 
