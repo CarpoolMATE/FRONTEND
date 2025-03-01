@@ -68,7 +68,7 @@ const ReservationModal = ({ data, onClose }: ReservationModalProps) => {
               </div>
             </div>
 
-            <DestinationSummary data={data} useMapIcon />
+            <DestinationSummary data={data} showMapIcon />
           </div>
         </div>
 

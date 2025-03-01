@@ -1,3 +1,4 @@
+import Icon from '@/components/Icon';
 import { useState } from 'react';
 
 type DropdownProps = {
@@ -34,21 +35,7 @@ export const Dropdown = ({
               {value}
               {value ? indexString : placeHolder}
             </span>
-            <svg
-              className={`w-4 h-4 transition-transform ${
-                more ? 'rotate-180' : ''
-              }`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
+            <Icon icon="CHEVRONS_BOTTOM" className="w-3 text-placeholder" />
           </button>
 
           {more && (
