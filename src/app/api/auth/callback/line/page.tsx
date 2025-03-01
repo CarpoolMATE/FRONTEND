@@ -27,11 +27,7 @@ const CallbackLine = () => {
     }
   }, [code, router, lineLogin]);
 
-  return (
-    <div className="h-screen flex items-center justify-center">
-      <Spin />
-    </div>
-  );
+  return <Spin />;
 };
 
 export default CallbackLine;
