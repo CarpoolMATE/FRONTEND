@@ -23,8 +23,7 @@ const ProfileVerifyPasswordPage = () => {
   const {
     register,
     handleSubmit,
-    watch,
-    formState: { isDirty },
+    formState: { isValid },
   } = useForm<VerifyPasswordFormValues>({
     resolver: zodResolver(verifyPasswordSchema),
   });
@@ -35,10 +34,10 @@ const ProfileVerifyPasswordPage = () => {
 
   const [errorText, setErrorText] = useState('');
 
-  const onDuplicateHandle = async () => {
+  const onDuplicateHandle = async (values: VerifyPasswordFormValues) => {
     try {
       const response = await postCheckDuplicateAPI({
-        params: { password: watch('password') },
+        params: { ...values },
         type: 'checkPassword',
       });
 
@@ -74,7 +73,7 @@ const ProfileVerifyPasswordPage = () => {
             />
           </div>
         </div>
-        <Button disabled={!watch('password') || !isDirty}>확인</Button>
+        <Button disabled={!isValid}>확인</Button>
       </form>
     </section>
   );

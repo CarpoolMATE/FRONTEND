@@ -18,7 +18,7 @@ export type EditDriverProfileFormValues = z.infer<
 >;
 
 export const verifyPasswordSchema = z.object({
-  password: z.string(),
+  password: z.string().min(1),
 });
 
 export type VerifyPasswordFormValues = z.infer<typeof verifyPasswordSchema>;
