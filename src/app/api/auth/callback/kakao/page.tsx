@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import useKakaoLogin from '@/app/api/auth/callback/kakao/useKakaoLogin';
+import { useKakaoLogin } from '@/app/api/auth/callback/kakao/apis';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
