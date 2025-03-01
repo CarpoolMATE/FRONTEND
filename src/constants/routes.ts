@@ -22,6 +22,7 @@ export const API_ROUTES = {
     LOW: `${BASE_API_URL}/api/carpool/low`,
     DRIVE_HISTORY: `${BASE_API_URL}/api/carpool/driveHis`,
     HISTORY: `${BASE_API_URL}/api/carpool/history`,
+    REGISTRATION: `${BASE_API_URL}/api/carpool`,
   },
   REPORT: `${BASE_API_URL}/api/report`,
   FILE_UPLOAD: `${BASE_API_URL}/file/upload`,
