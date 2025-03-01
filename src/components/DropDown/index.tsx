@@ -1,5 +1,6 @@
-import Icon from '@/components/Icon';
 import { useState } from 'react';
+
+import Icon from '@/components/Icon';
 
 type DropdownProps = {
   value: number;
