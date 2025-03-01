@@ -18,6 +18,7 @@ const DestinationSummary = ({
     departureTime,
     reservationCount,
   },
+  useMapIcon,
 }: DestinationSummaryProps) => {
   return (
     <>
@@ -35,7 +36,6 @@ const DestinationSummary = ({
             <div className="size-2 rounded-full bg-blue-line"></div>
           </div>
         </div>
-
         <div className="ml-10 flex-col flex gap-10">
           <div className="self-stretch flex-col justify-start items-start gap-3 flex">
             <div className="flex-col justify-start items-start gap-1.5 flex">
@@ -56,20 +56,21 @@ const DestinationSummary = ({
             </p>
           </div>
         </div>
-
-        <Link
-          href={`https://map.kakao.com/?q=${departureCoordinate}`}
-          target="_blank"
-        >
-          <Button intent="icon" className="absolute right-0 top-3">
-            <Image
-              width={25}
-              height={25}
-              src="/images/kakao-map.png"
-              alt="kakao-map"
-            />
-          </Button>
-        </Link>
+        {useMapIcon && (
+          <Link
+            href={`https://map.kakao.com/?q=${departureCoordinate}`}
+            target="_blank"
+          >
+            <Button intent="icon" className="absolute right-0 top-3">
+              <Image
+                width={25}
+                height={25}
+                src="/images/kakao-map.png"
+                alt="kakao-map"
+              />
+            </Button>
+          </Link>
+        )}
       </div>
 
       <div className="self-stretch justify-start items-center inline-flex">
@@ -78,7 +79,7 @@ const DestinationSummary = ({
             탑승 인원
           </p>
           <p className="font-medium">
-            {reservationCount}/{capacity}
+            {useMapIcon ? `${reservationCount}/${capacity}` : `${capacity}명`}
           </p>
         </div>
 

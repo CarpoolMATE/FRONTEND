@@ -42,6 +42,7 @@ export const CLIENT_APP_ROUTES = {
   CONFIRM_RESERVATION: '/confirm-reservation',
   DRIVER_REGISTRATION: '/driver-registration',
   CARPOOL_REGISTRATION: '/carpool-registration',
+  CARPOOL_REGISTRATION_DONE: '/carpool-registration/done',
   DRIVER_REGISTRATION_DONE: '/driver-registration/done',
   REPORT: '/report',
   REPORT_DONE: '/report/done',
@@ -65,4 +66,6 @@ export const CLIENT_APP_ROUTES_NAME: Record<string, string> = {
   [CLIENT_APP_ROUTES.DRIVER_REGISTRATION_DONE]: '',
   [CLIENT_APP_ROUTES.REPORT]: '신고하기',
   [CLIENT_APP_ROUTES.REPORT_DONE]: '',
+  [CLIENT_APP_ROUTES.CARPOOL_REGISTRATION]: '카풀 생성하기',
+  [CLIENT_APP_ROUTES.CARPOOL_REGISTRATION_DONE]: '',
 };

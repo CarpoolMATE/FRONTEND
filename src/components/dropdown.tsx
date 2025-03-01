@@ -1,45 +1,42 @@
 import { useState } from 'react';
 
 type DropdownProps = {
-  selectedNumber: number;
-  type?: string;
-  onNumberChange: (value: number) => void;
+  value: number;
+  onChangeNumber: (value: number) => void;
+  selectValues: number[];
+  indexString: string;
+  placeHolder?: string;
 };
 
 export const Dropdown = ({
-  selectedNumber,
-  onNumberChange,
-  type,
+  value,
+  onChangeNumber,
+  selectValues,
+  indexString,
+  placeHolder = '시간',
 }: DropdownProps) => {
-  const [isNumberOpen, setIsNumberOpen] = useState(false);
+  const [more, setMore] = useState(false);
 
-  // 시간 옵션 생성 (0-23)
-  const hours = Array.from({ length: 4 }, (_, i) => i + 1);
-
-  const handleHourClick = () => {
-    setIsNumberOpen(!isNumberOpen);
+  const onChangeHandle = (v: number) => {
+    onChangeNumber(v);
+    setMore(false);
   };
 
   return (
     <div className={`w-full`}>
-      <div className="flex gap-4">
-        <div className="relative">
+      <div className="flex gap-4 w-full">
+        <div className="relative w-full">
           <button
-            onClick={handleHourClick}
-            className="w-[335px] h-12 px-4 text-left bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 flex justify-between items-center"
+            onClick={() => setMore((prev) => !prev)}
+            className="w-full h-12 px-4 text-left bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 flex justify-between items-center"
           >
-            <span className="text-gray-700">
-              {selectedNumber !== 0
-                ? `${selectedNumber}${type === 'price' ? '원' : '명'}`
-                : `${
-                    type == 'price'
-                      ? '비용을 입력해주세요'
-                      : '탑승 최대 인원을 선택해주세요'
-                  }`}
+            <span className={value ? 'text-default' : 'text-placeholder'}>
+              {value}
+              {value ? indexString : placeHolder}
             </span>
             <svg
               className={`w-4 h-4 transition-transform ${
-                isNumberOpen ? 'rotate-180' : ''
+                more ? 'rotate-180' : ''
               }`}
               fill="none"
               stroke="currentColor"
@@ -54,19 +51,16 @@ export const Dropdown = ({
             </svg>
           </button>
 
-          {isNumberOpen && (
+          {more && (
             <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-auto">
-              {hours.map((h) => (
+              {selectValues?.map((v) => (
                 <button
-                  key={h}
-                  onClick={() => {
-                    onNumberChange(h);
-                    setIsNumberOpen(false);
-                  }}
+                  key={v}
+                  onClick={() => onChangeHandle(v)}
                   className={`w-full px-4 py-2 text-left hover:bg-gray-100 focus:outline-none
-					${selectedNumber === h ? 'bg-blue-50 text-blue-600' : ''}`}
+					${value === v ? 'bg-blue-50 text-blue-600' : ''}`}
                 >
-                  {h}명
+                  {v}
                 </button>
               ))}
             </div>
