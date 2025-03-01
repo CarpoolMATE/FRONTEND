@@ -13,6 +13,9 @@ import {
 const CarpoolRegistrationForm = () => {
   const methods = useForm<CarpoolRegistrationFormValues>({
     resolver: zodResolver(carpoolRegistrationSchema),
+    defaultValues: {
+      departureCoordinate: '서울특별시 강남구 테헤란로 152',
+    },
   });
 
   return (

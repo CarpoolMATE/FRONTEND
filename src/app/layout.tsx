@@ -1,5 +1,4 @@
 import localFont from 'next/font/local';
-import Script from 'next/script';
 
 import RootLayout from '@/components/Layout/RootLayout';
 
@@ -29,12 +28,6 @@ const pretendard = localFont({
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
-      <head>
-        <Script
-          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOJSKEY}`}
-          strategy="afterInteractive"
-        />
-      </head>
       <body
         className={cn(
           hancomSans.className,

@@ -2,8 +2,8 @@ import { z } from 'zod';
 
 export const carpoolRegistrationSchema = z.object({
   departureCoordinate: z.string().min(1),
-  latitude: z.string(),
-  longitude: z.string(),
+  latitude: z.number(),
+  longitude: z.number(),
   chatLink: z.string().min(1),
   capacity: z.number().min(1),
   cost: z
