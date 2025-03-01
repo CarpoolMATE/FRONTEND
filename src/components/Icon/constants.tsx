@@ -455,6 +455,67 @@ export const ICONS = {
       </g>
     ),
   },
+  X: {
+    svgOptions: {
+      viewBox: '0 0 36 36',
+      width: '36',
+      height: '36',
+    },
+    icon: (
+      <path
+        d="M30 6L6 30M6 6L30 30"
+        stroke="currentColor"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    ),
+  },
+  MY_LOCATION: {
+    svgOptions: {
+      viewBox: '0 0 384 384',
+      fill: 'none',
+      width: '384',
+      height: '384',
+    },
+    icon: (
+      <>
+        <rect
+          x="0"
+          y="0"
+          width="384"
+          height="384"
+          rx="64"
+          fill="white"
+          stroke="currentColor"
+          strokeWidth="32"
+        />
+
+        <rect x="176" y="32" width="32" height="96" fill="currentColor" />
+        <rect x="176" y="256" width="32" height="96" fill="currentColor" />
+        <rect x="32" y="176" width="96" height="32" fill="currentColor" />
+        <rect x="256" y="176" width="96" height="32" fill="currentColor" />
+
+        <circle
+          cx="192"
+          cy="192"
+          r="64"
+          fill="white"
+          stroke="currentColor"
+          strokeWidth="32"
+        />
+
+        <circle
+          cx="192"
+          cy="192"
+          r="128"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="32"
+        />
+      </>
+    ),
+  },
 };
 
 export type IconsList = keyof typeof ICONS;
