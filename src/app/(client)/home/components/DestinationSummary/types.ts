@@ -9,4 +9,5 @@ export type DestinationSummaryProps = {
     | 'cost'
     | 'reservationCount'
   >;
+  showMapIcon?: boolean;
 };
