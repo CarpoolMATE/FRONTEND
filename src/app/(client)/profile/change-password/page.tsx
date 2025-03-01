@@ -6,6 +6,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
+import {
+  PASSWORD_MAX_LENGTH,
+  PASSWORD_MIN_LENGTH,
+} from '@/app/(client)/profile/apis/constants';
 
 import usePostChangePassword from '@/app/(client)/profile/apis/usePostChangePassword';
 
@@ -66,7 +70,8 @@ const ProfileChangePasswordPage = () => {
   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+$/;
 
   const isPasswordLengthError = !(
-    2 < watch('password')?.length && watch('password').length < 20
+    PASSWORD_MIN_LENGTH < watch('password')?.length &&
+    watch('password').length < PASSWORD_MAX_LENGTH
   );
 
   const isPasswordFormatError = !passwordRegex.test(watch('password'));
