@@ -3,12 +3,16 @@
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { format } from 'date-fns';
 
 import { useMemberStore } from '@/store/member';
+
+import usePostCarpoolRegistration from '@/app/(client)/carpool-registration/apis/postCarpoolRegistration/usePostCarpoolRegistration';
 
 import { CarpoolRegistrationFormValues } from '@/app/(client)/carpool-registration/components/Form/schema';
 
 import { DRIVER_REGISTRATION_HEADER_HEIGHT } from '@/app/(client)/driver-registration/constants';
+import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import DestinationSummary from '@/app/(client)/home/components/DestinationSummary';
 import ProfileImage from '@/components/Image/Profile';
@@ -22,13 +26,48 @@ const Check = () => {
 
   const { watch } = useFormContext<CarpoolRegistrationFormValues>();
 
+  const { mutateAsync: postCarpoolRegistration } = usePostCarpoolRegistration();
+
   const departureTime = new Date(
     new Date().setHours(watch('startTime'), watch('startMinute'), 0, 0),
   );
 
-  const [modalOpen, setModalOpen] = useState(false);
+  const [isErrorModal, setIsErrorModal] = useState(false);
+  const [modalText, setModalText] = useState('');
 
-  const onConfirmHandle = () => {};
+  const onModalOpenHandle = (text?: string) => {
+    if (text) {
+      setIsErrorModal(true);
+      setModalText(text);
+    } else {
+      setModalText('작성중이던 내용은 저장되지 않습니다.');
+    }
+  };
+
+  const onModalCloseHandle = () => {
+    setModalText('');
+    setIsErrorModal(false);
+  };
+
+  const onConfirmHandle = async () => {
+    try {
+      const result = await postCarpoolRegistration({
+        ...watch(),
+        departureTime: String(
+          format(new Date(departureTime), "yyyy-MM-dd'T'HH:mm:ss"),
+        ),
+
+        cost: +watch('cost'),
+      });
+      if (result.status === 'OK') {
+        router.push(CLIENT_APP_ROUTES.CARPOOL_REGISTRATION_DONE);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        onModalOpenHandle(error.message);
+      }
+    }
+  };
 
   return (
     <section
@@ -36,13 +75,15 @@ const Check = () => {
       style={{ height: `calc(100vh - ${DRIVER_REGISTRATION_HEADER_HEIGHT}px)` }}
     >
       <Modal
-        isOpen={modalOpen}
-        title="카풀생성을 취소하시겠어요?"
-        message="작성중이던 내용은 저장되지 않습니다."
-        closeText="아니오"
+        isOpen={!!modalText}
+        title={!isErrorModal ? '카풀생성을 취소하시겠어요?' : ''}
+        message={
+          !isErrorModal ? '작성중이던 내용은 저장되지 않습니다.' : modalText
+        }
+        closeText={!isErrorModal ? '아니오' : '확인'}
         confirmText="네, 취소할래요"
-        onConfirm={() => router.back()}
-        onClose={() => setModalOpen(false)}
+        {...(!isErrorModal ? { onConfirm: () => router.back() } : {})}
+        onClose={onModalCloseHandle}
       />
       <div className="px-5 pt-12">
         <span className="font-bold text-2xl">카풀 미리보기</span>
@@ -74,14 +115,13 @@ const Check = () => {
               ...watch(),
               departureTime: String(departureTime),
               reservationCount: 0,
-              departureCoordinate: 'ㅠㅠㅕㅕ',
             }}
           />
         </div>
       </div>
 
       <div className="mt-auto p-5 flex gap-3">
-        <Button intent="outline" onClick={() => setModalOpen(true)}>
+        <Button intent="outline" onClick={() => onModalOpenHandle()}>
           취소
         </Button>
         <Button onClick={onConfirmHandle}>카풀 생성하기</Button>

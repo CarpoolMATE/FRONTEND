@@ -61,7 +61,10 @@ const StartTime = ({ onNext }: CarpoolRegistrationNextStepProps) => {
 
       <div className="mt-auto p-5">
         <Button
-          disabled={!watch('startTime') || !watch('startMinute')}
+          disabled={
+            (!watch('startTime') || !watch('startMinute')) &&
+            watch('startMinute') !== 0
+          }
           onClick={onNext}
         >
           다음
