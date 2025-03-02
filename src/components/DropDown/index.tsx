@@ -32,7 +32,11 @@ export const Dropdown = ({
             onClick={() => setMore((prev) => !prev)}
             className="w-full h-12 px-4 text-left bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 flex justify-between items-center"
           >
-            <span className={value ? 'text-default' : 'text-placeholder'}>
+            <span
+              className={
+                value || value === 0 ? 'text-default' : 'text-placeholder'
+              }
+            >
               {value}
               {value ? indexString : placeHolder}
             </span>

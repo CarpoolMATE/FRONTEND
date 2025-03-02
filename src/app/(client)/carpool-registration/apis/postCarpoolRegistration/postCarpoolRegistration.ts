@@ -10,11 +10,11 @@ const postCarpoolRegistration = async (
   params: PostCarpoolRegistrationParams,
 ) => {
   const response = await fetchPost<ApiSuccessResponse<MemberDto>>(
-    API_ROUTES.MEMBER.DRIVER,
+    API_ROUTES.CARPOOL.REGISTRATION,
     params,
   );
 
-  return response.data;
+  return response;
 };
 
 export default postCarpoolRegistration;

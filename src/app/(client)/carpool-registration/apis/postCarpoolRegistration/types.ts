@@ -1,7 +1,7 @@
 export type PostCarpoolRegistrationParams = {
   departureCoordinate: string;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
   departureTime: string;
   chatLink: string;
   capacity: number;
@@ -25,3 +25,5 @@ export type KakaoPlace = {
   x: string;
   y: string;
 };
+
+export type CarpoolRegistrationModalType = 'cancel' | 'error' | '';

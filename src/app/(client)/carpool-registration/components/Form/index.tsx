@@ -15,6 +15,8 @@ const CarpoolRegistrationForm = () => {
     resolver: zodResolver(carpoolRegistrationSchema),
     defaultValues: {
       departureCoordinate: '서울특별시 강남구 테헤란로 152',
+      latitude: 37.5000242405515,
+      longitude: 127.036508620542,
     },
   });
 
