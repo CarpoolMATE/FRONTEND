@@ -1,5 +1,7 @@
 import { API_ROUTES } from '@/constants/routes';
 
+import { fetchDelete, fetchPost } from '@/apis/fetch';
+
 import {
   DeleteCarpoolType,
   DeleteModalValues,
@@ -8,6 +10,14 @@ import {
 export const DELETE_CARPOOL_ROUTE_CLASSES: Record<DeleteCarpoolType, string> = {
   cancelCarpool: API_ROUTES.CARPOOL.CANCEL,
   deleteCarpool: API_ROUTES.CARPOOL.DELETE,
+};
+
+export const DELETE_CARPOOL_FETCH_CALSSES: Record<
+  DeleteCarpoolType,
+  <T>(url: string) => Promise<T>
+> = {
+  cancelCarpool: fetchPost,
+  deleteCarpool: fetchDelete,
 };
 
 export const DELETE_CARPOOL_MODAL_VALUES_CLASSES: Record<

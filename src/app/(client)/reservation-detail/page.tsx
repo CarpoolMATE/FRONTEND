@@ -40,7 +40,6 @@ const ReservationDetail = () => {
       const response = await deleteCarpool({
         type,
       });
-      //TODO: delete로 변경 후 테스트 필요
       if (response.data) {
         router.back();
       }
