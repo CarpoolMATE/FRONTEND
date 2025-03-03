@@ -24,7 +24,7 @@ export const DELETE_CARPOOL_MODAL_VALUES_CLASSES: Record<
   DeleteCarpoolType,
   DeleteModalValues
 > = {
-  cancelCarpool: {
+  deleteCarpool: {
     title: '카풀 예약을 취소하시겠어요?',
     text: (
       <span>
@@ -42,7 +42,7 @@ export const DELETE_CARPOOL_MODAL_VALUES_CLASSES: Record<
       </span>
     ),
   },
-  deleteCarpool: {
+  cancelCarpool: {
     title: '예약을 취소하시겠어요?',
     text: (
       <span>
