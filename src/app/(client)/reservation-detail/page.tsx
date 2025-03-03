@@ -82,7 +82,7 @@ const ReservationDetail = () => {
             modalType ? DELETE_CARPOOL_MODAL_VALUES_CLASSES[modalType].text : ''
           }
           confirmText="네, 취소할래요"
-          closeText={!!modalType ? '아니오' : 'ㅇㅇ'}
+          closeText={!!modalType ? '아니오' : undefined}
           {...(!!modalType ? { onConfirm: onModalConfirmHandle } : {})}
         />
         {data && (
