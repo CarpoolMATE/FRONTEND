@@ -106,7 +106,7 @@ const CarpoolList = () => {
                 </div>
                 <div
                   className={cn(
-                    'px-3 py-2  rounded-[15px] justify-center items-center gap-2.5 flex',
+                    'px-3 py-2  rounded-[15px] justify-center items-center gap-2.5 flex max-w-12 w-full',
                     isCapacityFull ? 'bg-gray-dark' : 'bg-primary',
                   )}
                 >
