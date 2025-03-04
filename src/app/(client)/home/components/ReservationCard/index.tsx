@@ -46,7 +46,7 @@ const ReservationCard = () => {
 
         <div className="flex flex-col items-center gap-y-3">
           <p className="text-placeholder text-sm font-medium">도착지</p>
-          <p className="text-sm">OO대학교</p>
+          <p className="text-sm">경운대학교</p>
         </div>
       </div>
     </div>
