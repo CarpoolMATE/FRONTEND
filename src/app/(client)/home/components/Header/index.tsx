@@ -42,8 +42,10 @@ const HomeHeader = () => {
           href={CLIENT_APP_ROUTES.PROFILE}
           className="cursor-pointer w-fit h-fit relative bg-[#f2f8ff] rounded-full overflow-hidden"
         >
-          {/* 로그인한 유저 기본 이미지 */}
-          <ProfileImage size={38} url="https://placehold.co/38/png" />
+          <ProfileImage
+            size={38}
+            url={member?.profileImage || 'https://placehold.co/38/png'}
+          />
         </Link>
       </div>
 
