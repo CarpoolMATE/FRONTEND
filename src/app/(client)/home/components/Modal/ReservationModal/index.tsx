@@ -78,7 +78,7 @@ const ReservationModal = ({ data, onClose }: ReservationModalProps) => {
               이미 진행중인 카풀이 있어요
             </p>
           )}
-          <Link href={CLIENT_APP_ROUTES.CONFIRM_RESERVATION}>
+          <Link href={CLIENT_APP_ROUTES.RESERVATION_DETAIL}>
             <Button disabled={isCapacityFull || isReservation}>예약하기</Button>
           </Link>
         </div>
