@@ -49,7 +49,7 @@ export const CLIENT_APP_ROUTES = {
   PROFILE_PASSENGER_EDIT: '/profile/passenger-edit',
   VERIFY_PASSWORD: '/profile/verify-password',
   CHANGE_PASSWORD: '/profile/change-password',
-  RESERVATION_DETAIL: '/confirm-reservation',
+  RESERVATION_DETAIL: '/reservation-detail',
   DRIVER_REGISTRATION: '/driver-registration',
   CARPOOL_REGISTRATION: '/carpool-registration',
   CARPOOL_REGISTRATION_DONE: '/carpool-registration/done',
