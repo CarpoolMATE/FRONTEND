@@ -71,19 +71,24 @@ const ReservationDetail = () => {
         </div>
       </header>
       <div className={`p-5 flex flex-col justify-between overflow-y-scroll`}>
+        {modalType && (
+          <Modal
+            onClose={onModalCloseHandle}
+            isOpen
+            title={DELETE_CARPOOL_MODAL_VALUES_CLASSES[modalType].title}
+            message={DELETE_CARPOOL_MODAL_VALUES_CLASSES[modalType].text}
+            confirmText="네, 취소할래요"
+            closeText={'아니오'}
+            onConfirm={onModalConfirmHandle}
+          />
+        )}
         <Modal
           onClose={onModalCloseHandle}
-          isOpen={!!errorText || !!modalType}
-          title={DELETE_CARPOOL_MODAL_VALUES_CLASSES[modalType!]?.title}
-          message={
-            errorText
-              ? errorText
-              : DELETE_CARPOOL_MODAL_VALUES_CLASSES[modalType!]?.text
-          }
-          confirmText="네, 취소할래요"
-          closeText={!!modalType ? '아니오' : '확인'}
-          {...(!!modalType ? { onConfirm: onModalConfirmHandle } : {})}
+          isOpen={!!errorText}
+          message={errorText}
+          confirmText="확인"
         />
+
         {data && (
           <>
             <div className="w-full flex-col justify-start items-start gap-[20px] inline-flex">
