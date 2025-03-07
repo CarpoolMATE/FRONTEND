@@ -12,7 +12,7 @@ export const DELETE_CARPOOL_ROUTE_CLASSES: Record<DeleteCarpoolType, string> = {
   deleteCarpool: API_ROUTES.CARPOOL.DELETE,
 };
 
-export const DELETE_CARPOOL_FETCH_CALSSES: Record<
+export const DELETE_CARPOOL_FETCH_CLASSES: Record<
   DeleteCarpoolType,
   <T>(url: string) => Promise<T>
 > = {

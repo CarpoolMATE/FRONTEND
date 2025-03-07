@@ -1,9 +1,3 @@
-export type GetCarpoolDetailDto = {
-  carpoolInfo: CarpoolInfo;
-  passengers: Passengers[];
-  amIDriver: boolean;
-};
-
 type CarpoolInfo = {
   carpoolId: number;
   driverName: string;
@@ -23,6 +17,12 @@ type CarpoolInfo = {
 type Passengers = {
   passengerName: string;
   passengerImg: string;
+};
+
+export type GetCarpoolDetailDto = {
+  carpoolInfo: CarpoolInfo;
+  passengers: Passengers[];
+  amIDriver: boolean;
 };
 
 export type ProfileRowProps = {
