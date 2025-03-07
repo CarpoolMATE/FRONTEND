@@ -45,6 +45,7 @@ const ReservationDetail = () => {
       }
     } catch (error) {
       if (error instanceof Error) {
+        setModalType(undefined);
         setErrorText(error.message);
       }
     }
@@ -72,17 +73,15 @@ const ReservationDetail = () => {
       <div className={`p-5 flex flex-col justify-between overflow-y-scroll`}>
         <Modal
           onClose={onModalCloseHandle}
-          isOpen={!!modalType || !!errorText}
-          title={
-            modalType
-              ? DELETE_CARPOOL_MODAL_VALUES_CLASSES[modalType].title
-              : ''
-          }
+          isOpen={!!errorText || !!modalType}
+          title={DELETE_CARPOOL_MODAL_VALUES_CLASSES[modalType!]?.title}
           message={
-            modalType ? DELETE_CARPOOL_MODAL_VALUES_CLASSES[modalType].text : ''
+            errorText
+              ? errorText
+              : DELETE_CARPOOL_MODAL_VALUES_CLASSES[modalType!]?.text
           }
           confirmText="네, 취소할래요"
-          closeText={!!modalType ? '아니오' : undefined}
+          closeText={!!modalType ? '아니오' : '확인'}
           {...(!!modalType ? { onConfirm: onModalConfirmHandle } : {})}
         />
         {data && (
