@@ -3,6 +3,7 @@ import {
   FetchParamObject,
   FetchResourceType,
 } from '@/apis/types';
+import { getAuthHeader, saveAuthToken } from '@/utils/auth';
 
 export enum FetchMethodType {
   Get = 'GET',
@@ -63,9 +64,8 @@ export async function fetchAPI<T, R = FetchResourceType | FetchParamObject>(
     cache: 'no-cache',
     headers: {
       Accept: 'application/json',
-      // FIXME: 쿠키 적용 시 Authorization 제거
-      // Authorization:
-      //   'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqaW5iZSIsInJvbGUiOiJST0xFX1VTRVIiLCJuaWNrbmFtZSI6IuynleuyoCIsImV4cCI6MTc0MTIyOTEwM30.Vyp5whhb2_Gy9dLNf3tcqtp1y3foY5_c6wt8O1t6a4s',
+      // 저장된 인증 토큰이 있으면 헤더에 추가
+      ...getAuthHeader(),
       ...(!isFetchMethodGet &&
         data &&
         !(data instanceof FormData) && { 'Content-Type': 'application/json' }),
@@ -86,6 +86,15 @@ export async function fetchAPI<T, R = FetchResourceType | FetchParamObject>(
 
   // FIXME: cors 적용 시 apache 이용
   const response = await fetch(requestUrl, requestOptions);
+
+  // Authorization 헤더 확인 및 저장
+  const authToken = response.headers.get('Authorization');
+  if (authToken) {
+    const token = authToken.startsWith('Bearer ')
+      ? authToken.substring(7)
+      : authToken;
+    saveAuthToken(token);
+  }
 
   if (!response.ok) {
     const errorData: ApiErrorResponse = await response.json();
