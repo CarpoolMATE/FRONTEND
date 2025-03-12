@@ -16,10 +16,12 @@ import { DRIVER_REGISTRATION_HEADER_HEIGHT } from '@/app/(client)/driver-registr
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import { DriverRegistrationFormValues } from '@/app/(client)/driver-registration/components/Form/schema';
+import { useModalStore } from '@/store/modal';
 
 const PhoneNumber = () => {
   const router = useRouter();
   const { setMember } = useMemberStore();
+  const { openModal } = useModalStore();
 
   const { register, watch, formState, trigger, handleSubmit } =
     useFormContext<DriverRegistrationFormValues>();
@@ -60,12 +62,14 @@ const PhoneNumber = () => {
         router.push(CLIENT_APP_ROUTES.DRIVER_REGISTRATION_DONE);
       } catch (error) {
         if (error instanceof Error) {
-          // TODO: modal 적용
-          alert(error.message);
+          openModal({
+            message: error.message,
+            closeText: '확인',
+          });
         }
       }
     },
-    [handleUploadFile, postMemberDriver, setMember, router],
+    [handleUploadFile, postMemberDriver, setMember, openModal, router],
   );
 
   return (
