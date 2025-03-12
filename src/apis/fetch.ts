@@ -3,7 +3,19 @@ import {
   FetchParamObject,
   FetchResourceType,
 } from '@/apis/types';
-import { getAuthHeader, saveAuthToken } from '@/utils/auth';
+
+import { CLIENT_APP_ROUTES } from '@/constants/routes';
+import { ApiErrorCode } from '@/apis/constants';
+
+import {
+  getAuthHeader,
+  getRefreshHeader,
+  hasRefreshToken,
+  removeAuthToken,
+  removeRefreshToken,
+  saveAuthToken,
+  saveRefreshToken,
+} from '@/utils/auth';
 
 export enum FetchMethodType {
   Get = 'GET',
@@ -57,19 +69,20 @@ export async function fetchAPI<T, R = FetchResourceType | FetchParamObject>(
     ? url
     : `${url}${url.includes('?') ? '&' : '?'}${params}`;
 
+  const baseHeaders = {
+    Accept: 'application/json',
+    ...getAuthHeader(),
+    ...(!isFetchMethodGet &&
+      data &&
+      !(data instanceof FormData) && { 'Content-Type': 'application/json' }),
+  };
+
   const baseOptions: RequestInit = {
     method,
     mode: 'cors',
     credentials: 'include',
     cache: 'no-cache',
-    headers: {
-      Accept: 'application/json',
-      // 저장된 인증 토큰이 있으면 헤더에 추가
-      ...getAuthHeader(),
-      ...(!isFetchMethodGet &&
-        data &&
-        !(data instanceof FormData) && { 'Content-Type': 'application/json' }),
-    },
+    headers: baseHeaders,
   };
 
   const requestOptions: RequestInit = {
@@ -89,6 +102,8 @@ export async function fetchAPI<T, R = FetchResourceType | FetchParamObject>(
 
   // Authorization 헤더 확인 및 저장
   const authToken = response.headers.get('Authorization');
+  const refreshToken = response.headers.get('RefreshToken');
+
   if (authToken) {
     const token = authToken.startsWith('Bearer ')
       ? authToken.substring(7)
@@ -96,17 +111,72 @@ export async function fetchAPI<T, R = FetchResourceType | FetchParamObject>(
     saveAuthToken(token);
   }
 
-  if (!response.ok) {
-    const errorData: ApiErrorResponse = await response.json();
-
-    throw new Error(
-      errorData.message ||
-        `Network response was not ok for URL : ${requestUrl}`,
-      { cause: errorData.code },
-    );
+  if (refreshToken) {
+    const token = refreshToken.startsWith('Bearer ')
+      ? refreshToken.substring(7)
+      : refreshToken;
+    saveRefreshToken(token);
   }
 
-  return response.json();
+  if (response.ok) {
+    return response.json();
+  }
+
+  switch (response.status) {
+    case ApiErrorCode.Unauthorized: {
+      if (hasRefreshToken()) {
+        const refreshResponse = await fetch(requestUrl, {
+          ...requestOptions,
+          headers: {
+            ...baseHeaders,
+            ...getRefreshHeader(),
+          },
+        });
+
+        if (!refreshResponse.ok) {
+          removeAuthToken();
+          removeRefreshToken();
+          window.location.href = CLIENT_APP_ROUTES.SIGNIN;
+        }
+
+        const token = refreshResponse.headers.get('Authorization');
+        const refreshToken = refreshResponse.headers.get('RefreshToken');
+
+        if (token) {
+          saveAuthToken(token);
+        }
+        if (refreshToken) {
+          saveRefreshToken(refreshToken);
+        }
+
+        return refreshResponse.json();
+      }
+
+      removeAuthToken();
+      removeRefreshToken();
+      window.location.href = CLIENT_APP_ROUTES.SIGNIN;
+      break;
+    }
+
+    case ApiErrorCode.RefreshTokenExpired: {
+      removeAuthToken();
+      removeRefreshToken();
+      window.location.href = CLIENT_APP_ROUTES.SIGNIN;
+      break;
+    }
+
+    default: {
+      const errorData: ApiErrorResponse = await response.json();
+
+      throw new Error(
+        errorData.message ||
+          `Network response was not ok for URL : ${requestUrl}`,
+        { cause: errorData.code },
+      );
+    }
+  }
+
+  return {} as T;
 }
 
 export async function fetchGet<T, R = FetchResourceType | FetchParamObject>(
