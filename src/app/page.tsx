@@ -1,8 +1,29 @@
-import { redirect } from 'next/navigation';
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
+import Spin from '@/components/Spin';
 
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
-// TODO: 유저 정보 확인해서 있으면 메인 아니면 로그인 페이지로 이동
+import { useMemberStore } from '@/store/member';
+
 export default function App() {
-  redirect(CLIENT_APP_ROUTES.SIGNIN);
+  const router = useRouter();
+  const { member } = useMemberStore();
+
+  useEffect(() => {
+    if (member) {
+      router.push(CLIENT_APP_ROUTES.HOME);
+    } else {
+      router.push(CLIENT_APP_ROUTES.SIGNIN);
+    }
+  }, [member, router]);
+
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <Spin />
+    </div>
+  );
 }

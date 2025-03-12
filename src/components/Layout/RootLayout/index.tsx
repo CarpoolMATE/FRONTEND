@@ -1,27 +1,11 @@
-'use client';
-
-import { PropsWithChildren, useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { PropsWithChildren } from 'react';
 
 import ReactQueryProvider from '@/providers/ReactQuery';
 
 const RootLayout = ({ children }: PropsWithChildren) => {
-  const pathname = usePathname();
-  const [isAdminPage, setIsAdminPage] = useState(false);
-
-  useEffect(() => {
-    if (pathname.includes('admin')) {
-      setIsAdminPage(true);
-    }
-  }, [pathname]);
-
   return (
     <ReactQueryProvider>
-      <section
-        className={`${
-          isAdminPage ? 'w-screen' : 'max-w-[768px] my-0 mx-auto'
-        } bg-white h-screen`}
-      >
+      <section className="max-w-[768px] my-0 mx-auto bg-white h-screen">
         {children}
       </section>
     </ReactQueryProvider>
