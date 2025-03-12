@@ -17,8 +17,11 @@ import { HEADER_HEIGHT } from '@/constants/common';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 
+import { useModalStore } from '@/store/modal';
+
 const ReportForm = () => {
   const { carpoolId } = useParams();
+  const { openModal } = useModalStore();
 
   const {
     register,
@@ -43,12 +46,14 @@ const ReportForm = () => {
         await postReport({ carpoolId: carpoolId as string, ...values });
       } catch (error) {
         if (error instanceof Error) {
-          // TODO: modal 추가
-          alert(error.message);
+          openModal({
+            message: error.message,
+            closeText: '확인',
+          });
         }
       }
     },
-    [carpoolId, postReport],
+    [carpoolId, postReport, openModal],
   );
 
   return (
