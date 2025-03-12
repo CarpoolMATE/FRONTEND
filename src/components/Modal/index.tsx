@@ -5,6 +5,8 @@ import { createPortal } from 'react-dom';
 
 import Button from '@/components/Button';
 
+import { useModalStore } from '@/store/modal';
+
 type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -62,6 +64,32 @@ const Modal = ({
       </div>
     </div>,
     document.body,
+  );
+};
+
+// 전역 모달 컴포넌트
+export const GlobalModal = () => {
+  const { modal, closeModal } = useModalStore();
+
+  if (!modal) return null;
+
+  return (
+    <Modal
+      isOpen={modal.isOpen}
+      title={modal.title}
+      message={modal.message}
+      closeText={modal.closeText || '확인'}
+      confirmText={modal.confirmText}
+      onClose={closeModal}
+      onConfirm={
+        modal.onConfirm
+          ? () => {
+              modal.onConfirm?.();
+              closeModal();
+            }
+          : undefined
+      }
+    />
   );
 };
 
