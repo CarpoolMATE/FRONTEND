@@ -56,6 +56,10 @@ const objectToQueryString = (obj: object, prefix: string = ''): string => {
     .join('&');
 };
 
+const getToken = (token: string) => {
+  return token.startsWith('Bearer ') ? token.substring(7) : token;
+};
+
 export async function fetchAPI<T, R = FetchResourceType | FetchParamObject>(
   url: string,
   method: FetchMethodType,
@@ -102,19 +106,15 @@ export async function fetchAPI<T, R = FetchResourceType | FetchParamObject>(
 
   // Authorization 헤더 확인 및 저장
   const authToken = response.headers.get('Authorization');
-  const refreshToken = response.headers.get('RefreshToken');
+  const refreshToken = response.headers.get('Refreshtoken');
 
   if (authToken) {
-    const token = authToken.startsWith('Bearer ')
-      ? authToken.substring(7)
-      : authToken;
+    const token = getToken(authToken);
     saveAuthToken(token);
   }
 
   if (refreshToken) {
-    const token = refreshToken.startsWith('Bearer ')
-      ? refreshToken.substring(7)
-      : refreshToken;
+    const token = getToken(refreshToken);
     saveRefreshToken(token);
   }
 
@@ -139,14 +139,19 @@ export async function fetchAPI<T, R = FetchResourceType | FetchParamObject>(
           window.location.href = CLIENT_APP_ROUTES.SIGNIN;
         }
 
-        const token = refreshResponse.headers.get('Authorization');
-        const refreshToken = refreshResponse.headers.get('RefreshToken');
+        const refetchAuthToken = refreshResponse.headers.get('Authorization');
+        const refetchRefreshToken = refreshResponse.headers.get('Refreshtoken');
 
-        if (token) {
+        if (refetchAuthToken) {
+          const token = getToken(refetchAuthToken);
+
           saveAuthToken(token);
         }
-        if (refreshToken) {
-          saveRefreshToken(refreshToken);
+
+        if (refetchRefreshToken) {
+          const token = getToken(refetchRefreshToken);
+
+          saveRefreshToken(token);
         }
 
         return refreshResponse.json();
