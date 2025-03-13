@@ -15,6 +15,9 @@ const usePostReservation = () => {
       queryClient.invalidateQueries({
         predicate: (query) => query.queryKey[0] === QueryKey.CarpoolList,
       });
+      queryClient.invalidateQueries({
+        queryKey: [QueryKey.ReservationDetail],
+      });
     },
   });
 };
