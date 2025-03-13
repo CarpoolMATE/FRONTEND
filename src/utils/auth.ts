@@ -129,5 +129,5 @@ export const hasRefreshToken = (): boolean => {
  */
 export const getRefreshHeader = (): Record<string, string> => {
   const token = getRefreshToken();
-  return token ? { RefreshToken: `Bearer ${token}` } : {};
+  return token ? { Refreshtoken: `Bearer ${token}` } : {};
 };
