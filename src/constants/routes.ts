@@ -26,6 +26,7 @@ export const API_ROUTES = {
     DETAIL: `${BASE_API_URL}/api/carpool/myCarpool`,
     DELETE: `${BASE_API_URL}/api/carpool/deleteCarpool`,
     CANCEL: `${BASE_API_URL}/api/carpool/cancelCarpool`,
+    RESERVATION: `${BASE_API_URL}/api/carpool/reservation`,
   },
   REPORT: `${BASE_API_URL}/api/report`,
   FILE_UPLOAD: `${BASE_API_URL}/file/upload`,
