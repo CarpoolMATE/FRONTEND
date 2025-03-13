@@ -11,7 +11,6 @@ import { useGetCarpoolList } from '@/app/(client)/home/apis/getCarpoolList';
 import ReservationModal from '@/app/(client)/home/components/Modal/ReservationModal';
 import ProfileImage from '@/components/Image/Profile';
 import CarpoolEmpty from '@/app/(client)/home/components/CarpoolEmpty';
-import Spin from '@/components/Spin';
 
 import { CarpoolSearchKey } from '@/app/(client)/home/components/CarpoolFilter/constants';
 import { CarpoolType } from '@/app/(client)/home/apis/getCarpoolList/constants';
@@ -38,8 +37,15 @@ const CarpoolList = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center h-[30dvh]">
-        <Spin />
+      <div className="w-full">
+        {Array(10)
+          .fill('')
+          .map((_, index) => (
+            <div
+              key={index}
+              className="w-full h-16 mb-3 bg-gray-200 rounded-lg animate-pulse"
+            ></div>
+          ))}
       </div>
     );
   }

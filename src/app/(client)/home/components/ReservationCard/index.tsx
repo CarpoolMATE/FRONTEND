@@ -10,9 +10,40 @@ import { CLIENT_APP_ROUTES } from '@/constants/routes';
 import { useGetReservationDetail } from '@/app/(client)/reservation-detail/apis/getReservationDetail';
 
 const ReservationCard = () => {
-  const { data: reservation } = useGetReservationDetail();
+  const { data: reservation, isSuccess, isLoading } = useGetReservationDetail();
 
-  if (!reservation) {
+  if (isLoading) {
+    return (
+      <div className="w-full mt-2 min-h-[147px] bg-white rounded-[1.25rem] shadow-[4px_4px_20px_0px_rgba(0,0,0,0.08)] border border-input flex-col justify-center items-center gap-4 inline-flex p-4">
+        <div className="w-3/4 h-6 bg-gray-200 rounded-md animate-pulse"></div>
+
+        <div className="flex items-center gap-9 w-full justify-center">
+          <div className="flex flex-col items-center gap-y-3">
+            <div className="w-16 h-4 bg-gray-200 rounded-md animate-pulse"></div>
+            <div className="w-20 h-5 bg-gray-200 rounded-md animate-pulse"></div>
+          </div>
+
+          <div className="flex items-center gap-0.5">
+            {Array(3)
+              .fill('')
+              .map((_value, index) => (
+                <div
+                  key={index}
+                  className="size-3 bg-gray-200 rounded-full animate-pulse"
+                ></div>
+              ))}
+          </div>
+
+          <div className="flex flex-col items-center gap-y-3">
+            <div className="w-16 h-4 bg-gray-200 rounded-md animate-pulse"></div>
+            <div className="w-20 h-5 bg-gray-200 rounded-md animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isSuccess) {
     return (
       <div className="w-full mt-2 min-h-[147px] bg-white rounded-[1.25rem] shadow-[4px_4px_20px_0px_rgba(0,0,0,0.08)] border border-input flex-col justify-center items-center gap-4 inline-flex">
         <h2 className="text-lg font-semibold">
