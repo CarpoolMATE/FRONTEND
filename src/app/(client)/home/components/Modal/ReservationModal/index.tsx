@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import Button from '@/components/Button';
 import Icon from '@/components/Icon';
@@ -10,6 +10,8 @@ import DestinationSummary from '@/app/(client)/home/components/DestinationSummar
 
 import { useMemberStore } from '@/store/member';
 
+import { usePostReservation } from '@/app/(client)/home/apis/postReservation';
+
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import { ReservationModalProps } from '@/app/(client)/home/components/Modal/ReservationModal/types';
@@ -17,7 +19,8 @@ import { ReservationModalProps } from '@/app/(client)/home/components/Modal/Rese
 import { cn } from '@/utils/style';
 
 const ReservationModal = ({ data, onClose }: ReservationModalProps) => {
-  const { driverImg, driverName, reservationCount, capacity } = data;
+  const router = useRouter();
+  const { driverImg, driverName, reservationCount, capacity, carpoolId } = data;
   const { member } = useMemberStore();
 
   const [mounted, setMounted] = useState(false);
@@ -30,6 +33,19 @@ const ReservationModal = ({ data, onClose }: ReservationModalProps) => {
     setClosing(true);
     setTimeout(onClose, 300);
   };
+
+  const { mutate: postReservation } = usePostReservation();
+
+  const handleReservation = useCallback(() => {
+    postReservation(
+      { carpoolId },
+      {
+        onSuccess: () => {
+          router.push(CLIENT_APP_ROUTES.RESERVATION_DETAIL);
+        },
+      },
+    );
+  }, [carpoolId, router, postReservation]);
 
   useEffect(() => {
     setMounted(true);
@@ -78,9 +94,13 @@ const ReservationModal = ({ data, onClose }: ReservationModalProps) => {
               이미 진행중인 카풀이 있어요
             </p>
           )}
-          <Link href={CLIENT_APP_ROUTES.RESERVATION_DETAIL}>
-            <Button disabled={isCapacityFull || isReservation}>예약하기</Button>
-          </Link>
+
+          <Button
+            disabled={isCapacityFull || isReservation}
+            onClick={handleReservation}
+          >
+            예약하기
+          </Button>
         </div>
       </div>
     </div>
