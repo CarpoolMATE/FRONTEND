@@ -3,6 +3,7 @@ import KakaoProvider from 'next-auth/providers/kakao';
 import LineProvider from 'next-auth/providers/line';
 
 const handler = NextAuth({
+  secret: process.env.NEXT_AUTH_SECRET || '',
   providers: [
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID || '',
