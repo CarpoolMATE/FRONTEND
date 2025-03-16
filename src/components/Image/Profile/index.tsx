@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import { ProfileImageProps } from '@/components/Image/Profile/types';
 
 import { cn } from '@/utils/style';
@@ -14,16 +12,13 @@ const ProfileImage = ({ url, size = 44, className }: ProfileImageProps) => {
       style={{
         width: size,
         height: size,
+        position: 'relative',
+        backgroundImage: `url(${url})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
       }}
-    >
-      <Image
-        src={url}
-        width={size}
-        height={size}
-        alt="img"
-        className="absolute rounded-full"
-      />
-    </div>
+    />
   );
 };
 
