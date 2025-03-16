@@ -2,7 +2,7 @@
 
 import { useFormContext } from 'react-hook-form';
 import { ko } from 'date-fns/locale';
-import { format } from 'date-fns';
+import { addDays, format } from 'date-fns';
 
 import { DRIVER_REGISTRATION_HEADER_HEIGHT } from '@/app/(client)/driver-registration/constants';
 
@@ -30,7 +30,9 @@ const StartTime = ({ onNext }: CarpoolRegistrationNextStepProps) => {
 
           <Input
             readOnly
-            defaultValue={format(new Date(), 'MM월 dd일', { locale: ko })}
+            defaultValue={format(addDays(new Date(), 1), 'MM월 dd일', {
+              locale: ko,
+            })}
           />
         </div>
         <div className="mt-3 flex flex-col gap-2.5">
