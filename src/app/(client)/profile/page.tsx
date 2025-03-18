@@ -64,7 +64,7 @@ const ProfilePage = () => {
           />
         </div>
       </header>
-      <div className="bg-white w-full h-[290px] mb-3 px-4 py-5 flex flex-col gap-5 items-center">
+      <div className="bg-white w-full h-[250px] mb-3 px-4 py-5 flex flex-col gap-5 items-center">
         <div className="relative flex items-center justify-center w-full">
           <h1 className="text-default text-xl font-semibold">
             {isPassinger ? '프로필' : '차량 정보'}
@@ -99,22 +99,20 @@ const ProfilePage = () => {
             {isPassinger ? member?.memberId : member?.phoneNumber}
           </p>
         </div>
-        <Button
-          intent="icon"
-          className="text-sm font-medium text-placeholder ml-auto mr-0"
-          onClick={onLogoutHandle}
-        >
-          로그아웃
-        </Button>
       </div>
-      <div className="px-4 pt-5 mb-2 bg-white w-full h-[calc(100%-366px)]">
+      <div className="px-4 pt-5 mb-2 bg-white w-full h-[calc(100%-326px)]">
         <h2 className="text-default text-xl font-semibold mb-2">
           최근 {isPassinger ? '탑승' : '운행'} 목록
         </h2>
-        <div className="w-full h-[calc(100%-35px)] overflow-y-scroll">
+        <div className="w-full h-[calc(100%-95px)] overflow-y-scroll">
           {data?.length === 0
             ? `최근 ${isPassinger ? '탑승' : '운행'} 내역이 없습니다. `
             : data?.map((v) => <ProfileCard key={v.carpoolId} data={v} />)}
+        </div>
+        <div className="flex items-center justify-center py-2">
+          <Button onClick={onLogoutHandle} intent="icon">
+            로그아웃
+          </Button>
         </div>
       </div>
     </section>
