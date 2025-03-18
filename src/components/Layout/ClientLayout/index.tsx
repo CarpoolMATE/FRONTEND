@@ -17,7 +17,7 @@ const ClientLayout = ({ children }: PropsWithChildren) => {
     }
   }, [data, setMember]);
 
-  return children;
+  return <div className="bg-white min-h-full h-auto">{children}</div>;
 };
 
 export default ClientLayout;
