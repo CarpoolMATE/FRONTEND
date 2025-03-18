@@ -2,8 +2,8 @@
  * 인증 토큰 관리를 위한 유틸리티 함수
  */
 
-const TOKEN_KEY = 'auth_token';
-const REFRESH_TOKEN_KEY = 'refresh_token';
+export const TOKEN_KEY = 'auth_token';
+export const REFRESH_TOKEN_KEY = 'refresh_token';
 /**
  * 브라우저 환경인지 확인합니다.
  * @returns 브라우저 환경 여부
