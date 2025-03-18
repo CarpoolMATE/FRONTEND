@@ -37,16 +37,16 @@ const CarpoolList = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full">
+      <ul className="w-full">
         {Array(10)
           .fill('')
           .map((_, index) => (
-            <div
+            <li
               key={index}
               className="w-full h-16 mb-3 bg-gray-200 rounded-lg animate-pulse"
-            ></div>
+            />
           ))}
-      </div>
+      </ul>
     );
   }
 
