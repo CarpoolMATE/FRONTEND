@@ -10,10 +10,12 @@ import { useMemberStore } from '@/store/member';
 
 import useGetProfileCarpoolList from '@/app/(client)/profile/apis/useGetProfileCarpoolList';
 
-import SegmentControl from '@/app/(client)/profile/components/Segment';
+import { REFRESH_TOKEN_KEY, TOKEN_KEY } from '@/utils/auth';
+
+import DriverRegistrationModal from '@/app/(client)/home/components/Modal/DriverRegistrationModal';
 import ProfileImageCard from '@/app/(client)/profile/components/ProfileImage';
 import ProfileCard from '@/app/(client)/profile/components/ProfileCard';
-import DriverRegistrationModal from '@/app/(client)/home/components/Modal/DriverRegistrationModal';
+import SegmentControl from '@/app/(client)/profile/components/Segment';
 import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 
@@ -31,6 +33,12 @@ const ProfilePage = () => {
     } else {
       setDriverModalVisible(true);
     }
+  };
+
+  const onLogoutHandle = () => {
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
+    router.push(CLIENT_APP_ROUTES.SIGNIN);
   };
 
   const { data } = useGetProfileCarpoolList(
@@ -56,7 +64,7 @@ const ProfilePage = () => {
           />
         </div>
       </header>
-      <div className="bg-white w-full h-[250px] mb-3 px-4 py-5 flex flex-col gap-5 items-center">
+      <div className="bg-white w-full h-[290px] mb-3 px-4 py-5 flex flex-col gap-5 items-center">
         <div className="relative flex items-center justify-center w-full">
           <h1 className="text-default text-xl font-semibold">
             {isPassinger ? '프로필' : '차량 정보'}
@@ -91,8 +99,15 @@ const ProfilePage = () => {
             {isPassinger ? member?.memberId : member?.phoneNumber}
           </p>
         </div>
+        <Button
+          intent="icon"
+          className="text-sm font-medium text-placeholder ml-auto mr-0"
+          onClick={onLogoutHandle}
+        >
+          로그아웃
+        </Button>
       </div>
-      <div className="px-4 pt-5 mb-2 bg-white w-full h-[calc(100%-326px)]">
+      <div className="px-4 pt-5 mb-2 bg-white w-full h-[calc(100%-366px)]">
         <h2 className="text-default text-xl font-semibold mb-2">
           최근 {isPassinger ? '탑승' : '운행'} 목록
         </h2>
