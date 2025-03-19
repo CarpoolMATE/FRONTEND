@@ -10,7 +10,7 @@ import { useMemberStore } from '@/store/member';
 
 import useGetProfileCarpoolList from '@/app/(client)/profile/apis/useGetProfileCarpoolList';
 
-import { REFRESH_TOKEN_KEY, TOKEN_KEY } from '@/utils/auth';
+import { removeAuthToken, removeRefreshToken } from '@/utils/auth';
 
 import DriverRegistrationModal from '@/app/(client)/home/components/Modal/DriverRegistrationModal';
 import ProfileImageCard from '@/app/(client)/profile/components/ProfileImage';
@@ -36,8 +36,8 @@ const ProfilePage = () => {
   };
 
   const onLogoutHandle = () => {
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(REFRESH_TOKEN_KEY);
+    removeAuthToken();
+    removeRefreshToken();
     router.push(CLIENT_APP_ROUTES.SIGNIN);
   };
 
