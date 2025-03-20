@@ -144,7 +144,7 @@ const SignupPage: React.FC = () => {
   };
 
   return (
-    <section className="px-4 pb-4 h-[calc(100%-64px)] relative pt-8">
+    <section className="px-4 relative pt-8 h-[calc(100%-64px)] pb-4">
       <Modal
         isOpen={modal}
         message={modalMsg}
@@ -155,7 +155,7 @@ const SignupPage: React.FC = () => {
         }
       />
       <form
-        className="w-full h-full flex flex-col justify-between"
+        className="w-full h-full flex flex-col justify-between gap-10 overflow-y-scroll"
         onSubmit={handleSubmit}
       >
         <div className="flex flex-col">
@@ -721,6 +721,7 @@ const SignupPage: React.FC = () => {
           </div>
         </div>
         <Button
+          className="min-h-[51px]"
           disabled={
             !(
               id &&
