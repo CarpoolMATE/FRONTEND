@@ -7,10 +7,15 @@ import { useFormContext } from 'react-hook-form';
 import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 
+import usePostUpload from '@/apis/usePostUpload';
+
 import { DriverRegistrationFormValues } from '@/app/(client)/driver-registration/components/Form/schema';
 import { CarImageProps } from '@/app/(client)/driver-registration/components/CarImage/types';
 
 import { DRIVER_REGISTRATION_HEADER_HEIGHT } from '@/app/(client)/driver-registration/constants';
+import { IMAGE_MAX_SIZE } from '@/constants/common';
+
+import { useModalStore } from '@/store/modal';
 
 const CarImage = ({ onNext }: CarImageProps) => {
   const { watch, setValue } = useFormContext<DriverRegistrationFormValues>();
@@ -18,12 +23,44 @@ const CarImage = ({ onNext }: CarImageProps) => {
   const carImage = watch('carImage');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const { mutate: postUpload } = usePostUpload();
+  const { openModal } = useModalStore();
+
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
 
-    if (file) {
-      setValue('carImage', file);
+    if (!file) {
+      return;
     }
+
+    if (file.size > IMAGE_MAX_SIZE) {
+      openModal({
+        message: '10MB 이하의 파일만 업로드 가능합니다.',
+        closeText: '확인',
+      });
+      return;
+    }
+
+    if (
+      !['image/jpeg', 'image/png', 'image/heic', 'image/heif'].includes(
+        file.type,
+      )
+    ) {
+      openModal({
+        message: 'JPG, PNG, HEIC 또는 HEIF 파일만 업로드 가능합니다.',
+        closeText: '확인',
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    postUpload(formData, {
+      onSuccess: (data) => {
+        setValue('carImage', data);
+      },
+    });
   };
 
   const handleImageClick = () => {
@@ -58,7 +95,7 @@ const CarImage = ({ onNext }: CarImageProps) => {
               onClick={handleImageClick}
             >
               <Image
-                src={URL.createObjectURL(carImage)}
+                src={carImage}
                 alt="Selected car"
                 className="object-cover"
                 fill

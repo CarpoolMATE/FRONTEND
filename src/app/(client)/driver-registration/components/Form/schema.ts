@@ -1,14 +1,7 @@
 import { z } from 'zod';
 
 export const driverRegistrationSchema = z.object({
-  carImage: z
-    .instanceof(File, { message: '파일을 선택하세요.' })
-    .refine((file) => file.size <= 10 * 1024 * 1024, {
-      message: '10MB 이하의 파일만 업로드 가능합니다.',
-    })
-    .refine((file) => ['image/jpeg', 'image/png'].includes(file.type), {
-      message: 'JPG 또는 PNG 파일만 업로드 가능합니다.',
-    }),
+  carImage: z.string().min(1, { message: '차량 이미지를 선택해주세요.' }),
   carNumber: z
     .string()
     .nonempty('차량 번호를 입력해주세요.')
