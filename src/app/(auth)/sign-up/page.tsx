@@ -734,7 +734,8 @@ const SignupPage: React.FC = () => {
               !duplicateEmail &&
               !duplicateName &&
               name &&
-              email
+              email &&
+              password === passwordConfirm
             )
           }
         >
