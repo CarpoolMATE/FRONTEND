@@ -5,6 +5,7 @@ export type CropModalProps = {
 };
 
 export type ImageUploaderProps = {
+  size?: number;
   currentImage: string | null;
   onUpload: (filePath: string) => void;
 };

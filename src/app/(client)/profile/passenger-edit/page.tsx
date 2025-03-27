@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,7 +10,6 @@ import { useMemberStore } from '@/store/member';
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import usePostCheckDuplicate from '@/app/(auth)/sign-up/apis/usePostCheckDuplicate';
-import usePostUpload from '@/apis/usePostUpload';
 
 import {
   EditProfileFormValues,
@@ -22,10 +21,10 @@ import usePutProfileEdit from '@/app/(client)/profile/apis/usePutProfileEdit';
 import { MemberDto } from '@/types/dtos/member';
 
 import Header from '@/app/(auth)/components/Header';
-import ProfileImageCard from '@/app/(client)/profile/components/ProfileImage';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import Modal from '@/components/Modal';
+import ImageUploader from '@/components/Image/Upload';
 
 const PassengerProfileEditPage = () => {
   const {
@@ -39,25 +38,26 @@ const PassengerProfileEditPage = () => {
     resolver: zodResolver(editProfileSchema),
   });
 
+  const [watchProfileImage, watchNickname] = watch([
+    'profileImage',
+    'nickname',
+  ]);
+
   const { member, setMember } = useMemberStore();
   const { mutateAsync: postCheckDuplicateAPI } = usePostCheckDuplicate();
-  const { mutateAsync: postUpload } = usePostUpload();
   const { mutateAsync: putProfileEdit } = usePutProfileEdit();
 
   const [errorText, setErrorText] = useState('');
   const [disableButton, setDisableButton] = useState(false);
 
-  const imgFileRef = useRef<File | undefined>(undefined);
-
-  const onChangeImage = (file: File, url: string) => {
-    imgFileRef.current = file;
-    setValue('profileImage', url, { shouldValidate: true, shouldDirty: true });
+  const onChangeImage = (filePath: string) => {
+    setValue('profileImage', filePath);
   };
 
   const onDuplicateHandle = async () => {
     try {
       const response = await postCheckDuplicateAPI({
-        params: { nickname: watch('nickname') },
+        params: { nickname: watchNickname.trim() },
         type: 'checkNickname',
       });
 
@@ -73,17 +73,8 @@ const PassengerProfileEditPage = () => {
   };
 
   const handleEditProfile = useCallback(
-    async ({ nickname }: EditProfileFormValues) => {
+    async ({ nickname, profileImage }: EditProfileFormValues) => {
       try {
-        let profileImage = watch('profileImage');
-
-        if (imgFileRef.current) {
-          const formData = new FormData();
-          formData.append('file', imgFileRef.current);
-          const uploadUrl = await postUpload(formData);
-          profileImage = uploadUrl;
-        }
-
         const profileEditResponse = await putProfileEdit({
           nickname,
           profileImage,
@@ -106,12 +97,12 @@ const PassengerProfileEditPage = () => {
         );
       }
     },
-    [postUpload, putProfileEdit, setErrorText, setMember, member, reset, watch],
+    [member, putProfileEdit, reset, setMember],
   );
 
   useEffect(() => {
     reset({ ...member });
-  }, [member]);
+  }, [member, reset]);
 
   return (
     <section className="w-full flex flex-col h-screen">
@@ -126,10 +117,10 @@ const PassengerProfileEditPage = () => {
         className="flex h-full flex-col justify-between p-4 w-full"
       >
         <div className="w-full flex flex-col items-center gap-[30px]">
-          <ProfileImageCard
-            onChangeImage={onChangeImage}
-            src={watch('profileImage')}
-            isEdit
+          <ImageUploader
+            size={80}
+            currentImage={watchProfileImage}
+            onUpload={onChangeImage}
           />
           <div className="w-full flex flex-col gap-2">
             <span className="text-sm">닉네임</span>
@@ -143,7 +134,7 @@ const PassengerProfileEditPage = () => {
                 }}
               />
               <Button
-                onClick={() => !disableButton && onDuplicateHandle()}
+                onClick={onDuplicateHandle}
                 type="button"
                 className="max-w-20"
                 disabled={!dirtyFields.nickname}
@@ -162,9 +153,7 @@ const PassengerProfileEditPage = () => {
             </Link>
           </div>
         </div>
-        <Button disabled={!disableButton && !dirtyFields.profileImage}>
-          수정하기
-        </Button>
+        <Button type="submit">수정하기</Button>
       </form>
     </section>
   );
