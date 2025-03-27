@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,7 +10,6 @@ import { useMemberStore } from '@/store/member';
 import { CLIENT_APP_ROUTES } from '@/constants/routes';
 
 import usePutDriverProfileEdit from '@/app/(client)/profile/apis/usePutDriverProfileEdit';
-import usePostUpload from '@/apis/usePostUpload';
 
 import {
   EditDriverProfileFormValues,
@@ -20,51 +19,35 @@ import {
 import { MemberDto } from '@/types/dtos/member';
 
 import Header from '@/app/(auth)/components/Header';
-import ProfileImageCard from '@/app/(client)/profile/components/ProfileImage';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import Modal from '@/components/Modal';
+import ImageUploader from '@/components/Image/Upload';
 
 const PassengerProfileEditPage = () => {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    reset,
-    formState: { isDirty },
-  } = useForm<EditDriverProfileFormValues>({
-    resolver: zodResolver(editDriverProfileSchema),
-  });
+  const { register, handleSubmit, setValue, watch, reset } =
+    useForm<EditDriverProfileFormValues>({
+      resolver: zodResolver(editDriverProfileSchema),
+    });
+
+  const watchCarImage = watch('carImage');
 
   const { member, setMember } = useMemberStore();
-  const { mutateAsync: postUpload } = usePostUpload();
   const { mutateAsync: putDriverProfileEdit } = usePutDriverProfileEdit();
 
   const [errorText, setErrorText] = useState('');
 
-  const imgFileRef = useRef<File | undefined>(undefined);
-
-  const onChangeImage = (file: File, url: string) => {
-    imgFileRef.current = file;
-    setValue('carImage', url, {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
+  const handleChangeImage = (filePath: string) => {
+    setValue('carImage', filePath);
   };
 
   const handleEditProfile = useCallback(
-    async ({ carNumber, phoneNumber }: EditDriverProfileFormValues) => {
+    async ({
+      carImage,
+      carNumber,
+      phoneNumber,
+    }: EditDriverProfileFormValues) => {
       try {
-        let carImage = watch('carImage');
-
-        if (imgFileRef.current) {
-          const formData = new FormData();
-          formData.append('file', imgFileRef.current);
-          const uploadUrl = await postUpload(formData);
-          carImage = uploadUrl;
-        }
-
         const driverProfileEditResponse = await putDriverProfileEdit({
           carImage,
           carNumber,
@@ -87,20 +70,12 @@ const PassengerProfileEditPage = () => {
         );
       }
     },
-    [
-      postUpload,
-      putDriverProfileEdit,
-      setErrorText,
-      setMember,
-      member,
-      reset,
-      watch,
-    ],
+    [putDriverProfileEdit, setErrorText, setMember, member, reset],
   );
 
   useEffect(() => {
     reset({ ...member });
-  }, [member]);
+  }, [member, reset]);
 
   return (
     <section className="w-full flex flex-col h-screen">
@@ -115,10 +90,10 @@ const PassengerProfileEditPage = () => {
         className="flex h-full flex-col justify-between p-4 w-full"
       >
         <div className="w-full flex flex-col items-center gap-[30px]">
-          <ProfileImageCard
-            onChangeImage={onChangeImage}
-            src={watch('carImage')}
-            isEdit
+          <ImageUploader
+            size={80}
+            currentImage={watchCarImage}
+            onUpload={handleChangeImage}
           />
           <div className="w-full flex flex-col gap-2">
             <span className="text-sm">차량 번호</span>
@@ -147,7 +122,7 @@ const PassengerProfileEditPage = () => {
             </Link>
           </div>
         </div>
-        <Button disabled={!isDirty}>수정하기</Button>
+        <Button type="submit">수정하기</Button>
       </form>
     </section>
   );
