@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import Image from 'next/image';
+import { createPortal } from 'react-dom';
 
 import usePostUpload from '@/apis/usePostUpload';
 
@@ -16,7 +17,13 @@ import { useModalStore } from '@/store/modal';
 
 import { ImageUploaderProps } from '@/components/Image/Upload/types';
 
-const ImageUploader = ({ currentImage, onUpload }: ImageUploaderProps) => {
+import { cn } from '@/utils/style';
+
+const ImageUploader = ({
+  currentImage,
+  size = 150,
+  onUpload,
+}: ImageUploaderProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [cropModalOpen, setCropModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -161,7 +168,11 @@ const ImageUploader = ({ currentImage, onUpload }: ImageUploaderProps) => {
 
       {currentImage ? (
         <Button
-          className="relative size-[150px] rounded-full overflow-hidden cursor-pointer bg-transparent"
+          type="button"
+          className={cn(
+            'relative size-[150px] rounded-full overflow-hidden cursor-pointer bg-transparent',
+            size && `size-[${size}px]`,
+          )}
           onClick={handleClick}
           disabled={isLoading}
         >
@@ -179,8 +190,12 @@ const ImageUploader = ({ currentImage, onUpload }: ImageUploaderProps) => {
         </Button>
       ) : (
         <Button
+          type="button"
           intent="icon"
-          className="size-[150px] p-2.5 bg-[#f1f1f1] rounded-full justify-center items-center gap-2.5 inline-flex cursor-pointer"
+          className={cn(
+            'size-[150px] p-2.5 bg-[#f1f1f1] rounded-full justify-center items-center gap-2.5 inline-flex cursor-pointer',
+            size && `size-[${size}px]`,
+          )}
           onClick={handleClick}
           disabled={isLoading}
         >
@@ -192,13 +207,16 @@ const ImageUploader = ({ currentImage, onUpload }: ImageUploaderProps) => {
         </Button>
       )}
 
-      {cropModalOpen && selectedImage && (
-        <CropModal
-          imageUrl={selectedImage}
-          onCrop={handleCrop}
-          onClose={closeCropModal}
-        />
-      )}
+      {cropModalOpen &&
+        selectedImage &&
+        createPortal(
+          <CropModal
+            imageUrl={selectedImage}
+            onCrop={handleCrop}
+            onClose={closeCropModal}
+          />,
+          document.body,
+        )}
     </>
   );
 };

@@ -92,10 +92,12 @@ const CropModal = ({ imageUrl, onCrop, onClose }: CropModalProps) => {
         />
       </div>
       <div className="mt-4 flex justify-end gap-2">
-        <Button onClick={onClose} intent="outline">
+        <Button type="button" onClick={onClose} intent="outline">
           취소
         </Button>
-        <Button onClick={handleCrop}>확인</Button>
+        <Button type="button" onClick={handleCrop}>
+          확인
+        </Button>
       </div>
     </div>
   );
