@@ -1,11 +1,9 @@
 'use client';
 
-import { useRef } from 'react';
-import Image from 'next/image';
 import { useFormContext } from 'react-hook-form';
 
 import Button from '@/components/Button';
-import Icon from '@/components/Icon';
+import ImageUploader from '@/components/Image/Upload';
 
 import { DriverRegistrationFormValues } from '@/app/(client)/driver-registration/components/Form/schema';
 import { CarImageProps } from '@/app/(client)/driver-registration/components/CarImage/types';
@@ -15,19 +13,10 @@ import { DRIVER_REGISTRATION_HEADER_HEIGHT } from '@/app/(client)/driver-registr
 const CarImage = ({ onNext }: CarImageProps) => {
   const { watch, setValue } = useFormContext<DriverRegistrationFormValues>();
 
-  const carImage = watch('carImage');
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const imageUrl = watch('carImage');
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-
-    if (file) {
-      setValue('carImage', file);
-    }
-  };
-
-  const handleImageClick = () => {
-    fileInputRef.current?.click();
+  const handleImageUpload = (filePath: string) => {
+    setValue('carImage', filePath);
   };
 
   return (
@@ -43,41 +32,13 @@ const CarImage = ({ onNext }: CarImageProps) => {
         </h1>
         <p className="pt-6 text-sm">차량 번호가 보이게 촬영해 주세요.</p>
 
-        <input
-          type="file"
-          accept="image/*"
-          className="hidden"
-          ref={fileInputRef}
-          onChange={handleImageUpload}
-        />
-
         <div className="w-full flex justify-center items-center mt-20">
-          {carImage ? (
-            <Button
-              className="relative size-[150px] rounded-full overflow-hidden cursor-pointer bg-transparent"
-              onClick={handleImageClick}
-            >
-              <Image
-                src={URL.createObjectURL(carImage)}
-                alt="Selected car"
-                className="object-cover"
-                fill
-              />
-            </Button>
-          ) : (
-            <Button
-              intent="icon"
-              className="size-[150px] p-2.5 bg-[#f1f1f1] rounded-full justify-center items-center gap-2.5 inline-flex cursor-pointer"
-              onClick={handleImageClick}
-            >
-              <Icon icon="PLUS" className="text-[#A1A1A1]" />
-            </Button>
-          )}
+          <ImageUploader currentImage={imageUrl} onUpload={handleImageUpload} />
         </div>
       </div>
 
       <div className="mt-auto p-5">
-        <Button disabled={!carImage} onClick={onNext}>
+        <Button disabled={!imageUrl} onClick={onNext}>
           다음
         </Button>
       </div>
