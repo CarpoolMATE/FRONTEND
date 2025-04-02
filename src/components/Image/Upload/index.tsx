@@ -171,7 +171,7 @@ const ImageUploader = ({
           type="button"
           className={cn(
             'relative size-[150px] rounded-full overflow-hidden cursor-pointer bg-transparent',
-            size && `size-[${size}px]`,
+            { 'size-[80px]': size === 80 },
           )}
           onClick={handleClick}
           disabled={isLoading}
@@ -194,7 +194,7 @@ const ImageUploader = ({
           intent="icon"
           className={cn(
             'size-[150px] p-2.5 bg-[#f1f1f1] rounded-full justify-center items-center gap-2.5 inline-flex cursor-pointer',
-            size && `size-[${size}px]`,
+            { 'size-[80px]': size === 80 },
           )}
           onClick={handleClick}
           disabled={isLoading}
